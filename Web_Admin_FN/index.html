@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập hệ thống | BlindBox Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="refresh.css" />
+  </head>
+  <body class="login-page">
+    <!-- Ba ảnh nền; ảnh cuối là bản sao ảnh đầu để nối vòng lướt liền mạch. -->
+    <div class="login-slideshow" aria-hidden="true">
+      <div class="login-slide-track">
+        <div class="login-slide slide-first" style="--slide-image: url('assets/skullpanda.jpg')"><img src="assets/skullpanda.jpg" alt="" /></div>
+        <div class="login-slide slide-second" style="--slide-image: url('assets/hirono.jpg')"><img src="assets/hirono.jpg" alt="" /></div>
+        <div class="login-slide slide-third" style="--slide-image: url('assets/sony.jpg')"><img src="assets/sony.jpg" alt="" /></div>
+        <div class="login-slide slide-repeat" style="--slide-image: url('assets/skullpanda.jpg')"><img src="assets/skullpanda.jpg" alt="" /></div>
+      </div>
+    </div>
+    <div class="login-welcome" aria-hidden="true">
+      <span>BLINDBOX ADMIN</span>
+      <h2>Quản lý gọn. Bán hàng vui.</h2>
+    </div>
+    <div class="login-card">
+      <div class="login-header">
+        <div
+          class="brand-icon"
+          
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <path
+              d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+            />
+            <path d="m3.3 7 8.7 5 8.7-5" />
+            <path d="M12 22V12" />
+          </svg>
+        </div>
+        <h1>ĐĂNG NHẬP</h1>
+        <p>Hệ thống Quản trị Bán hàng & Kho Blind Box</p>
+      </div>
+
+      <form onsubmit="dangNhap(event)">
+        <div class="form-group">
+          <label for="username">Tài khoản quản trị</label>
+          <input type="text" id="username" value="1252" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input type="password" id="password" value="123456" required />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          
+        >
+          Đăng nhập vào hệ thống
+        </button>
+
+        <div class="login-demo">
+          Tài khoản mẫu: <b>1252</b> / Mật khẩu: <b>123456</b>
+        </div>
+      </form>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+      function dangNhap(e) {
+        e.preventDefault();
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+
+        if (user === "1252" && pass === "123456") {
+          showToast(
+            "Đăng nhập thành công! Đang chuyển hướng...",
+            "success",
+            "Xác thực",
+          );
+          setTimeout(() => {
+            window.location.href = "san-pham.html";
+          }, 800);
+        } else {
+          showToast(
+            "Tài khoản hoặc mật khẩu không chính xác!",
+            "warning",
+            "Đăng nhập thất bại",
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý sản phẩm | BlindBox Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="refresh.css" />
+  </head>
+
+  <body class="data-chart-page">
+    <div id="app">
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="brand">
+          <div class="brand-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Blind<span>Box</span></span>
+            <span class="brand-badge">Quản lý bán hàng</span>
+          </div>
+        </div>
+
+        <nav>
+          <div class="nav-label">Kho & Sản phẩm</div>
+          <a href="san-pham.html" class="active">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m7.5 4.27 9 5.15" />
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            Quản lý sản phẩm
+          </a>
+
+          <a href="nhap-xuat.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m16 3 4 4-4 4" />
+              <path d="M20 7H4" />
+              <path d="m8 21-4-4 4-4" />
+              <path d="M4 17h16" />
+            </svg>
+            Nhập - Xuất kho
+          </a>
+
+          <div class="nav-label">Khách hàng & Bán hàng</div>
+          <a href="nguoi-dung.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            Quản lý khách hàng
+          </a>
+
+          <a href="don-hang.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+              <path
+                d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+              />
+              <path d="m9 14 2 2 4-4" />
+            </svg>
+            Quản lý đơn hàng
+          </a>
+
+          <div class="nav-label">Báo cáo</div>
+          <a href="thong-ke.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" x2="18" y1="20" y2="10" />
+              <line x1="12" x2="12" y1="20" y2="4" />
+              <line x1="6" x2="6" y1="20" y2="14" />
+            </svg>
+            Báo cáo thống kê
+          </a>
+        </nav>
+
+        <div class="sidebar-editorial" aria-hidden="true">
+          <img
+            src="assets/hironoTho.jpg"
+            alt=""
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+          <div>
+            <span>MAKE ROOM FOR</span
+            ><strong>something<br />extraordinary.</strong
+            ><span class="editorial-arrow">↗</span>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <div class="system-status">
+            <span class="status-dot"></span>
+            <span>Hệ thống hoạt động bình thường</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main">
+        <!-- HEADER -->
+        <header>
+          <div class="header-breadcrumb">
+            <span>Trang quản trị</span>
+            <span>/</span>
+            <b>Sản phẩm</b>
+          </div>
+
+          <div class="header-right">
+            <details class="user">
+              <summary class="user-chip">
+                <span class="avatar"></span>
+                <div class="user-meta">
+                  <span class="user-name">Admin</span>
+                  <span class="user-role">Quản trị viên</span>
+                </div>
+                <span class="caret">▼</span>
+              </summary>
+              <div class="user-menu">
+                <div class="menu-info">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span>Tài khoản: <b>1252</b></span>
+                </div>
+                <hr />
+                <a class="logout" href="index.html">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                  Đăng xuất
+                </a>
+              </div>
+            </details>
+          </div>
+        </header>
+
+        <!-- PAGE BODY -->
+        <main class="page">
+          <div class="bar">
+            <div class="hero-art" aria-hidden="true">
+              <div class="hero-orbit"></div>
+              <span class="hero-spark spark-one">✦</span>
+              <span class="hero-spark spark-two">✧</span>
+              <div class="hero-photo">
+                <img src="assets/tong-quan-san-pham.jpg" alt="Tồn kho theo danh mục: Mini Figure 65, Robot / Mecha 60, Blind Box 46, Designer Toy / Blind Box 19" width="1000" height="700" /><span
+                  >TỒN KHO THEO DANH MỤC</span
+                >
+              </div>
+              <div class="hero-sticker">
+                <span>✦</span> A little box.<br />A big surprise.
+              </div>
+              <span class="hero-index">COLLECTION / 01</span>
+            </div>
+            <div class="bar-title">
+              <span class="page-eyebrow">BLINDBOX / WORKSPACE</span>
+              <h1>Quản lý sản phẩm</h1>
+              <p>
+                Danh mục mô hình Blind Box, theo dõi số lượng tồn kho và cập
+                nhật giá bán
+              </p>
+            </div>
+            <button class="btn btn-primary" onclick="moModalThem()">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              Thêm sản phẩm mới
+            </button>
+          </div>
+
+          <!-- THẺ KPI TỔNG QUAN -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng sản phẩm</span>
+                <span class="stat-value">20 mẫu</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon green">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Đang mở bán</span>
+                <span class="stat-value">20 đang bán</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon purple">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <path d="M3 9h18" />
+                  <path d="M9 21V9" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng tồn kho</span>
+                <span class="stat-value">190 hộp</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon rose">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"
+                  />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Sắp hết hàng (&le;5)</span>
+                <span class="stat-value" style="color: var(--danger)"
+                  >6 mẫu</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- BỘ LỌC TÌM KIẾM -->
+          <div class="filter-card">
+            <div
+              class="filter-grid"
+              style="
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto;
+              "
+            >
+              <div class="form-group">
+                <label>Thương hiệu</label>
+                <select id="locBrand">
+                  <option value="">Tất cả thương hiệu</option>
+                  <option value="POP MART">POP MART</option>
+                  <option value="Tokidoki">Tokidoki</option>
+                  <option value="52TOYS">52TOYS</option>
+                  <option value="Sonny Angel">Sonny Angel</option>
+                  <option value="Finding Unicorn">Finding Unicorn</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Danh mục</label>
+                <select id="locDanhMuc">
+                  <option value="">Tất cả danh mục</option>
+                  <option value="Blind Box">Blind Box</option>
+                  <option value="Robot / Mecha">Robot / Mecha</option>
+                  <option value="Mini Figure">Mini Figure</option>
+                  <option value="Designer Toy / Blind Box">
+                    Designer Toy / Blind Box
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary" onclick="locSanPham()">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <polygon
+                      points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                    />
+                  </svg>
+                  Lọc sản phẩm
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- LƯỚI THẺ SẢN PHẨM (20 MẶT HÀNG) -->
+          <div class="prod-grid" id="danhSachSanPhamGrid"></div>
+        </main>
+      </div>
+    </div>
+
+    <!-- MODAL THÊM SẢN PHẨM -->
+    <div class="modal-overlay" id="modal-add-prod">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Thêm sản phẩm mới</h2>
+          <button class="toast-close" onclick="closeModal('modal-add-prod')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Mã sản phẩm</label>
+            <input type="text" placeholder="Ví dụ: P021" value="P021" />
+          </div>
+          <div class="form-group">
+            <label>Tên nhân vật</label>
+            <input type="text" placeholder="Nhập tên sản phẩm..." />
+          </div>
+          <div class="form-group">
+            <label>Bộ sưu tập</label>
+            <input type="text" placeholder="Nhập tên bộ sưu tập..." />
+          </div>
+          <div class="form-group">
+            <label>Thương hiệu</label>
+            <input type="text" placeholder="Nhập tên thương hiệu..." />
+          </div>
+          <div class="form-group">
+            <label>Đơn giá (₫)</label>
+            <input type="number" placeholder="Nhập giá bán..." />
+          </div>
+          <div class="form-group">
+            <label>Số lượng tồn kho ban đầu</label>
+            <input
+              type="number"
+              placeholder="Nhập số lượng tồn kho ban đầu..."
+            />
+          </div>
+          <div class="form-group">
+            <label>Danh mục</label>
+            <select id="addDanhMuc">
+              <option value="">-- Chọn danh mục --</option>
+              <option value="Blind Box">Blind Box</option>
+              <option value="Robot / Mecha">Robot / Mecha</option>
+              <option value="Mini Figure">Mini Figure</option>
+              <option value="Designer Toy / Blind Box">
+                Designer Toy / Blind Box
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Hình ảnh sản phẩm</label>
+            <input
+              type="file"
+              id="addHinhSP"
+              accept="image/*"
+              onchange="xemTruocHinh(this)"
+            />
+            <div
+              style="
+                margin-top: 10px;
+                width: 160px;
+                height: 160px;
+                border: 2px dashed #cbd5e1;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                color: #94a3b8;
+                font-size: 13px;
+                text-align: center;
+              "
+            >
+              <img
+                id="addHinhPreview"
+                alt="Xem trước hình"
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                "
+              />
+              <span id="addHinhTrong">Chưa chọn hình</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modal-add-prod')">
+            Hủy bỏ
+          </button>
+          <button class="btn btn-primary" onclick="luuThemSanPham()">
+            Lưu sản phẩm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL SỬA SẢN PHẨM -->
+    <div class="modal-overlay" id="modal-edit-prod">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Chỉnh sửa sản phẩm</h2>
+          <button class="toast-close" onclick="closeModal('modal-edit-prod')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Mã sản phẩm</label>
+            <input type="text" id="editMaSP" />
+          </div>
+
+          <div class="form-group">
+            <label>Tên nhân vật</label>
+            <input type="text" id="editTenSP" />
+          </div>
+          <div class="form-group">
+            <label>Bộ sưu tập</label>
+            <input type="text" id="editBoSuuTapSP" />
+          </div>
+          <div class="form-group">
+            <label>Thương hiệu</label>
+            <input type="text" id="editBrandSP" />
+          </div>
+
+          <div class="form-group">
+            <label>Đơn giá (₫)</label>
+            <input type="number" id="editGiaSP" />
+          </div>
+          <div class="form-group">
+            <label>Số lượng tồn kho</label>
+            <input type="number" id="editTonKhoSP" />
+          </div>
+          <div class="form-group">
+            <label>Danh mục</label>
+            <select id="editDanhMuc">
+              <option value="Blind Box">Blind Box</option>
+              <option value="Robot / Mecha">Robot / Mecha</option>
+              <option value="Mini Figure">Mini Figure</option>
+              <option value="Designer Toy / Blind Box">
+                Designer Toy / Blind Box
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Hình ảnh sản phẩm (chọn file nếu muốn đổi hình)</label>
+            <input
+              type="file"
+              id="editHinhSP"
+              accept="image/*"
+              onchange="xemTruocHinhSua(this)"
+            />
+            <div
+              style="
+                margin-top: 10px;
+                width: 160px;
+                height: 160px;
+                border: 2px dashed #cbd5e1;
+                border-radius: 12px;
+                overflow: hidden;
+              "
+            >
+              <img
+                id="editHinhPreview"
+                alt="Hình sản phẩm"
+                onerror="this.src = 'assets/avatar.webp'"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modal-edit-prod')">
+            Hủy bỏ
+          </button>
+          <button class="btn btn-primary" onclick="luuSuaSanPham()">
+            Cập nhật thay đổi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL XÁC NHẬN XOÁ SẢN PHẨM -->
+    <div class="modal-overlay" id="modal-delete-prod">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Xác nhận xóa sản phẩm</h2>
+          <button class="toast-close" onclick="closeModal('modal-delete-prod')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="xoaMaSP" />
+          <p id="noiDungXoa"></p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-ghost"
+            onclick="closeModal('modal-delete-prod')"
+          >
+            Không xóa
+          </button>
+          <button class="btn btn-primary" onclick="xacNhanXoa()">
+            Xóa sản phẩm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="chart-viewer.js" defer></script>
+    <script>
+      function xemTruocHinh(input) {
+        const file = input.files[0];
+        const img = document.getElementById("addHinhPreview");
+        const trong = document.getElementById("addHinhTrong");
+
+        if (!file) {
+          img.style.display = "none";
+          trong.style.display = "block";
+          return;
+        }
+        if (!file.type.startsWith("image/")) {
+          alert("Vui lòng chọn file hình ảnh!");
+          input.value = "";
+          return;
+        }
+        img.src = URL.createObjectURL(file);
+        img.style.display = "block";
+        trong.style.display = "none";
+      }
+
+      function xemTruocHinhSua(input) {
+        const file = input.files[0];
+        if (!file) return;
+        if (!file.type.startsWith("image/")) {
+          alert("Vui lòng chọn file hình ảnh!");
+          input.value = "";
+          return;
+        }
+        document.getElementById("editHinhPreview").src =
+          URL.createObjectURL(file);
+      }
+
+      function hienThiSanPham(ds) {
+        const grid = document.getElementById("danhSachSanPhamGrid");
+        grid.innerHTML = "";
+
+        for (let sp of ds) {
+          let card = document.createElement("article");
+          card.className = "pcard";
+
+          card.innerHTML = `
+            <div class="gallery">
+              <div class="main-img">
+                <img src="${sp.hinh}" alt="${sp.tenSP}" onerror="this.src='assets/avatar.webp'" />
+              </div>
+            </div>
+
+            <div class="pinfo">
+              <h3>${sp.tenSP}</h3>
+              <p><b>Mã sản phẩm:</b> <span class="code-badge" style="font-size: 13px;">${sp.maSP}</span></p> 
+              <p><b>Thương hiệu:</b> ${sp.brand}</p>
+              <p><b>Bộ sưu tập:</b> ${sp.boSuuTap}</p>
+              <p><b>Danh mục:</b> ${sp.danhMuc}</p>
+              <div class="pprice">${formatTien(sp.gia)}</div>
+              <div class="pstats">
+                <div class="pstat ${sp.daBan === 0 ? "low" : ""}">Đã bán <b>${sp.daBan}</b></div>
+                <div class="pstat ${sp.tonKho <= 5 ? "low" : ""}">Tồn kho <b>${sp.tonKho}</b></div>
+              </div>
+              <div class="pfoot">
+                <span class="tag ok">Đang bán</span>
+                <div class="act">
+                  <button class="icon-btn edit" title="Sửa sản phẩm" onclick="moModalSua('${sp.maSP}', '${sp.tenSP}', ${sp.gia}, ${sp.tonKho})">
+                    <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                  </button>
+                  <button class="icon-btn hide-btn" title="Ẩn sản phẩm" onclick="anSanPham('${sp.maSP}')">
+                    <svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.1 10.1 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                  </button>
+                  <button class="icon-btn del" title="Xóa sản phẩm" onclick="xoaSanPham('${sp.maSP}')">
+                    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+
+          grid.appendChild(card);
+        }
+      }
+
+      function locSanPham() {
+        showToast(
+          "Đã lọc danh sách sản phẩm thành công!",
+          "success",
+          "Lọc sản phẩm",
+        );
+      }
+
+      function moModalSua(ma, ten, gia, tonKho) {
+        document.getElementById("editMaSP").value = ma;
+        document.getElementById("editTenSP").value = ten;
+        document.getElementById("editGiaSP").value = gia;
+        document.getElementById("editTonKhoSP").value = tonKho;
+        openModal("modal-edit-prod");
+        const sp = laySanPham().find((item) => item.maSP === ma);
+        if (sp) {
+          document.getElementById("editDanhMuc").value = sp.danhMuc;
+          document.getElementById("editHinhPreview").src = sp.hinh;
+          document.getElementById("editBrandSP").value = sp.brand;
+          document.getElementById("editBoSuuTapSP").value = sp.boSuuTap;
+        }
+        document.getElementById("editHinhSP").value = "";
+      }
+
+      function moModalThem() {
+        // TRẢ MỌI Ô SỬA SẢN PHẨM VỀ GIÁ TRỊ BAN ĐẦU
+        document
+          .querySelectorAll("#modal-add-prod input")
+          .forEach((o) => (o.value = o.defaultValue));
+        document.getElementById("addDanhMuc").selectedIndex = 0;
+        document.getElementById("addHinhPreview").style.display = "none";
+        document.getElementById("addHinhTrong").style.display = "block";
+
+        openModal("modal-add-prod");
+      }
+      function luuThemSanPham() {
+        document.getElementById("addHinhSP").value = "";
+        document.getElementById("addHinhPreview").style.display = "none";
+        document.getElementById("addHinhTrong").style.display = "block";
+        closeModal("modal-add-prod");
+        showToast(
+          "Đã thêm sản phẩm mới thành công vào hệ thống!",
+          "success",
+          "Thêm sản phẩm",
+        );
+      }
+
+      function luuSuaSanPham() {
+        const ma = document.getElementById("editMaSP").value;
+        closeModal("modal-edit-prod");
+        showToast(
+          `Đã cập nhật thông tin sản phẩm thành công!`,
+          "success",
+          "Cập nhật sản phẩm",
+        );
+      }
+
+      function anSanPham(ma) {
+        showToast(
+          `Đã chuyển sản phẩm ${ma} sang trạng thái ẩn!`,
+          "info",
+          "Ẩn sản phẩm",
+        );
+      }
+
+      function xoaSanPham(ma) {
+        const sp = laySanPham().find((item) => item.maSP === ma);
+        if (!sp) return;
+
+        if (sp.daBan > 0) {
+          // Đã bán -> không xoá, chỉ ẩn khỏi web
+          showToast(
+            `Sản phẩm ${ma} đã được bán ra nên không thể xóa. Sản phẩm đã được ẩn khỏi trang bán hàng!`,
+            "info",
+            "Ẩn sản phẩm",
+          );
+          return;
+        }
+
+        // Chưa bán -> hỏi lại trước khi xoá
+        document.getElementById("xoaMaSP").value = ma;
+        document.getElementById("noiDungXoa").innerHTML =
+          `Sản phẩm <b>${sp.tenSP}</b> (${ma}) chưa được bán lần nào. Bạn có chắc chắn muốn xóa sản phẩm này không?`;
+        openModal("modal-delete-prod");
+      }
+
+      function xacNhanXoa() {
+        const ma = document.getElementById("xoaMaSP").value;
+        closeModal("modal-delete-prod");
+        showToast(
+          `Đã xóa sản phẩm ${ma} khỏi danh sách!`,
+          "warning",
+          "Xóa sản phẩm",
+        );
+      }
+
+      hienThiSanPham(laySanPham());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Nhập - Xuất kho | BlindBox Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="refresh.css" />
+  </head>
+
+  <body class="data-chart-page">
+    <div id="app">
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="brand">
+          <div class="brand-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Blind<span>Box</span></span>
+            <span class="brand-badge">Quản lý bán hàng</span>
+          </div>
+        </div>
+
+        <nav>
+          <div class="nav-label">Kho & Sản phẩm</div>
+          <a href="san-pham.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m7.5 4.27 9 5.15" />
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            Quản lý sản phẩm
+          </a>
+
+          <a href="nhap-xuat.html" class="active">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m16 3 4 4-4 4" />
+              <path d="M20 7H4" />
+              <path d="m8 21-4-4 4-4" />
+              <path d="M4 17h16" />
+            </svg>
+            Nhập - Xuất kho
+          </a>
+
+          <div class="nav-label">Khách hàng & Bán hàng</div>
+          <a href="nguoi-dung.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            Quản lý khách hàng
+          </a>
+
+          <a href="don-hang.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+              <path
+                d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+              />
+              <path d="m9 14 2 2 4-4" />
+            </svg>
+            Quản lý đơn hàng
+          </a>
+
+          <div class="nav-label">Báo cáo</div>
+          <a href="thong-ke.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" x2="18" y1="20" y2="10" />
+              <line x1="12" x2="12" y1="20" y2="4" />
+              <line x1="6" x2="6" y1="20" y2="14" />
+            </svg>
+            Báo cáo thống kê
+          </a>
+        </nav>
+
+        <div class="sidebar-editorial" aria-hidden="true">
+          <img
+            src="assets/hironoTho.jpg"
+            alt=""
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+          <div>
+            <span>MAKE ROOM FOR</span
+            ><strong>something<br />extraordinary.</strong
+            ><span class="editorial-arrow">↗</span>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <div class="system-status">
+            <span class="status-dot"></span>
+            <span>Hệ thống hoạt động bình thường</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main">
+        <!-- HEADER -->
+        <header>
+          <div class="header-breadcrumb">
+            <span>Trang quản trị</span>
+            <span>/</span>
+            <b>Kho hàng</b>
+            <span>/</span>
+            <b>Nhập - Xuất</b>
+          </div>
+
+          <div class="header-right">
+            <details class="user">
+              <summary class="user-chip">
+                <span class="avatar"></span>
+                <div class="user-meta">
+                  <span class="user-name">Admin</span>
+                  <span class="user-role">Quản trị viên</span>
+                </div>
+                <span class="caret">▼</span>
+              </summary>
+              <div class="user-menu">
+                <div class="menu-info">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span>Tài khoản: <b>1252</b></span>
+                </div>
+                <hr />
+                <a class="logout" href="index.html">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                  Đăng xuất
+                </a>
+              </div>
+            </details>
+          </div>
+        </header>
+
+        <!-- PAGE BODY -->
+        <main class="page">
+          <div class="bar">
+            <div class="hero-art" aria-hidden="true">
+              <div class="hero-orbit"></div>
+              <span class="hero-spark spark-one">✦</span>
+              <span class="hero-spark spark-two">✧</span>
+              <div class="hero-photo">
+                <img src="assets/tong-quan-nhap-xuat.jpg" alt="Tổng số lượng nhập kho 260 sản phẩm, xuất kho 63 sản phẩm" width="1000" height="700" /><span
+                  >TỔNG QUAN NHẬP – XUẤT</span
+                >
+              </div>
+              <div class="hero-sticker">
+                <span>✦</span> A little box.<br />A big surprise.
+              </div>
+              <span class="hero-index">COLLECTION / 01</span>
+            </div>
+            <div class="bar-title">
+              <span class="page-eyebrow">BLINDBOX / WORKSPACE</span>
+              <h1>Quản lý Nhập - Xuất kho</h1>
+              <p>
+                Lập phiếu nhập kho từ nhà cung cấp và theo dõi xuất hàng điều
+                phối đại lý / đơn bán
+              </p>
+            </div>
+            <div style="display: flex; gap: 10px">
+              <button class="btn btn-primary" onclick="openModal('modal-nhap')">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Lập phiếu nhập kho
+              </button>
+              <button class="btn btn-ghost" onclick="openModal('modal-xuat')">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path d="m8 21-4-4 4-4" />
+                  <path d="M4 17h16" />
+                </svg>
+                Lập phiếu xuất kho
+              </button>
+            </div>
+          </div>
+
+          <!-- THẺ KPI TỔNG QUAN -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="m16 3 4 4-4 4" />
+                  <path d="M20 7H4" />
+                  <path d="m8 21-4-4 4-4" />
+                  <path d="M4 17h16" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng số phiếu luân chuyển</span>
+                <span class="stat-value">5 phiếu</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon green">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                  <polyline points="17 6 23 6 23 12" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng tiền nhập hàng</span>
+                <span class="stat-value" style="font-size: 20px"
+                  >64.100.000 ₫</span
+                >
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon amber">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="23 18 13.5 8.5 8.5 13.5 1 6" />
+                  <polyline points="17 18 23 18 23 12" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng tiền xuất hàng</span>
+                <span class="stat-value" style="font-size: 20px"
+                  >17.920.000 ₫</span
+                >
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon purple">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng số lượng luân chuyển</span>
+                <span class="stat-value">323 hộp</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BỘ LỌC TÌM KIẾM -->
+          <div class="filter-card">
+            <div
+              class="filter-grid"
+              style="
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto;
+              "
+            >
+              <div class="form-group">
+                <label>Loại giao dịch</label>
+                <select id="locLoaiPhieu">
+                  <option value="">Tất cả phiếu</option>
+                  <option value="nhap">Phiếu nhập kho</option>
+                  <option value="xuat">Phiếu xuất kho</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Từ ngày</label>
+                <input type="date" id="locTuNgayKho" />
+              </div>
+
+              <div class="form-group">
+                <label>Đến ngày</label>
+                <input type="date" id="locDenNgayKho" />
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary" onclick="locNhapXuat()">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <polygon
+                      points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                    />
+                  </svg>
+                  Lọc phiếu kho
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BẢNG LỊCH SỬ NHẬP XUẤT -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--primary)"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>
+                Lịch sử phiếu nhập - xuất kho
+              </span>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Mã phiếu</th>
+                    <th>Ngày lập</th>
+                    <th>Loại phiếu</th>
+                    <th>Đối tác / Nơi nhận</th>
+                    <th>Người lập</th>
+                    <th style="text-align: center">Số lượng</th>
+                    <th style="text-align: right">Tổng giá trị</th>
+                    <th>Ghi chú</th>
+                    <th style="text-align: right">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="bangNhapXuat"></tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- MODAL NHẬP KHO -->
+    <div class="modal-overlay" id="modal-nhap">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Tạo phiếu nhập kho</h2>
+          <button class="toast-close" onclick="closeModal('modal-nhap')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Mã phiếu nhập</label>
+            <input type="text" value="PN004" disabled />
+          </div>
+          <div class="form-group">
+            <label>Nhà cung cấp / Đối tác</label>
+            <input
+              type="text"
+              placeholder="Ví dụ: POP MART Official Distributor"
+            />
+          </div>
+          <div class="form-group">
+            <label>Chọn mặt hàng nhập</label>
+            <select>
+              <option>P001 - Hirono Monster Carnival</option>
+              <option>P002 - SKULLPANDA Where Time Dwells</option>
+              <option>P005 - Labubu The Monsters Series</option>
+              <option>P013 - HIPPERS Harvest Series</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Số lượng nhập (hộp)</label>
+            <input type="number" placeholder="Ví dụ: 50" />
+          </div>
+          <div class="form-group">
+            <label>Tổng giá trị nhập (₫)</label>
+            <input type="number" placeholder="Ví dụ: 12000000" />
+          </div>
+          <div class="form-group">
+            <label>Ghi chú lô hàng</label>
+            <input type="text" placeholder="Ghi chú chi tiết kiện hàng..." />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modal-nhap')">
+            Hủy bỏ
+          </button>
+          <button class="btn btn-primary" onclick="luuPhieuNhap()">
+            Lưu phiếu nhập
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL XUẤT KHO -->
+    <div class="modal-overlay" id="modal-xuat">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Tạo phiếu xuất kho</h2>
+          <button class="toast-close" onclick="closeModal('modal-xuat')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Mã phiếu xuất</label>
+            <input type="text" value="PX003" disabled />
+          </div>
+          <div class="form-group">
+            <label>Nơi nhận hàng / Mục đích xuất</label>
+            <input
+              type="text"
+              placeholder="Ví dụ: Chi nhánh Quận 7 / Đóng gói đơn online"
+            />
+          </div>
+          <div class="form-group">
+            <label>Chọn mặt hàng xuất</label>
+            <select>
+              <option>P001 - Hirono Monster Carnival</option>
+              <option>P002 - SKULLPANDA Where Time Dwells</option>
+              <option>P019 - Mermicorno Series</option>
+              <option>P020 - After Dark Series</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Số lượng xuất (hộp)</label>
+            <input type="number" placeholder="Ví dụ: 20" />
+          </div>
+          <div class="form-group">
+            <label>Ghi chú xuất kho</label>
+            <input type="text" placeholder="Ghi chú vận chuyển..." />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modal-xuat')">
+            Hủy bỏ
+          </button>
+          <button class="btn btn-primary" onclick="luuPhieuXuat()">
+            Lưu phiếu xuất
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="chart-viewer.js" defer></script>
+    <script>
+      function hienThiNhapXuat(ds) {
+        const tbody = document.getElementById("bangNhapXuat");
+        tbody.innerHTML = "";
+
+        for (let phieu of ds) {
+          let row = document.createElement("tr");
+
+          row.innerHTML = `
+            <td><span class="code-badge">${phieu.maPhieu}</span></td>
+            <td>${phieu.ngay}</td>
+            <td>
+              <span class="tag ${phieu.loai === "nhap" ? "tag.nhap info" : "tag.xuat xuat"}">
+                ${phieu.loai === "nhap" ? "Nhập kho" : "Xuất kho"}
+              </span>
+            </td>
+            <td><span class="cell-bold">${phieu.nhaCungCap}</span></td>
+            <td>${phieu.nguoiLap}</td>
+            <td style="text-align: center;"><span style="background: var(--bg-surface); padding: 4px 10px; border-radius: 99px; font-weight: 700;">${phieu.tongSoLuong}</span></td>
+            <td style="text-align: right;"><span class="cell-price">${formatTien(phieu.tongTien)}</span></td>
+            <td><span style="font-size: 13px; color: var(--text-mute);">${phieu.ghiChu}</span></td>
+            <td style="text-align: right;">
+              <button class="btn-action" onclick="inPhieu('${phieu.maPhieu}')">
+                <span>Chi tiết</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </td>
+          `;
+
+          tbody.appendChild(row);
+        }
+      }
+
+      function locNhapXuat() {
+        showToast(
+          "Đã lọc dữ liệu phiếu nhập xuất kho thành công!",
+          "success",
+          "Lọc kho",
+        );
+      }
+
+      function luuPhieuNhap() {
+        closeModal("modal-nhap");
+        showToast(
+          "Đã tạo phiếu nhập kho mới thành công!",
+          "success",
+          "Nhập kho",
+        );
+      }
+
+      function luuPhieuXuat() {
+        closeModal("modal-xuat");
+        showToast(
+          "Đã tạo phiếu xuất kho mới thành công!",
+          "success",
+          "Xuất kho",
+        );
+      }
+
+      function inPhieu(ma) {
+        showToast(
+          `Đã xuất dữ liệu phiếu ${ma} sang định dạng in ấn!`,
+          "info",
+          "Chi tiết phiếu",
+        );
+      }
+
+      hienThiNhapXuat(layNhapXuat());
+    </script>
+  </body>
+</html>

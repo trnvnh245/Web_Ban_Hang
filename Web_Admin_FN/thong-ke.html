@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Báo cáo thống kê | BlindBox Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="refresh.css" />
+  </head>
+
+  <body class="statistics-page">
+    <div id="app">
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="brand">
+          <div class="brand-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Blind<span>Box</span></span>
+            <span class="brand-badge">Quản lý bán hàng</span>
+          </div>
+        </div>
+
+        <nav>
+          <div class="nav-label">Kho & Sản phẩm</div>
+          <a href="san-pham.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m7.5 4.27 9 5.15" />
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            Quản lý sản phẩm
+          </a>
+
+          <a href="nhap-xuat.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m16 3 4 4-4 4" />
+              <path d="M20 7H4" />
+              <path d="m8 21-4-4 4-4" />
+              <path d="M4 17h16" />
+            </svg>
+            Nhập - Xuất kho
+          </a>
+
+          <div class="nav-label">Khách hàng & Bán hàng</div>
+          <a href="nguoi-dung.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            Quản lý khách hàng
+          </a>
+
+          <a href="don-hang.html">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+              <path
+                d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+              />
+              <path d="m9 14 2 2 4-4" />
+            </svg>
+            Quản lý đơn hàng
+          </a>
+
+          <div class="nav-label">Báo cáo</div>
+          <a href="thong-ke.html" class="active">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" x2="18" y1="20" y2="10" />
+              <line x1="12" x2="12" y1="20" y2="4" />
+              <line x1="6" x2="6" y1="20" y2="14" />
+            </svg>
+            Báo cáo thống kê
+          </a>
+        </nav>
+
+        <div class="sidebar-editorial" aria-hidden="true">
+          <img
+            src="assets/hironoTho.jpg"
+            alt=""
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+          <div>
+            <span>MAKE ROOM FOR</span
+            ><strong>something<br />extraordinary.</strong
+            ><span class="editorial-arrow">↗</span>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <div class="system-status">
+            <span class="status-dot"></span>
+            <span>Hệ thống hoạt động bình thường</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main">
+        <!-- HEADER -->
+        <header>
+          <div class="header-breadcrumb">
+            <span>Trang quản trị</span>
+            <span>/</span>
+            <b>Thống kê doanh số</b>
+          </div>
+
+          <div class="header-right">
+            <details class="user">
+              <summary class="user-chip">
+                <span class="avatar"></span>
+                <div class="user-meta">
+                  <span class="user-name">Admin</span>
+                  <span class="user-role">Quản trị viên</span>
+                </div>
+                <span class="caret">▼</span>
+              </summary>
+              <div class="user-menu">
+                <div class="menu-info">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span>Tài khoản: <b>1252</b></span>
+                </div>
+                <hr />
+                <a class="logout" href="index.html">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                  Đăng xuất
+                </a>
+              </div>
+            </details>
+          </div>
+        </header>
+
+        <!-- PAGE BODY -->
+        <main class="page">
+          <div class="bar">
+            <div class="hero-art" aria-hidden="true">
+              <div class="hero-orbit"></div>
+              <span class="hero-spark spark-one">✦</span>
+              <span class="hero-spark spark-two">✧</span>
+              <div class="hero-photo">
+                <img src="assets/thong-ke-ban-chay.jpg" alt="Top 5 sản phẩm bán chạy: After Dark 46, Mermicorno 45, Labubu 30, HIPPERS Series 25, Snack Series 21" width="1000" height="700" /><span
+                  >THỐNG KÊ SẢN PHẨM</span
+                >
+              </div>
+              <div class="hero-sticker">
+                <span>✦</span> A little box.<br />A big surprise.
+              </div>
+              <span class="hero-index">COLLECTION / 01</span>
+            </div>
+            <div class="bar-title">
+              <span class="page-eyebrow">BLINDBOX / WORKSPACE</span>
+              <h1>Báo cáo & Thống kê</h1>
+              <p>
+                Tổng hợp doanh số, theo dõi hiệu suất bán hàng và xếp hạng khách
+                hàng thân thiết
+              </p>
+            </div>
+          </div>
+
+          <!-- CÁC THẺ KPI TỔNG QUAN -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon green">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng doanh thu kỳ này</span>
+                <span class="stat-value">5.123.000 ₫</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon blue">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"
+                  />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Tổng số đơn hàng</span>
+                <span class="stat-value">5 đơn</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon amber">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Khách hàng chi tiêu cao nhất</span>
+                <span class="stat-value" style="font-size: 18px"
+                  >Nguyễn Minh Anh</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- BỘ LỌC THỜI GIAN -->
+          <div class="filter-card">
+            <div
+              class="filter-grid"
+              style="
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto;
+              "
+            >
+              <div class="form-group">
+                <label for="tuNgay">Thống kê từ ngày</label>
+                <input type="date" id="tuNgay" />
+              </div>
+
+              <div class="form-group">
+                <label for="denNgay">Đến ngày</label>
+                <input type="date" id="denNgay" />
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary" onclick="thongKe()">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="18" x2="18" y1="20" y2="10" />
+                    <line x1="12" x2="12" y1="20" y2="4" />
+                    <line x1="6" x2="6" y1="20" y2="14" />
+                  </svg>
+                  Xem thống kê
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BẢNG XẾP HẠNG KHÁCH HÀNG -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--primary)"
+                  stroke-width="2"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Xếp hạng khách hàng theo giá trị mua sắm
+              </span>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 80px; text-align: center">Hạng</th>
+                    <th>Mã khách hàng</th>
+                    <th>Họ tên khách hàng</th>
+                    <th>Ngày đặt gần nhất</th>
+                    <th style="text-align: right">Tổng tiền mua</th>
+                    <th style="text-align: right">Đơn hàng liên quan</th>
+                  </tr>
+                </thead>
+
+                <tbody id="bangThongKe">
+                  <tr>
+                    <td style="text-align: center">
+                      <div class="rank-badge top-1" style="margin: 0 auto">
+                        1
+                      </div>
+                    </td>
+                    <td><span class="code-badge">ND001</span></td>
+                    <td><span class="cell-bold">Nguyễn Minh Anh</span></td>
+                    <td>2026-05-24</td>
+                    <td style="text-align: right">
+                      <span class="cell-price">1.489.000 ₫</span>
+                    </td>
+                    <td style="text-align: right">
+                      <a class="btn-action" href="chi-tiet-don.html?id=DH001">
+                        <span>DH001</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="text-align: center">
+                      <div class="rank-badge top-2" style="margin: 0 auto">
+                        2
+                      </div>
+                    </td>
+                    <td><span class="code-badge">ND002</span></td>
+                    <td><span class="cell-bold">Trần Quốc Bảo</span></td>
+                    <td>2026-02-06</td>
+                    <td style="text-align: right">
+                      <span class="cell-price">1.239.000 ₫</span>
+                    </td>
+                    <td style="text-align: right">
+                      <a class="btn-action" href="chi-tiet-don.html?id=DH002">
+                        <span>DH002</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="text-align: center">
+                      <div class="rank-badge top-3" style="margin: 0 auto">
+                        3
+                      </div>
+                    </td>
+                    <td><span class="code-badge">ND004</span></td>
+                    <td><span class="cell-bold">Trần Minh Đức</span></td>
+                    <td>2025-12-30</td>
+                    <td style="text-align: right">
+                      <span class="cell-price">1.096.000 ₫</span>
+                    </td>
+                    <td style="text-align: right">
+                      <a class="btn-action" href="chi-tiet-don.html?id=DH003">
+                        <span>DH003</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="text-align: center">
+                      <div class="rank-badge" style="margin: 0 auto">4</div>
+                    </td>
+                    <td><span class="code-badge">ND003</span></td>
+                    <td><span class="cell-bold">Lê Hoàng Nam</span></td>
+                    <td>2026-05-18</td>
+                    <td style="text-align: right">
+                      <span class="cell-price">700.000 ₫</span>
+                    </td>
+                    <td style="text-align: right">
+                      <a class="btn-action" href="chi-tiet-don.html?id=DH004">
+                        <span>DH004</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="text-align: center">
+                      <div class="rank-badge" style="margin: 0 auto">5</div>
+                    </td>
+                    <td><span class="code-badge">ND005</span></td>
+                    <td><span class="cell-bold">Võ Gia Huy</span></td>
+                    <td>2026-05-22</td>
+                    <td style="text-align: right">
+                      <span class="cell-price">599.000 ₫</span>
+                    </td>
+                    <td style="text-align: right">
+                      <a class="btn-action" href="chi-tiet-don.html?id=DH005">
+                        <span>DH005</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="chart-viewer.js" defer></script>
+    <script>
+      function thongKe() {
+        const tuNgay = document.getElementById("tuNgay").value;
+        const denNgay = document.getElementById("denNgay").value;
+        if (!tuNgay && !denNgay) {
+          showToast(
+            "Đã cập nhật dữ liệu thống kê toàn kỳ!",
+            "success",
+            "Báo cáo thống kê",
+          );
+        } else {
+          showToast(
+            `Đã thống kê dữ liệu từ ${tuNgay || "bắt đầu"} đến ${denNgay || "hôm nay"}!`,
+            "success",
+            "Báo cáo thống kê",
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
