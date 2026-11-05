@@ -49,12 +49,12 @@
       <form onsubmit="dangNhap(event)">
         <div class="form-group">
           <label for="username">Tài khoản quản trị</label>
-          <input type="text" id="username" value="1252" required />
+          <input type="text" id="username" />
         </div>
 
         <div class="form-group">
           <label for="password">Mật khẩu</label>
-          <input type="password" id="password" value="123456" required />
+          <input type="password" id="password" />
         </div>
 
         <button
@@ -66,7 +66,7 @@
         </button>
 
         <div class="login-demo">
-          Tài khoản mẫu: <b>1252</b> / Mật khẩu: <b>123456</b>
+          Không bắt buộc nhập tài khoản hoặc mật khẩu.
         </div>
       </form>
     </div>
@@ -75,25 +75,7 @@
     <script>
       function dangNhap(e) {
         e.preventDefault();
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
-
-        if (user === "1252" && pass === "123456") {
-          showToast(
-            "Đăng nhập thành công! Đang chuyển hướng...",
-            "success",
-            "Xác thực",
-          );
-          setTimeout(() => {
-            window.location.href = "san-pham.html";
-          }, 800);
-        } else {
-          showToast(
-            "Tài khoản hoặc mật khẩu không chính xác!",
-            "warning",
-            "Đăng nhập thất bại",
-          );
-        }
+        window.location.href = "san-pham.html";
       }
     </script>
   </body>
