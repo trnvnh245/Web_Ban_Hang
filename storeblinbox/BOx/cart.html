@@ -95,24 +95,6 @@
         const container = document.getElementById("cartContent");
         const cart = getCart();
 
-        if (cart.length === 0) {
-          container.innerHTML = `
-            <div class="cart-empty">
-              <i class="fa-solid fa-box-open"></i>
-              <h3>Giỏ hàng trống</h3>
-              <p>Hiện chưa có sản phẩm nào trong giỏ hàng demo.</p>
-              <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
-                <button onclick="resetCartToDemo(); renderCartPage();" class="btn-checkout" style="max-width:240px;background:#8b5cf6;">
-                  <i class="fa-solid fa-rotate-left"></i> Khôi phục giỏ Demo
-                </button>
-                <a href="shop.html" class="btn-continue" style="max-width:240px;margin-top:0;">
-                  <i class="fa-solid fa-store"></i> Đến Cửa Hàng
-                </a>
-              </div>
-            </div>`;
-          return;
-        }
-
         let rows = "";
         cart.forEach((item) => {
           const subtotal = item.price * item.quantity;
@@ -130,17 +112,12 @@
               <td class="cart-price">${formatPrice(item.price)}</td>
               <td>
                 <div class="qty-control">
-                  <button onclick="changeQty('${item.id}', -1)">−</button>
+                  <button type="button" onclick="changeQty('${item.id}', -1)" ${item.quantity <= 1 ? 'disabled title="Tối thiểu là 1 món"' : ''}>−</button>
                   <span class="qty-value">${item.quantity}</span>
-                  <button onclick="changeQty('${item.id}', 1)">+</button>
+                  <button type="button" onclick="changeQty('${item.id}', 1)">+</button>
                 </div>
               </td>
               <td class="cart-subtotal">${formatPrice(subtotal)}</td>
-              <td>
-                <button class="btn-remove" onclick="removeItem('${item.id}')" title="Xóa">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-              </td>
             </tr>`;
         });
 
@@ -148,6 +125,11 @@
         const totalPrice = getCartTotal();
 
         container.innerHTML = `
+          <div class="cart-demo-notice">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Dữ liệu giỏ hàng demo — Cố định danh sách món mẫu (không bị xóa), hỗ trợ tăng giảm số lượng tính tiền trực tiếp.</span>
+          </div>
+
           <table class="cart-table">
             <thead>
               <tr>
@@ -155,7 +137,6 @@
                 <th>Đơn giá</th>
                 <th>Số lượng</th>
                 <th>Thành tiền</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>${rows}</tbody>
@@ -185,16 +166,21 @@
         const cart = getCart();
         const item = cart.find((i) => i.id === id);
         if (item) {
-          updateCartQty(id, item.quantity + delta);
+          const nextQty = item.quantity + delta;
+          if (nextQty < 1) {
+            if (typeof showToast === "function") {
+              showToast("Số lượng tối thiểu là 1, không thể giảm thêm.", "info", 1500);
+            }
+            return;
+          }
+          updateCartQty(id, nextQty);
           renderCartPage();
         }
       }
 
       function removeItem(id) {
-        if (confirm("Bạn muốn xóa sản phẩm này khỏi giỏ hàng?")) {
-          removeFromCart(id);
-          renderCartPage();
-          showToast("Đã xóa sản phẩm khỏi giỏ hàng.", "success", 2000);
+        if (typeof showToast === "function") {
+          showToast("Website ở chế độ demo: Danh sách sản phẩm được giữ cố định, không xóa.", "info", 2000);
         }
       }
     </script>

@@ -48,30 +48,41 @@ const DEFAULT_DEMO_CART = [
   },
 ];
 
-// Dọn dẹp dữ liệu cũ trong localStorage để đảm bảo không lưu thông tin vĩnh viễn
+// Dọn dẹp dữ liệu cũ trong storage để đảm bảo luôn ở chế độ demo tĩnh (cố định)
 try {
   localStorage.removeItem("bb_cart");
-  localStorage.removeItem("bb_orders");
+  sessionStorage.removeItem("bb_cart_demo");
 } catch (e) {
   // Bỏ qua nếu môi trường chặn storage
 }
 
-// ─── GIỎ HÀNG (SESSION / MEMORY — MỖI LẦN MỞ WEB LÀ TĨNH) ───
+// ─── GIỎ HÀNG (DEMO TĨNH — CỐ ĐỊNH DANH SÁCH MẪU, HỖ TRỢ TĂNG/GIẢM SỐ LƯỢNG, KHÔNG XÓA MÓN) ───
 
-/** Lấy giỏ hàng: Mỗi lần mở lại web luôn có sẵn các món demo tĩnh */
+/** Lấy giỏ hàng: Giữ cố định danh sách món demo, giữ số lượng người dùng vừa tăng/giảm */
 function getCart() {
   try {
-    const sessionCart = sessionStorage.getItem("bb_cart_demo");
-    if (sessionCart) {
-      return JSON.parse(sessionCart);
+    const raw = sessionStorage.getItem("bb_cart_demo");
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (Array.isArray(saved) && saved.length > 0) {
+        // Đảm bảo luôn đủ tất cả các sản phẩm demo mẫu, cập nhật số lượng tăng/giảm nếu có
+        return DEFAULT_DEMO_CART.map((def) => {
+          const found = saved.find((s) => s.id === def.id);
+          const qty = found && Number(found.quantity) >= 1 ? Math.max(1, parseInt(found.quantity, 10)) : def.quantity;
+          return {
+            ...def,
+            quantity: qty,
+          };
+        });
+      }
     }
   } catch (e) {}
 
-  // Mặc định luôn khởi tạo danh sách món demo tĩnh
+  // Mặc định luôn là danh sách món demo tĩnh cố định
   return JSON.parse(JSON.stringify(DEFAULT_DEMO_CART));
 }
 
-/** Lưu giỏ hàng tạm thời trong phiên duyệt (sessionStorage) */
+/** Lưu giỏ hàng tạm thời cho phiên demo */
 function saveCart(cart) {
   try {
     sessionStorage.setItem("bb_cart_demo", JSON.stringify(cart));
@@ -80,31 +91,34 @@ function saveCart(cart) {
 
 /**
  * Thêm sản phẩm vào giỏ.
- * Yêu cầu: Nhấn thêm giỏ hàng thì KHÔNG THÊM (mục đích hoàn toàn demo tĩnh).
- * Giỏ hàng giữ nguyên các món demo có sẵn, không tăng thêm.
+ * Web tĩnh demo: Giữ nguyên danh sách món demo mẫu cố định.
+ * Trả về true để giao diện (modal/toast) phản hồi thành công mượt mà.
  */
 function addToCart(product, qty) {
-  // Không thêm sản phẩm vào giỏ hàng
-  // Trả về true để giao diện (modal/toast) phản hồi thành công mượt mà khi demo
   updateCartBadge();
   return true;
 }
 
-/** Xóa sản phẩm khỏi giỏ trong phiên hiện tại */
+/** Xóa sản phẩm: Web tĩnh demo KHÔNG cho phép xóa ra khỏi danh sách */
 function removeFromCart(productId) {
-  let cart = getCart();
-  cart = cart.filter((item) => item.id !== productId);
-  saveCart(cart);
+  // Web tĩnh demo: không xóa sản phẩm ra khỏi danh sách
+  if (typeof showToast === "function") {
+    showToast("Website demo: Danh sách sản phẩm được giữ cố định, không xóa.", "info", 2000);
+  }
   updateCartBadge();
 }
 
-/** Cập nhật số lượng trong phiên hiện tại */
+/** Cập nhật số lượng: Hỗ trợ tăng/giảm số lượng nhưng KHÔNG giảm dưới 1 và KHÔNG xóa sản phẩm */
 function updateCartQty(productId, newQty) {
   newQty = parseInt(newQty, 10);
-  if (newQty < 1) {
-    removeFromCart(productId);
+  if (isNaN(newQty) || newQty < 1) {
+    if (typeof showToast === "function") {
+      showToast("Số lượng tối thiểu là 1 sản phẩm.", "info", 1500);
+    }
     return;
   }
+  if (newQty > 99) newQty = 99;
+
   const cart = getCart();
   const item = cart.find((i) => i.id === productId);
   if (item) {
@@ -132,9 +146,8 @@ function resetCartToDemo() {
   updateCartBadge();
 }
 
-/** Xóa toàn bộ giỏ hàng trong phiên hiện tại */
+/** Xóa toàn bộ giỏ hàng: Web tĩnh demo không làm rỗng giỏ */
 function clearCart() {
-  saveCart([]);
   updateCartBadge();
 }
 

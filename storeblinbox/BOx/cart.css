@@ -109,8 +109,14 @@
   transition: background 0.15s;
 }
 
-.qty-control button:hover {
+.qty-control button:hover:not(:disabled) {
   background: #e5e7eb;
+}
+
+.qty-control button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #f3f4f6;
 }
 
 .qty-control .qty-value {
@@ -124,6 +130,37 @@
   border-right: 1px solid #d1d5db;
   background: #fff;
   padding: 6px 0;
+}
+
+/* Số lượng tĩnh trong chế độ demo */
+.qty-static-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 32px;
+  padding: 0 12px;
+  background: #f3f4f6;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Thông báo chế độ demo tĩnh */
+.cart-demo-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  color: #6d28d9;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 
 /* Giá */
