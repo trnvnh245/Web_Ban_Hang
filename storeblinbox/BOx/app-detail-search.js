@@ -16,17 +16,93 @@ function changeImage(element) {
 
 document.addEventListener("DOMContentLoaded", () => {
   // -------------------------------------------------------------
-  // Xử lý nút Thêm Vào Giỏ Hàng trên trang product-detail.html
+  // Xử lý nạp dữ liệu chi tiết sản phẩm theo ?id=... trên product-detail.html
   // -------------------------------------------------------------
-  const btnAddToCart = document.getElementById("btnAddToCart");
-  if (btnAddToCart) {
-    btnAddToCart.addEventListener("click", () => {
+  const productDetailCard = document.querySelector(".product-detail-card");
+  if (productDetailCard) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("id");
+    const sourceData = typeof products !== "undefined" ? products : [];
+
+    // Tìm sản phẩm theo id truyền vào
+    let currentProduct = null;
+    if (productId) {
+      currentProduct = sourceData.find((p) => p.id === productId);
+    }
+    // Nếu không tìm thấy hoặc không có param, dùng sản phẩm đầu tiên làm mặc định
+    if (!currentProduct && sourceData.length > 0) {
+      currentProduct = sourceData[0];
+    }
+
+    if (currentProduct) {
+      // 1. Cập nhật thẻ title trình duyệt
+      document.title = `Chi Tiết Sản Phẩm - ${currentProduct.name}`;
+
+      // 2. Cập nhật ảnh chính
+      const mainImg = document.getElementById("mainProductImg");
+      if (mainImg) {
+        mainImg.src = currentProduct.image;
+        mainImg.alt = currentProduct.name;
+        mainImg.onerror = function () {
+          this.src = "https://via.placeholder.com/400x400";
+        };
+      }
+
+      // 3. Cập nhật tên sản phẩm
+      const titleEl = document.getElementById("detailTitle") || document.querySelector(".p-detail-title");
+      if (titleEl) titleEl.textContent = currentProduct.name;
+
+      // 4. Cập nhật mã sản phẩm
+      const idEl = document.getElementById("detailId") || document.querySelector(".code-badge");
+      if (idEl) idEl.textContent = currentProduct.id;
+
+      // 5. Cập nhật thương hiệu
+      const brandEl = document.getElementById("detailBrand");
+      if (brandEl) brandEl.textContent = currentProduct.brand || "POP MART";
+
+      // 6. Cập nhật bộ sưu tập
+      const colEl = document.getElementById("detailCollection");
+      if (colEl) colEl.textContent = currentProduct.collection || "Blind Box Series";
+
+      // 7. Cập nhật danh mục
+      const catEl = document.getElementById("detailCategory");
+      if (catEl) catEl.textContent = currentProduct.category || "Blind Box";
+
+      // 8. Cập nhật giá
+      const priceEl = document.getElementById("detailPrice") || document.querySelector(".p-detail-price");
+      if (priceEl) priceEl.textContent = currentProduct.price;
+
+      // 9. Cập nhật lượt bán & tồn kho
+      const soldEl = document.getElementById("detailSold");
+      if (soldEl) soldEl.textContent = currentProduct.sold !== undefined ? currentProduct.sold : 0;
+
+      const stockEl = document.getElementById("detailStock");
+      if (stockEl) stockEl.textContent = currentProduct.stock !== undefined ? currentProduct.stock : 10;
+
+      // 10. Cập nhật ô số lượng
       const qtyInput = document.getElementById("detailQty");
-      const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-      alert(
-        `Đã thêm thành công ${qty} sản phẩm Hirono Monster's Carnival vào giỏ hàng!`,
-      );
-    });
+      if (qtyInput) {
+        qtyInput.value = 1;
+        qtyInput.min = 1;
+        qtyInput.max = currentProduct.stock > 0 ? currentProduct.stock : 1;
+      }
+
+      // 11. Xử lý nút Thêm Vào Giỏ Hàng cho đúng sản phẩm đang xem
+      const btnAddToCart = document.getElementById("btnAddToCart");
+      if (btnAddToCart) {
+        btnAddToCart.addEventListener("click", () => {
+          const qty = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
+          if (typeof addToCart === "function") {
+            if (!addToCart(currentProduct, qty)) return;
+          }
+          if (typeof showToast === "function") {
+            showToast(`Đã thêm thành công ${qty} sản phẩm "${currentProduct.name}" vào giỏ hàng!`, "success");
+          } else {
+            alert(`Đã thêm thành công ${qty} sản phẩm "${currentProduct.name}" vào giỏ hàng!`);
+          }
+        });
+      }
+    }
   }
 
   // -------------------------------------------------------------

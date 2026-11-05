@@ -344,7 +344,7 @@ function renderProductsByContainer(list, containerId) {
     card.innerHTML = `
       ${newBadgeHtml}
      <img src="${item.image}" alt="${item.name}" class="product-img" 
-onclick="location.href='product-detail.html?id=${item.id}'"" onError="this.src='https://via.placeholder.com/240x240'" />
+onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
       <div class="product-info">
         <div class="product-meta-top">
           <span class="product-brand">${item.brand}</span>
@@ -354,8 +354,7 @@ onclick="location.href='product-detail.html?id=${item.id}'"" onError="this.src='
         <div class="product-price">${item.price}</div>
         <div class="product-bottom-actions">
           <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
-  <i class="fa-solid fa-cart-shopping"></i> Mua ngay
-</button>
+            <i class="fa-solid fa-cart-shopping"></i> Mua ngay
           </button>
         </div>
       </div>
