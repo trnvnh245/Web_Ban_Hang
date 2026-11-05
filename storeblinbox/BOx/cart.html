@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giỏ Hàng - Mystery World Blind Box</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="cart.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+          <form class="header-search-form" action="shop.html" method="GET">
+            <input
+              type="text"
+              name="search"
+              class="header-search-input"
+              placeholder="Tìm kiếm tên Blind Box, nhân vật..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+        </div>
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html" class="active"
+              ><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></a
+            >
+            <a href="new-arrivals.html"
+              ><i class="fa-solid fa-fire"></i> <span>Sản Phẩm Mới</span></a
+            >
+            <a href="shop.html"
+              ><i class="fa-solid fa-store"></i> <span>Cửa Hàng</span></a
+            >
+            <a href="brand-popmart.html"
+              ><i class="fa-solid fa-tags"></i> <span>Thương Hiệu</span></a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Nội dung Giỏ Hàng -->
+    <main class="cart-page">
+      <h2><i class="fa-solid fa-bag-shopping"></i> Giỏ Hàng Của Bạn</h2>
+
+      <!-- Khu vực render giỏ hàng -->
+      <div id="cartContent"></div>
+    </main>
+
+    <footer class="page-footer">
+      &copy; 2026 Mystery World Blind Box Store — Đồ án Lập trình Web
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCartPage();
+      });
+
+      function renderCartPage() {
+        const container = document.getElementById("cartContent");
+        const cart = getCart();
+
+        if (cart.length === 0) {
+          container.innerHTML = `
+            <div class="cart-empty">
+              <i class="fa-solid fa-box-open"></i>
+              <h3>Giỏ hàng trống</h3>
+              <p>Hiện chưa có sản phẩm nào trong giỏ hàng demo.</p>
+              <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+                <button onclick="resetCartToDemo(); renderCartPage();" class="btn-checkout" style="max-width:240px;background:#8b5cf6;">
+                  <i class="fa-solid fa-rotate-left"></i> Khôi phục giỏ Demo
+                </button>
+                <a href="shop.html" class="btn-continue" style="max-width:240px;margin-top:0;">
+                  <i class="fa-solid fa-store"></i> Đến Cửa Hàng
+                </a>
+              </div>
+            </div>`;
+          return;
+        }
+
+        let rows = "";
+        cart.forEach((item) => {
+          const subtotal = item.price * item.quantity;
+          rows += `
+            <tr>
+              <td>
+                <div class="cart-product-cell">
+                  <img src="${item.image}" alt="${item.name}" class="cart-product-img" />
+                  <div class="cart-product-info">
+                    <div class="cart-product-name">${item.name}</div>
+                    <div class="cart-product-brand">${item.brand}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="cart-price">${formatPrice(item.price)}</td>
+              <td>
+                <div class="qty-control">
+                  <button onclick="changeQty('${item.id}', -1)">−</button>
+                  <span class="qty-value">${item.quantity}</span>
+                  <button onclick="changeQty('${item.id}', 1)">+</button>
+                </div>
+              </td>
+              <td class="cart-subtotal">${formatPrice(subtotal)}</td>
+              <td>
+                <button class="btn-remove" onclick="removeItem('${item.id}')" title="Xóa">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </td>
+            </tr>`;
+        });
+
+        const totalCount = getCartCount();
+        const totalPrice = getCartTotal();
+
+        container.innerHTML = `
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+
+          <div class="cart-summary">
+            <div class="cart-summary-box">
+              <div class="summary-row">
+                <span>Số lượng sản phẩm</span>
+                <span>${totalCount} món</span>
+              </div>
+              <div class="summary-row total">
+                <span>Tổng cộng</span>
+                <span class="summary-value">${formatPrice(totalPrice)}</span>
+              </div>
+              <a href="checkout.html" class="btn-checkout">
+                <i class="fa-solid fa-credit-card"></i> TIẾN HÀNH THANH TOÁN
+              </a>
+              <a href="shop.html" class="btn-continue">
+                <i class="fa-solid fa-arrow-left"></i> Tiếp tục mua sắm
+              </a>
+            </div>
+          </div>`;
+      }
+
+      function changeQty(id, delta) {
+        const cart = getCart();
+        const item = cart.find((i) => i.id === id);
+        if (item) {
+          updateCartQty(id, item.quantity + delta);
+          renderCartPage();
+        }
+      }
+
+      function removeItem(id) {
+        if (confirm("Bạn muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+          removeFromCart(id);
+          renderCartPage();
+          showToast("Đã xóa sản phẩm khỏi giỏ hàng.", "success", 2000);
+        }
+      }
+    </script>
+  </body>
+</html>

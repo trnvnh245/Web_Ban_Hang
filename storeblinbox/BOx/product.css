@@ -1,0 +1,333 @@
+/* --- KHUNG CHUNG PHẦN SẢN PHẨM --- */
+.home-section {
+  max-width: 1400px;
+  margin: 50px auto;
+  padding: 0 40px;
+}
+
+.section-header-center {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: 1.5px;
+  margin-top: 5px;
+}
+
+/* --- TỐI ƯU LƯỚI SẢN PHẨM LẤP ĐẦY KHUNG --- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* Luôn chia đều thành 4 cột trải dài toàn màn hình */
+  gap: 25px;
+  width: 100%;
+}
+
+/* --- ĐỒNG BỘ KÍCH THƯỚC THẺ SẢN PHẨM --- */
+.product-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Đẩy phần mua hàng luôn nằm dưới cùng khung */
+  position: relative;
+  padding: 15px;
+  height: 100%; /* Giúp thẻ chiếm trọn chiều cao khung lưới */
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-color: #d1d5db;
+}
+
+/* --- ẢNH SẢN PHẨM ĐỒNG ĐỀU --- */
+.product-img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain; /* Hoặc cover tùy ý thích để tràn khung ảnh */
+  object-position: center;
+  display: block;
+  cursor: pointer;
+  margin-bottom: 12px;
+  background-color: #f9fafb; /* Tạo nền nhẹ cho khung ảnh */
+  border-radius: 8px;
+  padding: 5px;
+}
+
+/* --- THÔNG TIN SẢN PHẨM --- */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Cố định chiều cao tiêu đề sản phẩm (2 dòng) để các thẻ không bị so le */
+.product-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  height: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
+}
+
+.product-title:hover {
+  color: #8b5cf6;
+}
+
+/* Giá sản phẩm */
+.product-price {
+  font-size: 17px;
+  font-weight: 800;
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+
+/* Phần nút bấm luôn nằm sát đáy khung */
+.product-bottom-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: auto;
+}
+.btn-add-cart-red {
+  flex-grow: 1;
+  background-color: #dc2626;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-add-cart-red:hover {
+  background-color: #b91c1c;
+}
+
+.btn-wishlist {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-wishlist:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* Nhãn New */
+.badge-new {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #dc2626;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+/* --- THUỘC TÍNH BỔ SUNG TRONG MODAL --- */
+.product-property {
+  font-size: 13px;
+  color: #4b5563;
+  margin-bottom: 5px;
+}
+
+.product-property .prop-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.code-badge {
+  background-color: #eff6ff;
+  color: #2563eb;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  border: 1px solid #dbeafe;
+}
+
+.product-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.stat-box {
+  background: #f3f4f6;
+  padding: 8px 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.stat-number {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* --- MODAL CSS --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  width: 600px;
+  max-width: 90%;
+  position: relative;
+  display: flex;
+  gap: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.modal-img {
+  width: 240px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.modal-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.modal-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e11d48;
+  margin: 10px 0;
+}
+
+.modal-buy-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.quantity-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.qty-input {
+  width: 60px;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.modal-btn-cart {
+  flex-grow: 1;
+  background: #111827;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-btn-cart:hover {
+  background: #8b5cf6;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .product-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cửa Hàng Blind Box - Quản Lý Sản Phẩm</title>
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Các file CSS riêng biệt -->
+    <link rel="stylesheet" href="shop1.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="blin.css" />
+    <link rel="stylesheet" href="product.css" />
+    <link rel="stylesheet" href="style-detail-search.css" />
+  </head>
+  <body>
+    <!-- 1. Header Khung Chung -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+
+          <form
+            class="header-search-form"
+            action="search-results.html"
+            method="GET"
+          >
+            <input
+              type="text"
+              name="search"
+              class="header-search-input"
+              placeholder="Tìm kiếm tên Blind Box, nhân vật..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html"
+              ><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></a
+            >
+            <a href="new-arrivals.html"
+              ><i class="fa-solid fa-fire"></i> <span>Sản Phẩm Mới</span></a
+            >
+            <a href="shop.html" class="active"
+              ><i class="fa-solid fa-store"></i> <span>Cửa Hàng</span></a
+            >
+            <a href="brand-popmart.html"
+              ><i class="fa-solid fa-tags"></i> <span>Thương Hiệu</span></a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Bố cục Cửa Hàng -->
+    <main class="shop-container">
+      <!-- Thanh Sidebar Tìm kiếm Nâng cao -->
+      <aside class="filter-sidebar">
+        <div class="filter-title">
+          <i class="fa-solid fa-sliders"></i> Tìm Kiếm Nâng Cao
+        </div>
+
+        <div class="filter-group">
+          <label for="searchName">Tên hoặc Mã sản phẩm</label>
+          <input
+            type="text"
+            id="searchName"
+            class="filter-input"
+            placeholder="Nhập tên hoặc mã (VD: P001)..."
+          />
+        </div>
+
+        <div class="filter-group">
+          <label for="brandSelect">Thương hiệu</label>
+          <select id="brandSelect" class="filter-select">
+            <option value="all">Tất cả thương hiệu</option>
+            <option value="POP MART">POP MART</option>
+            <option value="52TOYS">52TOYS</option>
+            <option value="Sonny Angel">Sonny Angel</option>
+            <option value="Smiski">Smiski</option>
+            <option value="Tokidoki">Tokidoki</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="collectionSelect">Bộ sưu tập</label>
+          <select id="collectionSelect" class="filter-select">
+            <option value="all">Tất cả bộ sưu tập</option>
+            <option value="Hirono Monster's Carnival">Hirono Carnival</option>
+            <option value="SKULLPANDA Time">SKULLPANDA Time</option>
+            <option value="Space Molly">Space Molly</option>
+            <option value="Shin-chan Daily">Shin-chan Daily</option>
+            <option value="LuLu Farm">LuLu Farm</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="categorySelect">Danh mục</label>
+          <select id="categorySelect" class="filter-select">
+            <option value="all">Tất cả danh mục</option>
+            <option value="Blind Box">Blind Box</option>
+            <option value="Mini Figure">Mini Figure</option>
+            <option value="Designer Toy">Designer Toy</option>
+            <option value="Robot / Mecha">Robot / Mecha</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Khoảng giá (VNĐ)</label>
+          <div class="price-range">
+            <input
+              type="number"
+              id="minPrice"
+              class="filter-input"
+              placeholder="Từ giá"
+            />
+            <span>-</span>
+            <input
+              type="number"
+              id="maxPrice"
+              class="filter-input"
+              placeholder="Đến giá"
+            />
+          </div>
+        </div>
+
+        <button id="btnApplyFilter" class="btn-filter-apply">
+          <i class="fa-solid fa-magnifying-glass"></i> Lọc sản phẩm
+        </button>
+        <button id="btnResetFilter" class="btn-filter-reset">Đặt lại</button>
+      </aside>
+
+      <!-- Khối hiển thị danh sách sản phẩm -->
+      <section class="shop-main">
+        <div class="shop-header">
+          <h2 class="section-title">Danh Sách Hộp Mù (Blind Box)</h2>
+          <span id="resultCount" class="result-count">Hiển thị sản phẩm</span>
+        </div>
+
+        <!-- Grid danh sách sản phẩm -->
+        <div id="productGrid" class="product-grid"></div>
+
+        <!-- Thanh Phân Trang -->
+        <div id="pagination" class="pagination"></div>
+      </section>
+    </main>
+
+    <!-- JavaScript Files -->
+    <script src="box.js"></script>
+    <script src="cart.js"></script>
+    <script src="auth.js"></script>
+    <script src="app-detail-search.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. Cấu hình phân trang
+        const ITEMS_PER_PAGE = 4; // Số sản phẩm trên mỗi trang (có thể đổi thành 8, 12 tùy nhu cầu)
+        let currentPage = 1;
+
+        // Mặc định lấy danh sách sản phẩm từ mảng products trong file box.js
+        let normalProductsList =
+          typeof products !== "undefined"
+            ? products.filter((p) => !p.isNew)
+            : [];
+        let currentData = [...normalProductsList];
+
+        // 2. Hàm hiển thị sản phẩm theo trang
+        function renderShopNormal(list, page = 1) {
+          const grid = document.getElementById("productGrid");
+          if (!grid) return;
+          grid.innerHTML = "";
+
+          const startIndex = (page - 1) * ITEMS_PER_PAGE;
+          const endIndex = startIndex + ITEMS_PER_PAGE;
+          const paginatedList = list.slice(startIndex, endIndex);
+
+          if (paginatedList.length === 0) {
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Không tìm thấy sản phẩm phù hợp.</p>`;
+          } else {
+            paginatedList.forEach((item) => {
+              const card = document.createElement("div");
+              card.className = "product-card";
+
+              // Chuyển hướng trực tiếp sang trang product-detail.html kèm id sản phẩm
+              card.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
+                <div class="product-info">
+                  <div class="product-meta-top">
+                    <span class="product-brand">${item.brand}</span>
+                    <span class="product-sku">${item.id}</span>
+                  </div>
+                  <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
+                  <div class="product-price">${item.price}</div>
+                  <div class="product-bottom-actions">
+                    <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
+                      <i class="fa-solid fa-cart-shopping"></i> Mua ngay
+                    </button>
+                  </div>
+                </div>
+              `;
+              grid.appendChild(card);
+            });
+          }
+
+          // Cập nhật số lượng sản phẩm hiển thị
+          const resultCount = document.getElementById("resultCount");
+          if (resultCount) {
+            resultCount.innerText = `Hiển thị ${paginatedList.length}/${list.length} sản phẩm`;
+          }
+
+          // Render thanh nút chuyển trang
+          renderPagination(list.length, page);
+        }
+
+        // 3. Hàm tạo các nút Phân Trang (Pagination)
+        function renderPagination(totalItems, activePage) {
+          const paginationContainer = document.getElementById("pagination");
+          if (!paginationContainer) return;
+          paginationContainer.innerHTML = "";
+
+          const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+          if (totalPages <= 1) return;
+
+          // Nút Previous (<)
+          const prevBtn = document.createElement("button");
+          prevBtn.className = `page-btn ${activePage === 1 ? "disabled" : ""}`;
+          prevBtn.innerHTML = `<i class="fa-solid fa-chevron-left"></i>`;
+          prevBtn.disabled = activePage === 1;
+          prevBtn.addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage--;
+              renderShopNormal(currentData, currentPage);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          });
+          paginationContainer.appendChild(prevBtn);
+
+          // Các nút số trang (1, 2, 3...)
+          for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement("button");
+            pageBtn.className = `page-btn ${i === activePage ? "active" : ""}`;
+            pageBtn.innerText = i;
+            pageBtn.addEventListener("click", () => {
+              currentPage = i;
+              renderShopNormal(currentData, currentPage);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            paginationContainer.appendChild(pageBtn);
+          }
+
+          // Nút Next (>)
+          const nextBtn = document.createElement("button");
+          nextBtn.className = `page-btn ${activePage === totalPages ? "disabled" : ""}`;
+          nextBtn.innerHTML = `<i class="fa-solid fa-chevron-right"></i>`;
+          nextBtn.disabled = activePage === totalPages;
+          nextBtn.addEventListener("click", () => {
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderShopNormal(currentData, currentPage);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          });
+          paginationContainer.appendChild(nextBtn);
+        }
+
+        /*  // 4. Bật bộ lọc Nâng Cao
+        const btnApplyFilter = document.getElementById("btnApplyFilter");
+        if (btnApplyFilter) {
+          btnApplyFilter.addEventListener("click", () => {
+            const keyword = document
+              .getElementById("searchName")
+              .value.toLowerCase()
+              .trim();
+            const brand = document.getElementById("brandSelect").value;
+            const collection =
+              document.getElementById("collectionSelect").value;
+            const category = document.getElementById("categorySelect").value;
+
+            const minPriceInput = document.getElementById("minPrice").value;
+            const maxPriceInput = document.getElementById("maxPrice").value;
+            const minPrice =
+              minPriceInput !== "" ? parseFloat(minPriceInput) : 0;
+            const maxPrice =
+              maxPriceInput !== "" ? parseFloat(maxPriceInput) : Infinity;
+
+            currentData = normalProductsList.filter((p) => {
+              const priceNum = parseFloat(p.price.replace(/[^\d]/g, ""));
+              const matchName =
+                p.name.toLowerCase().includes(keyword) ||
+                p.id.toLowerCase().includes(keyword);
+              const matchBrand = brand === "all" || p.brand === brand;
+              const matchCollection =
+                collection === "all" || p.collection === collection;
+              const matchCategory =
+                category === "all" || p.category === category;
+              const matchPrice = priceNum >= minPrice && priceNum <= maxPrice;
+
+              return (
+                matchName &&
+                matchBrand &&
+                matchCollection &&
+                matchCategory &&
+                matchPrice
+              );
+            });
+
+            currentPage = 1;
+            renderShopNormal(currentData, currentPage);
+          });
+        }*/
+
+        // 5. Nút Đặt Lại Bộ Lọc
+        const btnResetFilter = document.getElementById("btnResetFilter");
+        if (btnResetFilter) {
+          btnResetFilter.addEventListener("click", () => {
+            document.getElementById("searchName").value = "";
+            document.getElementById("brandSelect").value = "all";
+            document.getElementById("collectionSelect").value = "all";
+            document.getElementById("categorySelect").value = "all";
+            document.getElementById("minPrice").value = "";
+            document.getElementById("maxPrice").value = "";
+
+            currentData = [...normalProductsList];
+            currentPage = 1;
+            renderShopNormal(currentData, currentPage);
+          });
+        }
+
+        // Chạy lần đầu khi mở trang
+        renderShopNormal(currentData, currentPage);
+      });
+    </script>
+  </body>
+</html>

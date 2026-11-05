@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kết Quả Tìm Kiếm - Mystery World</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="product.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="shop1.css" />
+    <link rel="stylesheet" href="style-detail-search.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+
+          <form
+            class="header-search-form"
+            action="search-results.html"
+            method="GET"
+          >
+            <input
+              type="text"
+              name="search"
+              id="headerSearchInput"
+              class="header-search-input"
+              placeholder="Tìm kiếm tên Blind Box, nhân vật..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html"
+              ><i class="fa-solid fa-house"></i><span>Trang Chủ</span></a
+            >
+            <a href="new-arrivals.html"
+              ><i class="fa-solid fa-fire"></i><span>Sản Phẩm Mới</span></a
+            >
+            <a href="shop.html"
+              ><i class="fa-solid fa-store"></i><span>Cửa Hàng</span></a
+            >
+            <a href="brand-popmart.html"
+              ><i class="fa-solid fa-tags"></i><span>Thương Hiệu</span></a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content chính: Sidebar lọc + Lưới sản phẩm -->
+    <main class="shop-container">
+      <!-- Sidebar Bộ lọc Nâng cao -->
+      <aside class="filter-sidebar">
+        <div class="filter-title">
+          <i class="fa-solid fa-sliders"></i> Tìm Kiếm Nâng Cao
+        </div>
+
+        <div class="filter-group">
+          <label for="searchKeyword">Từ khóa tìm kiếm</label>
+          <input
+            type="text"
+            id="searchKeyword"
+            class="filter-input"
+            placeholder="Nhập tên hoặc mã sản phẩm..."
+          />
+        </div>
+
+        <div class="filter-group">
+          <label for="brandSelect">Thương hiệu</label>
+          <select id="brandSelect" class="filter-select">
+            <option value="all">Tất cả thương hiệu</option>
+            <option value="POP MART">POP MART</option>
+            <option value="52TOYS">52TOYS</option>
+            <option value="Sonny Angel">Sonny Angel</option>
+            <option value="Smiski">Smiski</option>
+            <option value="Tokidoki">Tokidoki</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="collectionSelect">Bộ sưu tập</label>
+          <select id="collectionSelect" class="filter-select">
+            <option value="all">Tất cả bộ sưu tập</option>
+            <option value="Hirono Monster's Carnival Series">
+              Hirono Monster's Carnival
+            </option>
+            <option value="SKULLPANDA Where Time Dwells Series">
+              SKULLPANDA Time Dwells
+            </option>
+            <option value="MEGA SPACE MOLLY 100%">MEGA SPACE MOLLY 100%</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="categorySelect">Danh mục</label>
+          <select id="categorySelect" class="filter-select">
+            <option value="all">Tất cả danh mục</option>
+            <option value="Blind Box">Blind Box</option>
+            <option value="Mini Figure">Mini Figure</option>
+            <option value="Designer Toy">Designer Toy</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Khoảng giá (VNĐ)</label>
+          <div class="price-range">
+            <input
+              type="number"
+              id="minPrice"
+              class="filter-input"
+              placeholder="Từ giá"
+            />
+            <span>-</span>
+            <input
+              type="number"
+              id="maxPrice"
+              class="filter-input"
+              placeholder="Đến giá"
+            />
+          </div>
+        </div>
+
+        <button id="btnApplySearchFilter" class="btn-filter-apply">
+          <i class="fa-solid fa-magnifying-glass"></i> Lọc kết quả
+        </button>
+        <button id="btnResetSearchFilter" class="btn-filter-reset">
+          Đặt lại
+        </button>
+      </aside>
+
+      <!-- Khu vực hiển thị sản phẩm -->
+      <section class="shop-main">
+        <div class="shop-header">
+          <h2 class="section-title" id="searchHeading">KẾT QUẢ TÌM KIẾM</h2>
+          <span id="searchResultCount" class="result-count"
+            >Hiển thị 0 sản phẩm</span
+          >
+        </div>
+
+        <div id="searchProductGrid" class="product-grid">
+          <!-- JS render danh sách sản phẩm ở đây -->
+        </div>
+
+        <div id="searchPagination" class="pagination"></div>
+      </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script src="box.js"></script>
+    <script src="app-detail-search.js"></script>
+  </body>
+</html>

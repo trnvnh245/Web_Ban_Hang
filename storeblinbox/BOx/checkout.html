@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh Toán - Mystery World Blind Box</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <link rel="stylesheet" href="cart.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+          <form
+            class="header-search-form"
+            action="search-results.html"
+            method="GET"
+          >
+            <input
+              type="text"
+              name="search"
+              class="header-search-input"
+              placeholder="Tìm kiếm tên Blind Box, nhân vật..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+        </div>
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html" class="active"
+              ><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></a
+            >
+            <a href="new-arrivals.html"
+              ><i class="fa-solid fa-fire"></i> <span>Sản Phẩm Mới</span></a
+            >
+            <a href="shop.html"
+              ><i class="fa-solid fa-store"></i> <span>Cửa Hàng</span></a
+            >
+            <a href="brand-popmart.html"
+              ><i class="fa-solid fa-tags"></i> <span>Thương Hiệu</span></a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Nội dung Thanh Toán -->
+    <main class="checkout-page" id="checkoutMain"></main>
+
+    <footer class="page-footer">
+      &copy; 2026 Mystery World Blind Box Store — Đồ án Lập trình Web
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const main = document.getElementById("checkoutMain");
+        let user = getCurrentUser();
+        const cart = getCart();
+
+        // Yêu cầu đăng nhập trước khi thanh toán
+        if (!user) {
+          alert("Vui lòng đăng nhập để thanh toán!");
+          window.location.href = "login.html";
+          return;
+        }
+
+        // Kiểm tra giỏ hàng
+        if (cart.length === 0) {
+          main.innerHTML = `
+            <div class="cart-empty">
+              <i class="fa-solid fa-box-open"></i>
+              <h3>Giỏ hàng trống</h3>
+              <p>Không có sản phẩm nào để thanh toán trong giỏ demo.</p>
+              <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+                <button onclick="resetCartToDemo(); window.location.reload();" class="btn-checkout" style="max-width:240px;background:#8b5cf6;">
+                  <i class="fa-solid fa-rotate-left"></i> Khôi phục giỏ Demo
+                </button>
+                <a href="shop.html" class="btn-continue" style="max-width:240px;margin-top:0;">
+                  <i class="fa-solid fa-store"></i> Đến Cửa Hàng
+                </a>
+              </div>
+            </div>`;
+          return;
+        }
+
+        renderCheckoutPage(user, cart);
+      });
+
+      function renderCheckoutPage(user, cart) {
+        const main = document.getElementById("checkoutMain");
+        const totalPrice = getCartTotal();
+        const totalCount = getCartCount();
+
+        // Render danh sách sản phẩm trong tóm tắt
+        let itemsHtml = "";
+        cart.forEach((item) => {
+          itemsHtml += `
+            <div class="checkout-item">
+              <img src="${item.image}" alt="${item.name}" class="checkout-item-img" />
+              <div class="checkout-item-info">
+                <div class="checkout-item-name">${item.name}</div>
+                <div class="checkout-item-qty">SL: ${item.quantity} × ${formatPrice(item.price)}</div>
+              </div>
+              <div class="checkout-item-subtotal">${formatPrice(item.price * item.quantity)}</div>
+            </div>`;
+        });
+
+        main.innerHTML = `
+          <h2><i class="fa-solid fa-credit-card"></i> Thanh Toán Đơn Hàng</h2>
+          <div id="checkoutMessage" class="checkout-message"></div>
+
+          <div class="checkout-grid">
+            <!-- Cột trái: Thông tin -->
+            <div class="checkout-form-panel">
+
+              <!-- 1. Thông tin người mua (tự động điền) -->
+              <div class="checkout-section">
+                <h3><i class="fa-solid fa-user"></i> Thông Tin Người Mua</h3>
+                <div class="user-info-grid">
+                  <div class="info-item">
+                    <span class="info-label">Họ tên</span>
+                    <span class="info-value">${user.fullName}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Điện thoại</span>
+                    <span class="info-value">${user.phone}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Tài khoản</span>
+                    <span class="info-value">${user.username}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Chọn địa chỉ nhận hàng -->
+              <div class="checkout-section">
+                <h3><i class="fa-solid fa-location-dot"></i> Địa Chỉ Nhận Hàng</h3>
+                <div class="address-options">
+                  <label class="address-option selected" onclick="selectAddress(this, 'default')">
+                    <input type="radio" name="addressChoice" value="default" checked />
+                    <div class="address-option-content">
+                      <div class="option-title">Địa chỉ mặc định</div>
+                      <div class="option-detail">${user.address || "(Chưa có — vui lòng nhập địa chỉ mới)"}</div>
+                    </div>
+                  </label>
+                  <label class="address-option" onclick="selectAddress(this, 'new')">
+                    <input type="radio" name="addressChoice" value="new" />
+                    <div class="address-option-content">
+                      <div class="option-title">Nhập địa chỉ mới</div>
+                      <div class="option-detail">Giao đến một địa chỉ khác</div>
+                    </div>
+                  </label>
+                  <input
+                    type="text"
+                    id="newAddressInput"
+                    class="address-new-input"
+                    placeholder="Nhập địa chỉ giao hàng mới..."
+                  />
+                </div>
+              </div>
+
+              <!-- 3. Chọn hình thức thanh toán -->
+              <div class="checkout-section">
+                <h3><i class="fa-solid fa-wallet"></i> Hình Thức Thanh Toán</h3>
+                <div class="payment-options">
+                  <label class="payment-option selected" onclick="selectPayment(this, 'cod')">
+                    <input type="radio" name="paymentMethod" value="cod" checked />
+                    <i class="fa-solid fa-money-bill-wave payment-icon"></i>
+                    <span class="payment-label">Tiền mặt khi nhận hàng (COD)</span>
+                  </label>
+                  <label class="payment-option" onclick="selectPayment(this, 'online')">
+                    <input type="radio" name="paymentMethod" value="online" />
+                    <i class="fa-solid fa-building-columns payment-icon"></i>
+                    <span class="payment-label">Thanh toán trực tuyến</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cột phải: Tóm tắt -->
+            <div class="checkout-summary">
+              <h3>Đơn Hàng (${totalCount} sản phẩm)</h3>
+              ${itemsHtml}
+              <div class="checkout-total-section">
+                <div class="checkout-total-row">
+                  <span>Tạm tính</span>
+                  <span>${formatPrice(totalPrice)}</span>
+                </div>
+                <div class="checkout-total-row">
+                  <span>Phí vận chuyển</span>
+                  <span>Miễn phí</span>
+                </div>
+                <div class="checkout-total-row grand-total">
+                  <span>Tổng thanh toán</span>
+                  <span class="total-value">${formatPrice(totalPrice)}</span>
+                </div>
+              </div>
+              <button class="btn-place-order" onclick="placeOrder()">
+                <i class="fa-solid fa-check-circle"></i> XÁC NHẬN ĐẶT HÀNG
+              </button>
+            </div>
+          </div>`;
+      }
+
+      // --- Xử lý chọn địa chỉ ---
+      function selectAddress(el, type) {
+        document
+          .querySelectorAll(".address-option")
+          .forEach((o) => o.classList.remove("selected"));
+        el.classList.add("selected");
+
+        const newInput = document.getElementById("newAddressInput");
+        if (type === "new") {
+          newInput.classList.add("show");
+          newInput.focus();
+        } else {
+          newInput.classList.remove("show");
+        }
+      }
+
+      // --- Xử lý chọn thanh toán ---
+      function selectPayment(el, method) {
+        document
+          .querySelectorAll(".payment-option")
+          .forEach((o) => o.classList.remove("selected"));
+        el.classList.add("selected");
+      }
+
+      // --- Đặt hàng ---
+      function placeOrder() {
+        const msgBox = document.getElementById("checkoutMessage");
+        const user = getCurrentUser();
+
+        // Xác định địa chỉ
+        const addressChoice = document.querySelector(
+          'input[name="addressChoice"]:checked',
+        ).value;
+        let address = "";
+
+        if (addressChoice === "new") {
+          address = document.getElementById("newAddressInput").value.trim();
+          if (!address) {
+            showCheckoutMsg(
+              msgBox,
+              "error",
+              "Vui lòng nhập địa chỉ giao hàng mới.",
+            );
+            document.getElementById("newAddressInput").focus();
+            return;
+          }
+        } else {
+          address = user.address || "";
+          if (!address) {
+            showCheckoutMsg(
+              msgBox,
+              "error",
+              "Bạn chưa có địa chỉ mặc định. Vui lòng chọn 'Nhập địa chỉ mới'.",
+            );
+            return;
+          }
+        }
+
+        // Xác định phương thức thanh toán
+        const paymentMethod = document.querySelector(
+          'input[name="paymentMethod"]:checked',
+        ).value;
+
+        // Bước xác nhận thanh toán / đặt hàng
+        const confirmText =
+          paymentMethod === "online"
+            ? "Xác nhận thanh toán trực tuyến cho đơn hàng này?"
+            : "Xác nhận đặt hàng với hình thức thanh toán khi nhận hàng (COD)?";
+        if (!confirm(confirmText)) return;
+
+        // Tạo đơn hàng
+        const order = createOrder({ address, paymentMethod });
+
+        if (!order) {
+          showCheckoutMsg(
+            msgBox,
+            "error",
+            "Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.",
+          );
+          return;
+        }
+
+        // Hiển thị kết quả thành công
+        renderOrderSuccess(order);
+        showToast(
+          order.status === "Đã thanh toán"
+            ? "Thanh toán thành công! Đơn hàng đã được ghi vào lịch sử."
+            : "Đặt hàng thành công! Đơn hàng đã được ghi vào lịch sử.",
+          "success",
+          3500,
+        );
+      }
+
+      function renderOrderSuccess(order) {
+        const main = document.getElementById("checkoutMain");
+        const dateStr = new Date(order.createdAt).toLocaleString("vi-VN");
+
+        let itemsList = "";
+        order.items.forEach((item) => {
+          itemsList += `
+            <div class="detail-row">
+              <span class="detail-label">${item.name} × ${item.quantity}</span>
+              <span class="detail-value">${formatPrice(item.subtotal)}</span>
+            </div>`;
+        });
+
+        main.innerHTML = `
+          <div class="order-success">
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>${order.status === "Đã thanh toán" ? "Thanh Toán Thành Công!" : "Đặt Hàng Thành Công!"}</h2>
+            <div class="order-id-display">Mã đơn: ${order.orderId}</div>
+
+            <div class="order-success-details">
+              <div class="detail-row">
+                <span class="detail-label">Trạng thái</span>
+                <span class="detail-value">${order.status}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Ngày đặt</span>
+                <span class="detail-value">${dateStr}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Người nhận</span>
+                <span class="detail-value">${order.fullName}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Điện thoại</span>
+                <span class="detail-value">${order.phone}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Địa chỉ</span>
+                <span class="detail-value">${order.address}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Thanh toán</span>
+                <span class="detail-value">${order.paymentLabel}</span>
+              </div>
+              ${itemsList}
+              <div class="detail-row" style="border-top:2px solid #e5e7eb;padding-top:10px;margin-top:6px;">
+                <span class="detail-label" style="font-weight:700;color:#1a1a1a;">TỔNG CỘNG</span>
+                <span class="detail-value" style="color:#8b5cf6;font-size:18px;">${order.totalDisplay}</span>
+              </div>
+            </div>
+
+            <div class="order-success-actions">
+              <a href="orders.html" class="btn-checkout" style="max-width:240px;">
+                <i class="fa-solid fa-clock-rotate-left"></i> Xem Lịch Sử
+              </a>
+              <a href="shop.html" class="btn-continue">
+                <i class="fa-solid fa-store"></i> Tiếp tục mua sắm
+              </a>
+            </div>
+          </div>`;
+      }
+
+      function showCheckoutMsg(el, type, text) {
+        if (!el) return;
+        el.className = "checkout-message show " + type;
+        el.innerHTML =
+          '<i class="fa-solid ' +
+          (type === "error" ? "fa-circle-exclamation" : "fa-circle-check") +
+          '"></i> ' +
+          text;
+      }
+    </script>
+  </body>
+</html>

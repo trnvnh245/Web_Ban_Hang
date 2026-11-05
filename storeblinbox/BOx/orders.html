@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch Sử Đơn Hàng - Mystery World Blind Box</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="cart.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+          <form
+            class="header-search-form"
+            action="search-results.html"
+            method="GET"
+          >
+            <input
+              type="text"
+              name="search"
+              class="header-search-input"
+              placeholder="Tìm kiếm tên Blind Box, nhân vật..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+        </div>
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html" class="active"
+              ><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></a
+            >
+            <a href="new-arrivals.html"
+              ><i class="fa-solid fa-fire"></i> <span>Sản Phẩm Mới</span></a
+            >
+            <a href="shop.html"
+              ><i class="fa-solid fa-store"></i> <span>Cửa Hàng</span></a
+            >
+            <a href="brand-popmart.html"
+              ><i class="fa-solid fa-tags"></i> <span>Thương Hiệu</span></a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Nội dung Lịch Sử Đơn Hàng -->
+    <main class="orders-page">
+      <div id="ordersUserInfo"></div>
+      <h2><i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử Đơn Hàng</h2>
+      <div id="ordersContent"></div>
+    </main>
+
+    <footer class="page-footer">
+      &copy; 2026 Mystery World Blind Box Store — Đồ án Lập trình Web
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("ordersContent");
+
+        // Yêu cầu đăng nhập để xem lịch sử đơn hàng
+        if (!getCurrentUser()) {
+          container.innerHTML = `
+            <div class="orders-empty">
+              <i class="fa-solid fa-user-lock"></i>
+              <h3>Chưa đăng nhập</h3>
+              <p>Vui lòng đăng nhập để xem lịch sử đơn hàng.</p>
+              <a href="login.html" class="btn-checkout" style="max-width:240px;margin:0 auto;">
+                <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập
+              </a>
+            </div>`;
+          return;
+        }
+
+        const user = getCurrentUser();
+        const orders = getUserOrders();
+        const totalSpent = orders.reduce(
+          (sum, order) => sum + (order.total || 0),
+          0,
+        );
+
+        // Hiển thị thông tin người đang đăng nhập
+        document.getElementById("ordersUserInfo").innerHTML = `
+          <div class="orders-user-banner">
+            <div class="orders-user-avatar">${escapeHtml(
+              (user.fullName || user.username || "?").charAt(0).toUpperCase(),
+            )}</div>
+            <div class="orders-user-main">
+              <h3>Xin chào, ${escapeHtml(user.fullName)}!</h3>
+              <p>
+                <i class="fa-solid fa-at"></i> ${escapeHtml(user.username)}
+                &nbsp;·&nbsp;
+                <i class="fa-solid fa-phone"></i> ${escapeHtml(user.phone)}
+              </p>
+            </div>
+            <div class="orders-user-stats">
+              <div>
+                <span class="stat-value">${orders.length}</span>
+                <span class="stat-label">Đơn hàng</span>
+              </div>
+              <div>
+                <span class="stat-value">${formatPrice(totalSpent)}</span>
+                <span class="stat-label">Tổng chi tiêu</span>
+              </div>
+              <a href="account.html" class="orders-account-link">
+                <i class="fa-solid fa-user-gear"></i> Tài khoản
+              </a>
+            </div>
+          </div>`;
+
+        if (orders.length === 0) {
+          container.innerHTML = `
+            <div class="orders-empty">
+              <i class="fa-solid fa-receipt"></i>
+              <h3>Chưa có đơn hàng nào</h3>
+              <p>Hãy đặt đơn hàng đầu tiên của bạn!</p>
+              <a href="shop.html" class="btn-checkout" style="max-width:240px;margin:0 auto;">
+                <i class="fa-solid fa-store"></i> Đến Cửa Hàng
+              </a>
+            </div>`;
+          return;
+        }
+
+        // Render từng đơn hàng (đã gom nhóm sẵn theo đơn)
+        let html = "";
+        orders.forEach((order) => {
+          const dateStr = new Date(order.createdAt).toLocaleString("vi-VN");
+
+          let itemsHtml = "";
+          order.items.forEach((item) => {
+            itemsHtml += `
+              <div class="order-item-row">
+                <img src="${item.image}" alt="${item.name}" class="order-item-img" />
+                <div class="order-item-info">
+                  <div class="order-item-name">${item.name}</div>
+                  <div class="order-item-detail">${item.brand || ""} · SL: ${item.quantity} × ${item.priceDisplay}</div>
+                </div>
+                <div class="order-item-subtotal">${formatPrice(item.subtotal)}</div>
+              </div>`;
+          });
+
+          html += `
+            <div class="order-card">
+              <div class="order-card-header">
+                <div>
+                  <span class="order-id">${order.orderId}</span>
+                  <span class="order-date"> — ${dateStr}</span>
+                </div>
+                <span class="order-status-badge ${
+                  order.status === "Đã thanh toán" ? "paid" : "ordered"
+                }">
+                  <i class="fa-solid ${
+                    order.status === "Đã thanh toán"
+                      ? "fa-circle-check"
+                      : "fa-circle"
+                  }"></i> ${order.status}
+                </span>
+              </div>
+              <div class="order-card-body">
+                ${itemsHtml}
+              </div>
+              <div class="order-card-footer">
+                <div class="footer-info">
+                  <i class="fa-solid fa-location-dot"></i> ${order.address}
+                  &nbsp;&nbsp;
+                  <i class="fa-solid fa-wallet"></i> ${order.paymentLabel}
+                </div>
+                <div class="order-total">${order.totalDisplay}</div>
+              </div>
+            </div>`;
+        });
+
+        container.innerHTML = html;
+      });
+    </script>
+  </body>
+</html>

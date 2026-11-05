@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thương Hiệu Blind Box - Mystery World</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="product.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="shop1.css" />
+    <style>
+      /* Thanh chọn 5 Thương hiệu */
+      .brand-tabs-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 30px 0;
+        flex-wrap: wrap;
+      }
+      .brand-tab-btn {
+        padding: 10px 24px;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #374151;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .brand-tab-btn.active,
+      .brand-tab-btn:hover {
+        background: #8b5cf6;
+        color: #ffffff;
+        border-color: #8b5cf6;
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header chung -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+
+          <form class="header-search-form" action="shop.html" method="GET">
+            <input
+              type="text"
+              name="search"
+              class="header-search-input"
+              placeholder="Tìm kiếm tên Blind Box, nhân vật..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html" class="active">
+              <i class="fa-solid fa-house"></i>
+              <span>Trang Chủ</span>
+            </a>
+            <a href="new-arrivals.html">
+              <i class="fa-solid fa-fire"></i>
+              <span>Sản Phẩm Mới</span>
+            </a>
+            <a href="shop.html">
+              <i class="fa-solid fa-store"></i>
+              <span>Cửa Hàng</span>
+            </a>
+            <a href="brand-popmart.html">
+              <i class="fa-solid fa-tags"></i>
+              <span>Thương Hiệu</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Khu vực chuyển đổi nhanh giữa 5 Thương hiệu -->
+    <div class="brand-tabs-container">
+      <button class="brand-tab-btn active" onclick="switchBrand('POP MART')">
+        POP MART
+      </button>
+      <button class="brand-tab-btn" onclick="switchBrand('52TOYS')">
+        52TOYS
+      </button>
+      <button class="brand-tab-btn" onclick="switchBrand('Sonny Angel')">
+        Sonny Angel
+      </button>
+      <button class="brand-tab-btn" onclick="switchBrand('Smiski')">
+        Smiski
+      </button>
+      <button class="brand-tab-btn" onclick="switchBrand('Tokidoki')">
+        Tokidoki
+      </button>
+    </div>
+
+    <!-- Bố cục chính: Cột trái Lọc nâng cao, Cột phải hiển thị sản phẩm -->
+    <main class="shop-container" style="margin-top: 10px">
+      <aside class="filter-sidebar">
+        <div class="filter-title">
+          <i class="fa-solid fa-sliders"></i> Bộ Lọc Thương Hiệu
+        </div>
+        <div class="filter-group">
+          <label for="searchName">Tên hoặc Mã sản phẩm</label>
+          <input
+            type="text"
+            id="searchName"
+            class="filter-input"
+            placeholder="Nhập tên hoặc mã (VD: P001)..."
+          />
+        </div>
+        <div class="filter-group">
+          <label for="brandDisplay">Thương hiệu hiện tại</label>
+          <input
+            type="text"
+            id="brandDisplay"
+            class="filter-input"
+            readonly
+            style="background: #f3f4f6; font-weight: 700; color: #8b5cf6"
+          />
+        </div>
+        <div class="filter-group">
+          <label for="collectionSelect">Bộ sưu tập</label>
+          <select id="collectionSelect" class="filter-select">
+            <option value="all">Tất cả bộ sưu tập</option>
+            <option value="Hirono Monster's Carnival Series">
+              Hirono Monster's Carnival
+            </option>
+            <option value="SKULLPANDA Where Time Dwells Series">
+              SKULLPANDA Time Dwells
+            </option>
+            <option value="MEGA SPACE MOLLY 100%">MEGA SPACE MOLLY 100%</option>
+            <option value="Sleepy Crayon Shin-chan Series">
+              Sleepy Crayon Shin-chan
+            </option>
+            <option value="LuLu The Piggy Farm Life Series">
+              LuLu The Piggy Farm Life
+            </option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="categorySelect">Danh mục</label>
+          <select id="categorySelect" class="filter-select">
+            <option value="all">Tất cả danh mục</option>
+            <option value="Blind Box">Blind Box</option>
+            <option value="Mini Figure">Mini Figure</option>
+            <option value="Designer Toy">Designer Toy</option>
+            <option value="Robot / Mecha">Robot / Mecha</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Khoảng giá (VNĐ)</label>
+          <div class="price-range">
+            <input
+              type="number"
+              id="minPrice"
+              class="filter-input"
+              placeholder="Từ giá"
+            />
+            <span>-</span>
+            <input
+              type="number"
+              id="maxPrice"
+              class="filter-input"
+              placeholder="Đến giá"
+            />
+          </div>
+        </div>
+
+        <button id="btnApplyFilter" class="btn-filter-apply">
+          <i class="fa-solid fa-magnifying-glass"></i> Lọc sản phẩm
+        </button>
+        <button id="btnResetFilter" class="btn-filter-reset">Đặt lại</button>
+      </aside>
+
+      <section class="shop-main">
+        <div class="shop-header">
+          <h2 id="pageTitle" class="section-title">THƯƠNG HIỆU: POP MART</h2>
+        </div>
+
+        <!-- Nhóm 1: Sản phẩm mới -->
+        <div style="margin-bottom: 40px">
+          <h3
+            style="
+              font-size: 18px;
+              font-weight: 700;
+              color: #dc2626;
+              margin-bottom: 15px;
+              border-bottom: 2px solid #dc2626;
+              padding-bottom: 6px;
+            "
+          >
+            <i class="fa-solid fa-fire"></i> Sản Phẩm Mới Phát Hành
+          </h3>
+          <div id="newProductGrid" class="product-grid"></div>
+        </div>
+
+        <!-- Nhóm 2: Sản phẩm hiện tại -->
+        <div>
+          <h3
+            style="
+              font-size: 18px;
+              font-weight: 700;
+              color: #1f2937;
+              margin-bottom: 15px;
+              border-bottom: 2px solid #1f2937;
+              padding-bottom: 6px;
+            "
+          >
+            <i class="fa-solid fa-box"></i> Sản Phẩm Hiện Tại
+          </h3>
+          <div id="currentProductGrid" class="product-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Xem Chi Tiết & Mua Hàng -->
+    <div id="productModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img id="modalImg" src="" alt="Blind Box" class="modal-img" />
+
+        <div class="modal-info">
+          <h2 id="modalTitle" class="modal-title">Tên sản phẩm</h2>
+
+          <div class="product-property">
+            <span class="prop-label">Mã sản phẩm:</span>
+            <span id="modalCode" class="code-badge">P001</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Thương hiệu:</span>
+            <span id="modalBrand">POP MART</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Bộ sưu tập:</span>
+            <span id="modalCollection">Series</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Danh mục:</span>
+            <span id="modalCategory">Blind Box</span>
+          </div>
+
+          <div id="modalPrice" class="modal-price">320.000 đ</div>
+
+          <div class="product-stats">
+            <div class="stat-box">
+              <span class="stat-label">Đã bán</span>
+              <span id="modalSold" class="stat-number">2</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Tồn kho</span>
+              <span id="modalStock" class="stat-number">10</span>
+            </div>
+          </div>
+
+          <!-- Phần Mua Hàng / Số lượng -->
+          <div class="modal-buy-section">
+            <div class="quantity-wrapper">
+              <label>Số lượng:</label>
+              <input
+                type="number"
+                id="modalQty"
+                value="1"
+                min="1"
+                max="100"
+                class="qty-input"
+              />
+            </div>
+            <button class="btn-add-cart modal-btn-cart" id="modalAddToCart">
+              <i class="fa-solid fa-cart-shopping"></i> Thêm Vào Giỏ Hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script src="bandd.js"></script>
+    <script>
+      let currentActiveBrand = "POP MART";
+
+      // Hàm render sản phẩm vào từng khung container (có gắn nhãn New nếu là sản phẩm mới)
+      function renderBrandProducts(list, containerId) {
+        const grid = document.getElementById(containerId);
+        if (!grid) return;
+        grid.innerHTML = "";
+
+        if (list.length === 0) {
+          grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 15px;">Không có sản phẩm nào.</p>`;
+          return;
+        }
+
+        list.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.style.position = "relative";
+
+          let newBadge = item.isNew
+            ? `<span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>`
+            : "";
+
+          card.innerHTML = `
+                        <span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>
+
+                <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
+                <div class="product-info">
+                  <div class="product-meta-top">
+                    <span class="product-brand">${item.brand}</span>
+                    <span class="product-sku">${item.id}</span>
+                  </div>
+                  <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
+                  <div class="product-price">${item.price}</div>
+                  <div class="product-bottom-actions">
+                    <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
+                      <i class="fa-solid fa-cart-shopping"></i> Mua ngay
+                    </button>
+                  </div>
+                </div>
+              `;
+          grid.appendChild(card);
+        });
+      }
+
+      // Hàm tải và hiển thị dữ liệu theo thương hiệu được chọn
+      function loadBrandData(brandName) {
+        currentActiveBrand = brandName;
+        document.getElementById("pageTitle").innerText =
+          `THƯƠNG HIỆU: ${brandName.toUpperCase()}`;
+        document.getElementById("brandDisplay").value = brandName;
+
+        // Cập nhật trạng thái active cho các nút tab
+        document.querySelectorAll(".brand-tab-btn").forEach((btn) => {
+          if (btn.innerText.trim().toLowerCase() === brandName.toLowerCase()) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+
+        // Lọc sản phẩm theo thương hiệu
+        const brandProducts = products.filter(
+          (p) => p.brand.toLowerCase() === brandName.toLowerCase(),
+        );
+
+        // Phân tách mới và hiện tại
+        const newItems = brandProducts.filter((p) => p.isNew);
+        const currentItems = brandProducts.filter((p) => !p.isNew);
+
+        renderBrandProducts(newItems, "newProductGrid");
+        renderBrandProducts(currentItems, "currentProductGrid");
+      }
+
+      // Khi click vào nút chuyển brand trên thanh tab
+      function switchBrand(brandName) {
+        loadBrandData(brandName);
+        // Cập nhật URL sạch không cần reload trang
+        const newUrl = `${window.location.pathname}?brand=${encodeURIComponent(brandName.toLowerCase())}`;
+        window.history.pushState({ path: newUrl }, "", newUrl);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Kiểm tra xem URL có truyền sẵn tham số brand hay không (VD: brands.html?brand=52toys)
+        const urlParams = new URLSearchParams(window.location.search);
+        const brandParam = urlParams.get("brand");
+
+        if (brandParam) {
+          const matched = [
+            "popmart",
+            "52toys",
+            "sonny angel",
+            "smiski",
+            "tokidoki",
+          ].find((b) => b.includes(brandParam.toLowerCase()));
+          if (matched) {
+            const formatted =
+              products.find((p) => p.brand.toLowerCase() === matched)?.brand ||
+              "POP MART";
+            loadBrandData(formatted);
+          } else {
+            loadBrandData("POP MART");
+          }
+        } else {
+          loadBrandData("POP MART");
+        }
+
+        // Xử lý bộ lọc nâng cao bên Sidebar
+        const btnApply = document.getElementById("btnApplyFilter");
+        if (btnApply) {
+          btnApply.addEventListener("click", () => {
+            const keyword = document
+              .getElementById("searchName")
+              .value.toLowerCase();
+            const category = document.getElementById("categorySelect").value;
+
+            const brandProducts = products.filter(
+              (p) => p.brand.toLowerCase() === currentActiveBrand.toLowerCase(),
+            );
+            const filtered = brandProducts.filter((p) => {
+              const matchName =
+                p.name.toLowerCase().includes(keyword) ||
+                p.id.toLowerCase().includes(keyword);
+              const matchCat = category === "all" || p.category === category;
+              return matchName && matchCat;
+            });
+
+            renderBrandProducts(
+              filtered.filter((p) => p.isNew),
+              "newProductGrid",
+            );
+            renderBrandProducts(
+              filtered.filter((p) => !p.isNew),
+              "currentProductGrid",
+            );
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

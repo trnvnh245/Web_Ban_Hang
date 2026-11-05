@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sản Phẩm Mới - Mystery World</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+        <link rel="stylesheet" href="shop1.css" />
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="product.css" />
+    <link rel="stylesheet" href="header.css" />
+
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+          <form class="header-search-form" action="search-results.html" method="GET">
+            <input
+              type="text"
+              name="search"
+              class="header-search-input"
+              placeholder="Tìm kiếm Blind Box..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+          
+        </div>
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html"
+              ><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></a
+            >
+            <a href="new-arrivals.html" class="active"
+              ><i class="fa-solid fa-fire"></i> <span>Sản Phẩm Mới</span></a
+            >
+            <a href="shop.html"
+              ><i class="fa-solid fa-store"></i> <span>Cửa Hàng</span></a
+            >
+            <a href="brand-popmart.html"
+              ><i class="fa-solid fa-tags"></i> <span>Thương Hiệu</span></a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Bố cục chính chứa Sidebar tìm kiếm nâng cao -->
+    <main class="shop-container">
+      <!-- Thanh Sidebar Tìm kiếm Nâng cao trong shop.html -->
+      <aside class="filter-sidebar">
+        <div class="filter-title">
+          <i class="fa-solid fa-sliders"></i> Tìm Kiếm Nâng Cao
+        </div>
+
+        <div class="filter-group">
+          <label for="searchName">Tên hoặc Mã sản phẩm</label>
+          <input
+            type="text"
+            id="searchName"
+            class="filter-input"
+            placeholder="Nhập tên hoặc mã (VD: P001)..."
+          />
+        </div>
+
+        <div class="filter-group">
+          <label for="brandSelect">Thương hiệu</label>
+          <select id="brandSelect" class="filter-select">
+            <option value="all">Tất cả thương hiệu</option>
+            <option value="POP MART">POP MART</option>
+            <option value="52TOYS">52TOYS</option>
+            <option value="Sonny Angel">Sonny Angel</option>
+            <option value="Smiski">Smiski</option>
+            <option value="Tokidoki">Tokidoki</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="collectionSelect">Bộ sưu tập</label>
+          <select id="collectionSelect" class="filter-select">
+            <option value="all">Tất cả bộ sưu tập</option>
+            <option value="Hirono Monster's Carnival Series">
+              Hirono Monster's Carnival
+            </option>
+            <option value="SKULLPANDA Where Time Dwells Series">
+              SKULLPANDA Time Dwells
+            </option>
+            <option value="MEGA SPACE MOLLY 100%">MEGA SPACE MOLLY 100%</option>
+            <option value="Sleepy Crayon Shin-chan Series">
+              Sleepy Crayon Shin-chan
+            </option>
+            <option value="LuLu The Piggy Farm Life Series">
+              LuLu The Piggy Farm Life
+            </option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="categorySelect">Danh mục</label>
+          <select id="categorySelect" class="filter-select">
+            <option value="all">Tất cả danh mục</option>
+            <option value="Blind Box">Blind Box</option>
+            <option value="Mini Figure">Mini Figure</option>
+            <option value="Designer Toy">Designer Toy</option>
+            <option value="Robot / Mecha">Robot / Mecha</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Khoảng giá (VNĐ)</label>
+          <div class="price-range">
+            <input
+              type="number"
+              id="minPrice"
+              class="filter-input"
+              placeholder="Từ giá"
+            />
+            <span>-</span>
+            <input
+              type="number"
+              id="maxPrice"
+              class="filter-input"
+              placeholder="Đến giá"
+            />
+          </div>
+        </div>
+
+        <button id="btnApplyFilter" class="btn-filter-apply">
+          <i class="fa-solid fa-magnifying-glass"></i> Lọc sản phẩm
+        </button>
+        <button id="btnResetFilter" class="btn-filter-reset">Đặt lại</button>
+      </aside>
+     <section class="shop-main">
+        <div class="shop-header">
+          <h2 class="section-title">SẢN PHẨM MỚI PHÁT HÀNH</h2>
+          <span id="resultCount" class="result-count">Hiển thị sản phẩm</span>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+        
+        <!-- Thêm thẻ phân trang vào đây -->
+        <div id="pagination" class="pagination"></div>
+      </section>
+
+    <!-- Modal Xem Chi Tiết -->
+    <!-- Modal Xem Chi Tiết & Mua Hàng -->
+    <div id="productModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img id="modalImg" src="" alt="Blind Box" class="modal-img" />
+
+        <div class="modal-info">
+          <h2 id="modalTitle" class="modal-title">Tên sản phẩm</h2>
+
+          <div class="product-property">
+            <span class="prop-label">Mã sản phẩm:</span>
+            <span id="modalCode" class="code-badge">P001</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Thương hiệu:</span>
+            <span id="modalBrand">POP MART</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Bộ sưu tập:</span>
+            <span id="modalCollection">Series</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Danh mục:</span>
+            <span id="modalCategory">Blind Box</span>
+          </div>
+
+          <div id="modalPrice" class="modal-price">320.000 đ</div>
+
+          <div class="product-stats">
+            <div class="stat-box">
+              <span class="stat-label">Đã bán</span>
+              <span id="modalSold" class="stat-number">2</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Tồn kho</span>
+              <span id="modalStock" class="stat-number">10</span>
+            </div>
+          </div>
+          
+          <!-- Phần Mua Hàng / Số lượng -->
+          <div class="modal-buy-section">
+            <div class="quantity-wrapper">
+              <label>Số lượng:</label>
+              <input
+                type="number"
+                id="modalQty"
+                value="1"
+                min="1"
+                max="100"
+                class="qty-input"
+              />
+            </div>
+            <button class="btn-add-cart modal-btn-cart" id="modalAddToCart">
+              <i class="fa-solid fa-cart-shopping"></i> Thêm Vào Giỏ Hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script src="box.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. Cấu hình phân trang
+        const ITEMS_PER_PAGE = 4; // Số lượng sản phẩm hiển thị trên 1 trang (có thể chỉnh lại thành 8, 12...)
+        let currentPage = 1;
+        let currentData = [];
+
+        // Chỉ lấy các sản phẩm có thuộc tính isNew là true
+        const newProductsList = products.filter(p => p.isNew);
+        currentData = newProductsList;
+
+        // 2. Hàm render danh sách sản phẩm theo trang
+        function renderNewOnly(list, page = 1) {
+          const grid = document.getElementById("productGrid");
+          if (!grid) return;
+          grid.innerHTML = "";
+
+          // Tính toán vị trí cắt mảng theo trang
+          const startIndex = (page - 1) * ITEMS_PER_PAGE;
+          const endIndex = startIndex + ITEMS_PER_PAGE;
+          const paginatedList = list.slice(startIndex, endIndex);
+
+          if (paginatedList.length === 0) {
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Không tìm thấy sản phẩm mới phù hợp.</p>`;
+          } else {
+            paginatedList.forEach((item) => {
+              const card = document.createElement("div");
+              card.className = "product-card";
+              card.style.position = "relative";
+
+             card.innerHTML = `
+                           <span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>
+
+                <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
+                <div class="product-info">
+                  <div class="product-meta-top">
+                    <span class="product-brand">${item.brand}</span>
+                    <span class="product-sku">${item.id}</span>
+                  </div>
+                  <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
+                  <div class="product-price">${item.price}</div>
+                  <div class="product-bottom-actions">
+                    <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
+                      <i class="fa-solid fa-cart-shopping"></i> Mua ngay
+                    </button>
+                  </div>
+                </div>
+              `;
+              grid.appendChild(card);
+            });
+          }
+
+          // Cập nhật thông tin số lượng
+          document.getElementById("resultCount").innerText = `Hiển thị ${paginatedList.length}/${list.length} sản phẩm mới`;
+
+          // Gọi hàm vẽ nút phân trang
+          renderPagination(list.length, page);
+        }
+
+        // 3. Hàm tạo các nút bấm phân trang (Pagination)
+        function renderPagination(totalItems, activePage) {
+          const paginationContainer = document.getElementById("pagination");
+          if (!paginationContainer) return;
+          paginationContainer.innerHTML = "";
+
+          const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+          if (totalPages <= 1) return; // Nếu chỉ có 1 trang thì ẩn thanh phân trang
+
+          // Nút Trước (Prev)
+          const prevBtn = document.createElement("button");
+          prevBtn.className = `page-btn ${activePage === 1 ? "disabled" : ""}`;
+          prevBtn.innerHTML = `<i class="fa-solid fa-chevron-left"></i>`;
+          prevBtn.disabled = activePage === 1;
+          prevBtn.addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage--;
+              renderNewOnly(currentData, currentPage);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          });
+          paginationContainer.appendChild(prevBtn);
+
+          // Các nút số trang
+          for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement("button");
+            pageBtn.className = `page-btn ${i === activePage ? "active" : ""}`;
+            pageBtn.innerText = i;
+            pageBtn.addEventListener("click", () => {
+              currentPage = i;
+              renderNewOnly(currentData, currentPage);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            paginationContainer.appendChild(pageBtn);
+          }
+
+          // Nút Sau (Next)
+          const nextBtn = document.createElement("button");
+          nextBtn.className = `page-btn ${activePage === totalPages ? "disabled" : ""}`;
+          nextBtn.innerHTML = `<i class="fa-solid fa-chevron-right"></i>`;
+          nextBtn.disabled = activePage === totalPages;
+          nextBtn.addEventListener("click", () => {
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderNewOnly(currentData, currentPage);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          });
+          paginationContainer.appendChild(nextBtn);
+        }
+
+        // Chạy lần đầu khi load trang
+        renderNewOnly(currentData, currentPage);
+
+        // 4. Lọc nâng cao cho trang sản phẩm mới
+       /* document.getElementById("btnApplyFilter").addEventListener("click", () => {
+          const keyword = document.getElementById("searchName").value.toLowerCase().trim();
+          const brand = document.getElementById("brandSelect").value;
+          const collection = document.getElementById("collectionSelect").value;
+          const category = document.getElementById("categorySelect").value;
+
+          const minPriceInput = document.getElementById("minPrice").value;
+          const maxPriceInput = document.getElementById("maxPrice").value;
+          const minPrice = minPriceInput !== "" ? parseFloat(minPriceInput) : 0;
+          const maxPrice = maxPriceInput !== "" ? parseFloat(maxPriceInput) : Infinity;
+
+          currentData = newProductsList.filter(p => {
+            const priceNum = parseFloat(p.price.replace(/[^\d]/g, ""));
+
+            const matchName = p.name.toLowerCase().includes(keyword) || p.id.toLowerCase().includes(keyword);
+            const matchBrand = (brand === "all" || p.brand === brand);
+            const matchCollection = (collection === "all" || p.collection === collection);
+            const matchCategory = (category === "all" || p.category === category);
+            const matchPrice = (priceNum >= minPrice && priceNum <= maxPrice);
+
+            return matchName && matchBrand && matchCollection && matchCategory && matchPrice;
+          });
+
+          currentPage = 1; // Đưa về trang 1 sau khi lọc
+          renderNewOnly(currentData, currentPage);
+        });*/
+
+        // 5. Nút Đặt lại bộ lọc (Reset)
+        document.getElementById("btnResetFilter").addEventListener("click", () => {
+          document.getElementById("searchName").value = "";
+          document.getElementById("brandSelect").value = "all";
+          document.getElementById("collectionSelect").value = "all";
+          document.getElementById("categorySelect").value = "all";
+          document.getElementById("minPrice").value = "";
+          document.getElementById("maxPrice").value = "";
+
+          currentData = newProductsList;
+          currentPage = 1;
+          renderNewOnly(currentData, currentPage);
+        });
+      });
+    </script>
+  </body>
+</html>

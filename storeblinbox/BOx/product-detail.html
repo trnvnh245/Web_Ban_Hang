@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi Tiết Sản Phẩm - Hirono Monster's Carnival</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="product.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="shop1.css" />
+    <link rel="stylesheet" href="style-detail-search.css" />
+  </head>
+  <body>
+    <!-- 1. Header Khung Chung -->
+    <header class="navbar">
+      <div class="header-box">
+        <div class="header-top-row">
+          <a href="home.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="logo-text">
+              <span class="logo-title">MYSTERY WORLD</span>
+              <span class="logo-sub">BLIND BOX STORE</span>
+            </div>
+          </a>
+
+          <form
+            class="header-search-form"
+            action="search-results.html"
+            method="GET"
+          >
+            <input
+              type="text"
+              name="search"
+              class="header-search-input"
+              placeholder="Tìm kiếm tên Blind Box, nhân vật..."
+            />
+            <button type="submit" class="header-search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+
+          <div class="nav-actions">
+            <a href="login.html" class="icon-btn account-link" title="Tài khoản"
+              ><i class="fa-regular fa-user"></i> Tài khoản</a
+            >
+            <a href="cart.html" class="icon-btn" title="Giỏ hàng">
+              <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
+              <span class="cart-badge">0</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="header-bottom-row">
+          <nav class="nav-links-4">
+            <a href="home.html"
+              ><i class="fa-solid fa-house"></i><span>Trang Chủ</span></a
+            >
+            <a href="new-arrivals.html"
+              ><i class="fa-solid fa-fire"></i><span>Sản Phẩm Mới</span></a
+            >
+            <a href="shop.html"
+              ><i class="fa-solid fa-store"></i><span>Cửa Hàng</span></a
+            >
+            <a href="brand-popmart.html"
+              ><i class="fa-solid fa-tags"></i><span>Thương Hiệu</span></a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. Khung Chi Tiết Sản Phẩm (Dựa theo ảnh thiết kế) -->
+    <main class="product-detail-wrapper">
+      <div class="product-detail-card">
+        <!-- Cột Trái: Hình Ảnh Sản Phẩm & Gallery Thumbnails -->
+        <div class="p-detail-gallery">
+          <div class="p-main-img-box">
+            <img
+              id="mainProductImg"
+              src="../TaiNguyen_5Brand_20Mon/Hinh/P001.jpg"
+              alt="Hirono Monster's Carnival"
+            />
+          </div>
+        </div>
+
+        <!-- Cột Phải: Thông Tin Chi Tiết -->
+        <div class="p-detail-info">
+          <h1 class="p-detail-title">Hirono Monster's Carnival</h1>
+
+          <div class="p-detail-prop">
+            <span class="prop-label">Mã sản phẩm:</span>
+            <span class="code-badge">P001</span>
+          </div>
+          <div class="p-detail-prop">
+            <span class="prop-label">Thương hiệu:</span>
+            <span>POP MART</span>
+          </div>
+          <div class="p-detail-prop">
+            <span class="prop-label">Bộ sưu tập:</span>
+            <span>Hirono Carnival</span>
+          </div>
+          <div class="p-detail-prop">
+            <span class="prop-label">Danh mục:</span>
+            <span>Blind Box</span>
+          </div>
+
+          <div class="p-detail-price">320.000 đ</div>
+
+          <!-- Thống kê Tồn kho và Đã bán -->
+          <div class="p-detail-stats">
+            <div class="stat-box">
+              <span class="stat-label">Đã bán</span>
+              <span class="stat-number" id="detailSold">15</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Tồn kho</span>
+              <span class="stat-number" id="detailStock">12</span>
+            </div>
+          </div>
+
+          <!-- Phần mua hàng -->
+          <div class="p-detail-buy">
+            <div class="quantity-wrapper">
+              <label for="detailQty">Số lượng:</label>
+              <input
+                type="number"
+                id="detailQty"
+                value="1"
+                min="1"
+                max="12"
+                class="qty-input"
+              />
+            </div>
+            <button class="btn-add-cart p-btn-add" id="btnAddToCart">
+              <i class="fa-solid fa-cart-shopping"></i> Thêm Vào Giỏ Hàng
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nút điều hướng phía dưới giống mẫu -->
+      <div class="bottom-action-container">
+        <a href="new-arrivals.html" class="btn-see-all-new">
+          Xem Tất Cả Sản Phẩm Mới <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </main>
+
+    <!-- Script Files -->
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script src="box.js"></script>
+    <script src="app-detail-search.js"></script>
+  </body>
+</html>
