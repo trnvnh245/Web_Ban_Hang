@@ -257,6 +257,24 @@
     <script>
       let currentActiveBrand = "POP MART";
 
+      // Hàm chuẩn hóa chuỗi bỏ dấu tiếng Việt để tìm kiếm chính xác
+      function removeVietnameseTones(str) {
+        str = String(str || "").toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        return str.trim();
+      }
+
+      function parsePriceNum(priceVal) {
+        if (typeof priceVal === "number") return priceVal;
+        return parseInt(String(priceVal || "").replace(/[^\d]/g, ""), 10) || 0;
+      }
+
       // Hàm render sản phẩm — click chuyển sang trang chi tiết (giống trang tìm kiếm)
       function renderBrandProducts(list, containerId) {
         const grid = document.getElementById(containerId);
@@ -264,7 +282,7 @@
         grid.innerHTML = "";
 
         if (list.length === 0) {
-          grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 15px;">Không có sản phẩm nào.</p>`;
+          grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 25px 0;">Không tìm thấy sản phẩm phù hợp.</p>`;
           return;
         }
 
@@ -298,6 +316,77 @@
         });
       }
 
+      // Cập nhật danh sách Bộ sưu tập theo Thương hiệu đang chọn
+      function updateBrandCollections(brandName) {
+        const colSelect = document.getElementById("collectionSelect");
+        if (!colSelect) return;
+        const brandProducts = products.filter(
+          (p) => p.brand.toLowerCase() === brandName.toLowerCase(),
+        );
+        const collections = Array.from(
+          new Set(brandProducts.map((p) => p.collection).filter(Boolean)),
+        );
+        let optionsHtml = '<option value="all">Tất cả bộ sưu tập</option>';
+        collections.forEach((col) => {
+          optionsHtml += `<option value="${col}">${col}</option>`;
+        });
+        colSelect.innerHTML = optionsHtml;
+      }
+
+      // Xử lý bộ lọc nâng cao bên Sidebar — Chạy theo thời gian thực khi thêm, sửa, xóa mã hoặc tên
+      function performBrandFilter() {
+        const searchInput = document.getElementById("searchName");
+        const rawKeyword = (searchInput ? searchInput.value : "").trim();
+        const normKeyword = removeVietnameseTones(rawKeyword);
+
+        const category = document.getElementById("categorySelect") ? document.getElementById("categorySelect").value : "all";
+        const collection = document.getElementById("collectionSelect") ? document.getElementById("collectionSelect").value : "all";
+        const minPrice = parseInt(document.getElementById("minPrice")?.value, 10);
+        const maxPrice = parseInt(document.getElementById("maxPrice")?.value, 10);
+
+        const brandProducts = products.filter(
+          (p) => p.brand.toLowerCase() === currentActiveBrand.toLowerCase(),
+        );
+
+        const filtered = brandProducts.filter((p) => {
+          // Lọc theo Mã và Tên sản phẩm (hoạt động ngay khi gõ thêm, sửa đổi hoặc xóa ký tự)
+          const normName = removeVietnameseTones(p.name);
+          const normId = removeVietnameseTones(p.id);
+          const matchKeyword =
+            !normKeyword ||
+            normName.includes(normKeyword) ||
+            normId.includes(normKeyword);
+
+          // Lọc theo Danh mục
+          const matchCat = category === "all" || p.category === category;
+
+          // Lọc theo Bộ sưu tập
+          const matchCol = collection === "all" || p.collection === collection;
+
+          // Lọc theo Giá
+          const priceNum = parsePriceNum(p.price);
+          const matchMin = isNaN(minPrice) || priceNum >= minPrice;
+          const matchMax = isNaN(maxPrice) || priceNum <= maxPrice;
+
+          return matchKeyword && matchCat && matchCol && matchMin && matchMax;
+        });
+
+        renderBrandProducts(
+          filtered.filter((p) => p.isNew),
+          "newProductGrid",
+        );
+        renderBrandProducts(
+          filtered.filter((p) => !p.isNew),
+          "currentProductGrid",
+        );
+
+        // Cập nhật số lượng hiển thị
+        const countEl = document.getElementById("brandResultCount");
+        if (countEl) {
+          countEl.innerText = `Hiển thị ${filtered.length} sản phẩm`;
+        }
+      }
+
       // Hàm tải và hiển thị dữ liệu theo thương hiệu được chọn
       function loadBrandData(brandName) {
         currentActiveBrand = brandName;
@@ -314,27 +403,25 @@
           }
         });
 
-        // Lọc sản phẩm theo thương hiệu
-        const brandProducts = products.filter(
-          (p) => p.brand.toLowerCase() === brandName.toLowerCase(),
-        );
+        // Cập nhật các bộ sưu tập của thương hiệu này
+        updateBrandCollections(brandName);
 
-        // Phân tách mới và hiện tại
-        const newItems = brandProducts.filter((p) => p.isNew);
-        const currentItems = brandProducts.filter((p) => !p.isNew);
-
-        renderBrandProducts(newItems, "newProductGrid");
-        renderBrandProducts(currentItems, "currentProductGrid");
-
-        // Cập nhật số lượng hiển thị
-        const countEl = document.getElementById("brandResultCount");
-        if (countEl) {
-          countEl.innerText = `Hiển thị ${brandProducts.length} sản phẩm`;
-        }
+        // Áp dụng bộ lọc hiện tại (hoặc hiển thị toàn bộ nếu chưa lọc)
+        performBrandFilter();
       }
 
       // Khi click vào nút chuyển brand trên thanh tab
       function switchBrand(brandName) {
+        // Reset ô tìm kiếm khi đổi thương hiệu để hiển thị đầy đủ
+        const searchInput = document.getElementById("searchName");
+        if (searchInput) searchInput.value = "";
+        const catSelect = document.getElementById("categorySelect");
+        if (catSelect) catSelect.value = "all";
+        const minP = document.getElementById("minPrice");
+        if (minP) minP.value = "";
+        const maxP = document.getElementById("maxPrice");
+        if (maxP) maxP.value = "";
+
         loadBrandData(brandName);
         // Cập nhật URL sạch không cần reload trang
         const newUrl = `${window.location.pathname}?brand=${encodeURIComponent(brandName.toLowerCase())}`;
@@ -342,7 +429,7 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        // Kiểm tra xem URL có truyền sẵn tham số brand hay không (VD: brands.html?brand=52toys)
+        // Kiểm tra xem URL có truyền sẵn tham số brand hay không
         const urlParams = new URLSearchParams(window.location.search);
         const brandParam = urlParams.get("brand");
 
@@ -366,52 +453,42 @@
           loadBrandData("POP MART");
         }
 
-        // Xử lý bộ lọc nâng cao bên Sidebar
+        // LẮNG NGHE SỰ KIỆN: Khi người dùng thêm, sửa, xóa ký tự trong ô Tên hoặc Mã sản phẩm
+        const searchInput = document.getElementById("searchName");
+        if (searchInput) {
+          // Bắt sự kiện 'input': chạy ngay khi gõ thêm, sửa hoặc nhấn backspace/delete xóa ký tự
+          searchInput.addEventListener("input", performBrandFilter);
+          searchInput.addEventListener("keyup", performBrandFilter);
+        }
+
+        // Lắng nghe sự kiện thay đổi danh mục, bộ sưu tập, khoảng giá
+        const categorySelect = document.getElementById("categorySelect");
+        if (categorySelect) categorySelect.addEventListener("change", performBrandFilter);
+
+        const collectionSelect = document.getElementById("collectionSelect");
+        if (collectionSelect) collectionSelect.addEventListener("change", performBrandFilter);
+
+        const minPriceInput = document.getElementById("minPrice");
+        if (minPriceInput) minPriceInput.addEventListener("input", performBrandFilter);
+
+        const maxPriceInput = document.getElementById("maxPrice");
+        if (maxPriceInput) maxPriceInput.addEventListener("input", performBrandFilter);
+
+        // Nút Lọc sản phẩm thủ công
         const btnApply = document.getElementById("btnApplyFilter");
         if (btnApply) {
-          btnApply.addEventListener("click", () => {
-            const keyword = document
-              .getElementById("searchName")
-              .value.toLowerCase();
-            const category = document.getElementById("categorySelect").value;
-
-            const brandProducts = products.filter(
-              (p) => p.brand.toLowerCase() === currentActiveBrand.toLowerCase(),
-            );
-            const filtered = brandProducts.filter((p) => {
-              const matchName =
-                p.name.toLowerCase().includes(keyword) ||
-                p.id.toLowerCase().includes(keyword);
-              const matchCat = category === "all" || p.category === category;
-              return matchName && matchCat;
-            });
-
-            renderBrandProducts(
-              filtered.filter((p) => p.isNew),
-              "newProductGrid",
-            );
-            renderBrandProducts(
-              filtered.filter((p) => !p.isNew),
-              "currentProductGrid",
-            );
-
-            // Cập nhật số lượng hiển thị
-            const countEl = document.getElementById("brandResultCount");
-            if (countEl) {
-              countEl.innerText = `Hiển thị ${filtered.length} sản phẩm`;
-            }
-          });
+          btnApply.addEventListener("click", performBrandFilter);
         }
 
         // Xử lý nút Đặt lại
         const btnReset = document.getElementById("btnResetFilter");
         if (btnReset) {
           btnReset.addEventListener("click", () => {
-            document.getElementById("searchName").value = "";
-            document.getElementById("collectionSelect").value = "all";
-            document.getElementById("categorySelect").value = "all";
-            document.getElementById("minPrice").value = "";
-            document.getElementById("maxPrice").value = "";
+            if (searchInput) searchInput.value = "";
+            if (categorySelect) categorySelect.value = "all";
+            if (collectionSelect) collectionSelect.value = "all";
+            if (minPriceInput) minPriceInput.value = "";
+            if (maxPriceInput) maxPriceInput.value = "";
             loadBrandData(currentActiveBrand);
           });
         }

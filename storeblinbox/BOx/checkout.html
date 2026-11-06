@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thanh Toán - Mystery World Blind Box</title>
+    <title>Xác Nhận Đặt Hàng - Mystery World Blind Box</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,7 +77,7 @@
       </div>
     </header>
 
-    <!-- Nội dung Thanh Toán -->
+    <!-- Nội dung Xác Nhận Đặt Hàng -->
     <main class="checkout-page" id="checkoutMain"></main>
 
     <footer class="page-footer">
@@ -92,9 +92,9 @@
         let user = getCurrentUser();
         const cart = getCart();
 
-        // Yêu cầu đăng nhập trước khi thanh toán
+        // Yêu cầu đăng nhập trước khi đặt hàng
         if (!user) {
-          alert("Vui lòng đăng nhập để thanh toán!");
+          alert("Vui lòng đăng nhập để đặt hàng!");
           window.location.href = "login.html";
           return;
         }
@@ -105,7 +105,7 @@
             <div class="cart-empty">
               <i class="fa-solid fa-box-open"></i>
               <h3>Giỏ hàng trống</h3>
-              <p>Không có sản phẩm nào để thanh toán trong giỏ demo.</p>
+              <p>Không có sản phẩm nào trong giỏ demo.</p>
               <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
                 <a href="shop.html" class="btn-continue" style="max-width:240px;margin-top:0;">
                   <i class="fa-solid fa-store"></i> Đến Cửa Hàng
@@ -138,7 +138,7 @@
         });
 
         main.innerHTML = `
-          <h2><i class="fa-solid fa-credit-card"></i> Thanh Toán Đơn Hàng</h2>
+          <h2><i class="fa-solid fa-truck-fast"></i> Xác Nhận Đặt Hàng</h2>
           <div id="checkoutMessage" class="checkout-message"></div>
 
           <div class="checkout-grid">
@@ -191,14 +191,13 @@
                 </div>
               </div>
 
-              <!-- Hình thức thanh toán: Cố định COD -->
+              <!-- 3. Phương thức giao hàng (Không qua cổng thanh toán) -->
               <div class="checkout-section">
-                <h3><i class="fa-solid fa-wallet"></i> Hình Thức Thanh Toán</h3>
+                <h3><i class="fa-solid fa-truck"></i> Phương Thức Nhận Hàng</h3>
                 <div class="payment-options">
-                  <label class="payment-option selected">
-                    <input type="radio" name="paymentMethod" value="cod" checked disabled />
-                    <i class="fa-solid fa-money-bill-wave payment-icon"></i>
-                    <span class="payment-label">Tiền mặt khi nhận hàng (COD)</span>
+                  <label class="payment-option selected" style="cursor: default;">
+                    <i class="fa-solid fa-box-open payment-icon"></i>
+                    <span class="payment-label">Giao hàng tận nơi — Kiểm tra hàng khi nhận</span>
                   </label>
                 </div>
               </div>
@@ -218,7 +217,7 @@
                   <span>Miễn phí</span>
                 </div>
                 <div class="checkout-total-row grand-total">
-                  <span>Tổng thanh toán</span>
+                  <span>Tổng tiền</span>
                   <span class="total-value">${formatPrice(totalPrice)}</span>
                 </div>
               </div>
@@ -280,10 +279,10 @@
         }
 
         // Xác nhận đặt hàng
-        if (!confirm("Xác nhận đặt hàng với hình thức thanh toán khi nhận hàng (COD)?")) return;
+        if (!confirm("Xác nhận gửi đơn đặt hàng này?")) return;
 
-        // Tạo đơn hàng (hình thức — không lưu vào lịch sử)
-        const order = createOrder({ address, paymentMethod: "cod" });
+        // Tạo đơn hàng (kích hoạt đơn thứ 2 vào lịch sử)
+        const order = createOrder({ address });
 
         if (!order) {
           showCheckoutMsg(
@@ -297,7 +296,7 @@
         // Hiển thị kết quả thành công
         renderOrderSuccess(order);
         showToast(
-          "Đặt hàng thành công! (Demo — đơn hàng không được lưu vào lịch sử)",
+          "Đặt hàng thành công! Đơn hàng đã được ghi nhận vào lịch sử.",
           "success",
           3500,
         );
@@ -344,8 +343,8 @@
                 <span class="detail-value">${order.address}</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">Thanh toán</span>
-                <span class="detail-value">${order.paymentLabel}</span>
+                <span class="detail-label">Phương thức nhận hàng</span>
+                <span class="detail-value">Giao hàng tận nơi</span>
               </div>
               ${itemsList}
               <div class="detail-row" style="border-top:2px solid #e5e7eb;padding-top:10px;margin-top:6px;">
@@ -356,7 +355,7 @@
 
             <div class="order-success-actions">
               <a href="orders.html" class="btn-checkout" style="max-width:240px;">
-                <i class="fa-solid fa-clock-rotate-left"></i> Xem Lịch Sử
+                <i class="fa-solid fa-clock-rotate-left"></i> Xem Lịch Sử Đơn Hàng
               </a>
               <a href="shop.html" class="btn-continue">
                 <i class="fa-solid fa-store"></i> Tiếp tục mua sắm

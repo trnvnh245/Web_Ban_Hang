@@ -56,10 +56,14 @@ try {
   // Bỏ qua nếu môi trường chặn storage
 }
 
-// ─── GIỎ HÀNG DEMO (DANH SÁCH CỐ ĐỊNH, KHÔNG CHO SỬA SỐ LƯỢNG) ───
+// ─── GIỎ HÀNG DEMO (CHỈ HIỂN THỊ KHI ĐÃ ĐĂNG NHẬP, CỐ ĐỊNH, KHÔNG CHO SỬA SỐ LƯỢNG) ───
 
-/** Lấy giỏ hàng — luôn trả về danh sách cố định, không đọc sessionStorage */
+/** Lấy giỏ hàng — chỉ có sản phẩm khi đã đăng nhập, chưa đăng nhập trả về rỗng [] */
 function getCart() {
+  const user = typeof getCurrentUser === "function" ? getCurrentUser() : null;
+  if (!user) {
+    return [];
+  }
   return JSON.parse(JSON.stringify(DEFAULT_DEMO_CART));
 }
 
@@ -127,9 +131,9 @@ function updateCartBadge() {
   });
 }
 
-// ─── ĐƠN HÀNG DEMO (TĨNH — MẶC ĐỊNH 2 ĐƠN) ───
+// ─── ĐƠN HÀNG DEMO (TĨNH — MẶC ĐỊNH 1 ĐƠN, ĐẶT XONG CÓ 2 ĐƠN) ───
 
-const DEFAULT_DEMO_ORDERS = [
+const INITIAL_DEMO_ORDERS = [
   {
     orderId: "ORD-DEMO-20261023-01",
     username: "demo",
@@ -137,7 +141,7 @@ const DEFAULT_DEMO_ORDERS = [
     phone: "0901234567",
     address: "123 Đường ABC, Phường XYZ, Quận 1, TP.HCM",
     paymentMethod: "cod",
-    paymentLabel: "Tiền mặt khi nhận hàng (COD)",
+    paymentLabel: "Nhận hàng thanh toán",
     items: [
       {
         id: "P005",
@@ -166,43 +170,55 @@ const DEFAULT_DEMO_ORDERS = [
     createdAt: "2026-10-23T14:30:00.000Z",
     status: "Đã đặt hàng",
   },
-  {
-    orderId: "ORD-DEMO-20261018-02",
-    username: "demo",
-    fullName: "Khách Demo",
-    phone: "0901234567",
-    address: "123 Đường ABC, Phường XYZ, Quận 1, TP.HCM",
-    paymentMethod: "cod",
-    paymentLabel: "Tiền mặt khi nhận hàng (COD)",
-    items: [
-      {
-        id: "P011",
-        name: "Sonny Angel - Animal Series 4",
-        brand: "Sonny Angel",
-        price: 240000,
-        priceDisplay: "240.000 đ",
-        image: "../TaiNguyen_5Brand_20Mon/Hinh/P011.jpg",
-        quantity: 2,
-        subtotal: 480000,
-      },
-      {
-        id: "P015",
-        name: "Smiski - Living Series",
-        brand: "Smiski",
-        price: 230000,
-        priceDisplay: "230.000 đ",
-        image: "../TaiNguyen_5Brand_20Mon/Hinh/P015.jpg",
-        quantity: 1,
-        subtotal: 230000,
-      },
-    ],
-    total: 710000,
-    totalDisplay: "710.000 đ",
-    itemCount: 3,
-    createdAt: "2026-10-18T10:15:00.000Z",
-    status: "Đã đặt hàng",
-  },
 ];
+
+// Đơn hàng thứ 2 được kích hoạt sau khi khách thao tác đặt hàng
+const SECOND_DEMO_ORDER = {
+  orderId: "ORD-DEMO-20261106-02",
+  username: "demo",
+  fullName: "Khách Demo",
+  phone: "0901234567",
+  address: "123 Đường ABC, Phường XYZ, Quận 1, TP.HCM",
+  paymentMethod: "cod",
+  paymentLabel: "Nhận hàng thanh toán",
+  items: [
+    {
+      id: "P001",
+      name: "Hirono Monster's Carnival",
+      brand: "POP MART",
+      price: 320000,
+      priceDisplay: "320.000 đ",
+      image: "../TaiNguyen_5Brand_20Mon/Hinh/P001.jpg",
+      quantity: 1,
+      subtotal: 320000,
+    },
+    {
+      id: "P002",
+      name: "SKULLPANDA Where Time Dwells",
+      brand: "POP MART",
+      price: 280000,
+      priceDisplay: "280.000 đ",
+      image: "../TaiNguyen_5Brand_20Mon/Hinh/P002.jpg",
+      quantity: 2,
+      subtotal: 560000,
+    },
+    {
+      id: "P011",
+      name: "Sonny Angel - Animal Series 4",
+      brand: "Sonny Angel",
+      price: 240000,
+      priceDisplay: "240.000 đ",
+      image: "../TaiNguyen_5Brand_20Mon/Hinh/P011.jpg",
+      quantity: 1,
+      subtotal: 240000,
+    },
+  ],
+  total: 1120000,
+  totalDisplay: "1.120.000 đ",
+  itemCount: 4,
+  createdAt: new Date().toISOString(),
+  status: "Đã đặt hàng",
+};
 
 /** Tạo mã đơn hàng demo duy nhất */
 function generateOrderId() {
@@ -215,9 +231,16 @@ function generateOrderId() {
   return "ORD-" + datePart + "-" + rand;
 }
 
-/** Lấy tất cả đơn hàng — luôn trả về danh sách cố định, không đọc sessionStorage */
+/** Lấy tất cả đơn hàng — mặc định 1 đơn, khi đã đặt hàng thì có 2 đơn (cố định tối đa 2 đơn) */
 function getAllOrders() {
-  return JSON.parse(JSON.stringify(DEFAULT_DEMO_ORDERS));
+  const hasPlaced = sessionStorage.getItem("bb_has_placed_order") === "1";
+  if (hasPlaced) {
+    return [
+      { ...SECOND_DEMO_ORDER, createdAt: sessionStorage.getItem("bb_order2_time") || SECOND_DEMO_ORDER.createdAt },
+      ...INITIAL_DEMO_ORDERS,
+    ];
+  }
+  return JSON.parse(JSON.stringify(INITIAL_DEMO_ORDERS));
 }
 
 /** Lấy đơn hàng của user */
@@ -229,7 +252,7 @@ function getUserOrders() {
   );
 }
 
-/** Tạo đơn hàng demo — hình thức, tạo object trả về nhưng KHÔNG lưu vào sessionStorage */
+/** Tạo đơn hàng demo — kích hoạt trạng thái 2 đơn trong lịch sử */
 function createOrder(orderData) {
   const user = typeof getCurrentUser === "function" ? getCurrentUser() : {
     username: "demo",
@@ -242,15 +265,20 @@ function createOrder(orderData) {
   if (cartItems.length === 0) return null;
 
   const total = getCartTotal();
+  const nowIso = new Date().toISOString();
+
+  // Đánh dấu đã đặt hàng thành công để lịch sử từ 1 đơn chuyển thành 2 đơn
+  sessionStorage.setItem("bb_has_placed_order", "1");
+  sessionStorage.setItem("bb_order2_time", nowIso);
 
   const order = {
-    orderId: generateOrderId(),
+    orderId: SECOND_DEMO_ORDER.orderId,
     username: user.username,
     fullName: user.fullName,
     phone: user.phone,
     address: orderData.address || user.address || "",
     paymentMethod: "cod",
-    paymentLabel: "Tiền mặt khi nhận hàng (COD)",
+    paymentLabel: "Nhận hàng thanh toán",
     items: cartItems.map((item) => ({
       id: item.id,
       name: item.name,
@@ -264,12 +292,9 @@ function createOrder(orderData) {
     total: total,
     totalDisplay: formatPrice(total),
     itemCount: cartItems.reduce((s, i) => s + i.quantity, 0),
-    createdAt: new Date().toISOString(),
+    createdAt: nowIso,
     status: "Đã đặt hàng",
   };
-
-  // Demo tĩnh: KHÔNG lưu vào sessionStorage — đơn hàng chỉ hiển thị trên trang thành công
-  // Lịch sử đơn hàng luôn giữ nguyên 2 đơn mặc định
 
   return order;
 }

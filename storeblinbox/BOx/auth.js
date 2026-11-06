@@ -34,7 +34,7 @@ function saveUsers(users) {
   } catch (e) {}
 }
 
-/** Lấy thông tin user hiện tại (Mặc định tự động đăng nhập Khách Demo) */
+/** Lấy thông tin user hiện tại (Trả về null nếu chưa đăng nhập) */
 function getCurrentUser() {
   try {
     if (sessionStorage.getItem("bb_logged_out") === "1") {
@@ -43,8 +43,7 @@ function getCurrentUser() {
     const sessionUser = sessionStorage.getItem("bb_current_user_demo");
     if (sessionUser) return JSON.parse(sessionUser);
   } catch (e) {}
-  // Mặc định luôn là tài khoản demo tĩnh để duyệt mọi trang mượt mà
-  return { ...DEMO_ACCOUNT };
+  return null;
 }
 
 /** Lưu user đang đăng nhập (trong phiên) */

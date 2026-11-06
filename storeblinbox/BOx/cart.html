@@ -95,6 +95,21 @@
         const container = document.getElementById("cartContent");
         const cart = getCart();
 
+        if (cart.length === 0) {
+          const user = typeof getCurrentUser === "function" ? getCurrentUser() : null;
+          container.innerHTML = `
+            <div class="cart-empty" style="text-align:center; padding: 60px 20px; background:#fff; border-radius:16px; box-shadow:0 4px 20px rgba(0,0,0,0.06); max-width:600px; margin: 40px auto;">
+              <i class="fa-solid fa-bag-shopping" style="font-size: 56px; color: #d1d5db; margin-bottom: 16px;"></i>
+              <h3 style="font-size: 20px; font-weight: 700; color: #374151; margin-bottom: 8px;">Giỏ hàng của bạn đang trống</h3>
+              <p style="color: #6b7280; margin-bottom: 24px; font-size: 14.5px;">${!user ? 'Bạn chưa đăng nhập tài khoản. Vui lòng đăng nhập để xem và quản lý giỏ hàng.' : 'Hiện tại chưa có sản phẩm nào trong giỏ hàng.'}</p>
+              <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                ${!user ? `<a href="login.html" class="btn-checkout" style="max-width: 200px; margin: 0;"><i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập</a>` : ''}
+                <a href="shop.html" class="btn-continue" style="max-width: 200px; margin-top: 0;"><i class="fa-solid fa-store"></i> Đến Cửa Hàng</a>
+              </div>
+            </div>`;
+          return;
+        }
+
         let rows = "";
         cart.forEach((item) => {
           const subtotal = item.price * item.quantity;
@@ -153,7 +168,7 @@
                 <span class="summary-value">${formatPrice(totalPrice)}</span>
               </div>
               <a href="checkout.html" class="btn-checkout">
-                <i class="fa-solid fa-credit-card"></i> TIẾN HÀNH THANH TOÁN
+                <i class="fa-solid fa-truck-fast"></i> TIẾN HÀNH ĐẶT HÀNG
               </a>
               <a href="shop.html" class="btn-continue">
                 <i class="fa-solid fa-arrow-left"></i> Tiếp tục mua sắm
