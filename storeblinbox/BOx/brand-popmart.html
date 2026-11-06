@@ -4,12 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thương Hiệu Blind Box - Mystery World</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -18,7 +12,6 @@
     <link rel="stylesheet" href="product.css" />
     <link rel="stylesheet" href="header.css" />
     <link rel="stylesheet" href="shop1.css" />
-    <link rel="stylesheet" href="style-detail-search.css" />
     <style>
       /* Thanh chọn 5 Thương hiệu */
       .brand-tabs-container {
@@ -61,11 +54,7 @@
             </div>
           </a>
 
-          <form
-            class="header-search-form"
-            action="search-results.html"
-            method="GET"
-          >
+          <form class="header-search-form" action="shop.html" method="GET">
             <input
               type="text"
               name="search"
@@ -130,7 +119,7 @@
       </button>
     </div>
 
-    <!-- Bố cục chính: Cột trái Lọc nâng cao, Cột phải hiển thị sản phẩm -->
+    <!-- Bố cục chính: Cột trái Lọc nâng cao (chỉ hiển thị giao diện), Cột phải hiển thị sản phẩm -->
     <main class="shop-container" style="margin-top: 10px">
       <aside class="filter-sidebar">
         <div class="filter-title">
@@ -203,16 +192,25 @@
           </div>
         </div>
 
-        <button id="btnApplyFilter" class="btn-filter-apply">
+        <button
+          id="btnApplyFilter"
+          class="btn-filter-apply"
+          onclick="alert('Tính năng lọc giao diện đang được hiển thị!')"
+        >
           <i class="fa-solid fa-magnifying-glass"></i> Lọc sản phẩm
         </button>
-        <button id="btnResetFilter" class="btn-filter-reset">Đặt lại</button>
+        <button
+          id="btnResetFilter"
+          class="btn-filter-reset"
+          onclick="alert('Đã đặt lại bộ lọc!')"
+        >
+          Đặt lại
+        </button>
       </aside>
 
       <section class="shop-main">
         <div class="shop-header">
           <h2 id="pageTitle" class="section-title">THƯƠNG HIỆU: POP MART</h2>
-          <span id="brandResultCount" class="result-count">Hiển thị 0 sản phẩm</span>
         </div>
 
         <!-- Nhóm 1: Sản phẩm mới -->
@@ -251,38 +249,80 @@
       </section>
     </main>
 
+    <!-- Modal Xem Chi Tiết & Mua Hàng -->
+    <div id="productModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img id="modalImg" src="" alt="Blind Box" class="modal-img" />
+
+        <div class="modal-info">
+          <h2 id="modalTitle" class="modal-title">Tên sản phẩm</h2>
+
+          <div class="product-property">
+            <span class="prop-label">Mã sản phẩm:</span>
+            <span id="modalCode" class="code-badge">P001</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Thương hiệu:</span>
+            <span id="modalBrand">POP MART</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Bộ sưu tập:</span>
+            <span id="modalCollection">Series</span>
+          </div>
+          <div class="product-property">
+            <span class="prop-label">Danh mục:</span>
+            <span id="modalCategory">Blind Box</span>
+          </div>
+
+          <div id="modalPrice" class="modal-price">320.000 đ</div>
+
+          <div class="product-stats">
+            <div class="stat-box">
+              <span class="stat-label">Đã bán</span>
+              <span id="modalSold" class="stat-number">2</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Tồn kho</span>
+              <span id="modalStock" class="stat-number">10</span>
+            </div>
+          </div>
+
+          <!-- Phần Mua Hàng / Số lượng -->
+          <div class="modal-buy-section">
+            <div class="quantity-wrapper">
+              <label>Số lượng:</label>
+              <input
+                type="number"
+                id="modalQty"
+                value="1"
+                min="1"
+                max="100"
+                class="qty-input"
+              />
+            </div>
+            <button class="btn-add-cart modal-btn-cart" id="modalAddToCart">
+              <i class="fa-solid fa-cart-shopping"></i> Thêm Vào Giỏ Hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="auth.js"></script>
     <script src="cart.js"></script>
-    <script src="box.js"></script>
+    <script src="bandd.js"></script>
     <script>
       let currentActiveBrand = "POP MART";
 
-      // Hàm chuẩn hóa chuỗi bỏ dấu tiếng Việt để tìm kiếm chính xác
-      function removeVietnameseTones(str) {
-        str = String(str || "").toLowerCase();
-        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-        str = str.replace(/đ/g, "d");
-        return str.trim();
-      }
-
-      function parsePriceNum(priceVal) {
-        if (typeof priceVal === "number") return priceVal;
-        return parseInt(String(priceVal || "").replace(/[^\d]/g, ""), 10) || 0;
-      }
-
-      // Hàm render sản phẩm — click chuyển sang trang chi tiết (giống trang tìm kiếm)
+      // Hàm render sản phẩm vào từng khung container (có gắn nhãn New nếu là sản phẩm mới)
       function renderBrandProducts(list, containerId) {
         const grid = document.getElementById(containerId);
         if (!grid) return;
         grid.innerHTML = "";
 
         if (list.length === 0) {
-          grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 25px 0;">Không tìm thấy sản phẩm phù hợp.</p>`;
+          grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 15px;">Không có sản phẩm nào.</p>`;
           return;
         }
 
@@ -291,100 +331,25 @@
           card.className = "product-card";
           card.style.position = "relative";
 
-          let newBadge = item.isNew
-            ? `<span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>`
-            : "";
-
           card.innerHTML = `
-            ${newBadge}
-            <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
-            <div class="product-info">
-              <div class="product-meta-top">
-                <span class="product-brand">${item.brand}</span>
-                <span class="product-sku">${item.id}</span>
-              </div>
-              <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
-              <div class="product-price">${item.price}</div>
-              <div class="product-bottom-actions">
-                <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
-                  <i class="fa-solid fa-cart-shopping"></i> Mua ngay
-                </button>
-              </div>
-            </div>
-          `;
+                <span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>
+                <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
+                <div class="product-info">
+                  <div class="product-meta-top">
+                    <span class="product-brand">${item.brand}</span>
+                    <span class="product-sku">${item.id}</span>
+                  </div>
+                  <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
+                  <div class="product-price">${item.price}</div>
+                  <div class="product-bottom-actions">
+                    <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
+                      <i class="fa-solid fa-cart-shopping"></i> Mua ngay
+                    </button>
+                  </div>
+                </div>
+              `;
           grid.appendChild(card);
         });
-      }
-
-      // Cập nhật danh sách Bộ sưu tập theo Thương hiệu đang chọn
-      function updateBrandCollections(brandName) {
-        const colSelect = document.getElementById("collectionSelect");
-        if (!colSelect) return;
-        const brandProducts = products.filter(
-          (p) => p.brand.toLowerCase() === brandName.toLowerCase(),
-        );
-        const collections = Array.from(
-          new Set(brandProducts.map((p) => p.collection).filter(Boolean)),
-        );
-        let optionsHtml = '<option value="all">Tất cả bộ sưu tập</option>';
-        collections.forEach((col) => {
-          optionsHtml += `<option value="${col}">${col}</option>`;
-        });
-        colSelect.innerHTML = optionsHtml;
-      }
-
-      // Xử lý bộ lọc nâng cao bên Sidebar — Chạy theo thời gian thực khi thêm, sửa, xóa mã hoặc tên
-      function performBrandFilter() {
-        const searchInput = document.getElementById("searchName");
-        const rawKeyword = (searchInput ? searchInput.value : "").trim();
-        const normKeyword = removeVietnameseTones(rawKeyword);
-
-        const category = document.getElementById("categorySelect") ? document.getElementById("categorySelect").value : "all";
-        const collection = document.getElementById("collectionSelect") ? document.getElementById("collectionSelect").value : "all";
-        const minPrice = parseInt(document.getElementById("minPrice")?.value, 10);
-        const maxPrice = parseInt(document.getElementById("maxPrice")?.value, 10);
-
-        const brandProducts = products.filter(
-          (p) => p.brand.toLowerCase() === currentActiveBrand.toLowerCase(),
-        );
-
-        const filtered = brandProducts.filter((p) => {
-          // Lọc theo Mã và Tên sản phẩm (hoạt động ngay khi gõ thêm, sửa đổi hoặc xóa ký tự)
-          const normName = removeVietnameseTones(p.name);
-          const normId = removeVietnameseTones(p.id);
-          const matchKeyword =
-            !normKeyword ||
-            normName.includes(normKeyword) ||
-            normId.includes(normKeyword);
-
-          // Lọc theo Danh mục
-          const matchCat = category === "all" || p.category === category;
-
-          // Lọc theo Bộ sưu tập
-          const matchCol = collection === "all" || p.collection === collection;
-
-          // Lọc theo Giá
-          const priceNum = parsePriceNum(p.price);
-          const matchMin = isNaN(minPrice) || priceNum >= minPrice;
-          const matchMax = isNaN(maxPrice) || priceNum <= maxPrice;
-
-          return matchKeyword && matchCat && matchCol && matchMin && matchMax;
-        });
-
-        renderBrandProducts(
-          filtered.filter((p) => p.isNew),
-          "newProductGrid",
-        );
-        renderBrandProducts(
-          filtered.filter((p) => !p.isNew),
-          "currentProductGrid",
-        );
-
-        // Cập nhật số lượng hiển thị
-        const countEl = document.getElementById("brandResultCount");
-        if (countEl) {
-          countEl.innerText = `Hiển thị ${filtered.length} sản phẩm`;
-        }
       }
 
       // Hàm tải và hiển thị dữ liệu theo thương hiệu được chọn
@@ -403,25 +368,21 @@
           }
         });
 
-        // Cập nhật các bộ sưu tập của thương hiệu này
-        updateBrandCollections(brandName);
+        // Lọc sản phẩm theo thương hiệu
+        const brandProducts = products.filter(
+          (p) => p.brand.toLowerCase() === brandName.toLowerCase(),
+        );
 
-        // Áp dụng bộ lọc hiện tại (hoặc hiển thị toàn bộ nếu chưa lọc)
-        performBrandFilter();
+        // Phân tách mới và hiện tại
+        const newItems = brandProducts.filter((p) => p.isNew);
+        const currentItems = brandProducts.filter((p) => !p.isNew);
+
+        renderBrandProducts(newItems, "newProductGrid");
+        renderBrandProducts(currentItems, "currentProductGrid");
       }
 
       // Khi click vào nút chuyển brand trên thanh tab
       function switchBrand(brandName) {
-        // Reset ô tìm kiếm khi đổi thương hiệu để hiển thị đầy đủ
-        const searchInput = document.getElementById("searchName");
-        if (searchInput) searchInput.value = "";
-        const catSelect = document.getElementById("categorySelect");
-        if (catSelect) catSelect.value = "all";
-        const minP = document.getElementById("minPrice");
-        if (minP) minP.value = "";
-        const maxP = document.getElementById("maxPrice");
-        if (maxP) maxP.value = "";
-
         loadBrandData(brandName);
         // Cập nhật URL sạch không cần reload trang
         const newUrl = `${window.location.pathname}?brand=${encodeURIComponent(brandName.toLowerCase())}`;
@@ -452,47 +413,8 @@
         } else {
           loadBrandData("POP MART");
         }
-
-        // LẮNG NGHE SỰ KIỆN: Khi người dùng thêm, sửa, xóa ký tự trong ô Tên hoặc Mã sản phẩm
-        const searchInput = document.getElementById("searchName");
-        if (searchInput) {
-          // Bắt sự kiện 'input': chạy ngay khi gõ thêm, sửa hoặc nhấn backspace/delete xóa ký tự
-          searchInput.addEventListener("input", performBrandFilter);
-          searchInput.addEventListener("keyup", performBrandFilter);
-        }
-
-        // Lắng nghe sự kiện thay đổi danh mục, bộ sưu tập, khoảng giá
-        const categorySelect = document.getElementById("categorySelect");
-        if (categorySelect) categorySelect.addEventListener("change", performBrandFilter);
-
-        const collectionSelect = document.getElementById("collectionSelect");
-        if (collectionSelect) collectionSelect.addEventListener("change", performBrandFilter);
-
-        const minPriceInput = document.getElementById("minPrice");
-        if (minPriceInput) minPriceInput.addEventListener("input", performBrandFilter);
-
-        const maxPriceInput = document.getElementById("maxPrice");
-        if (maxPriceInput) maxPriceInput.addEventListener("input", performBrandFilter);
-
-        // Nút Lọc sản phẩm thủ công
-        const btnApply = document.getElementById("btnApplyFilter");
-        if (btnApply) {
-          btnApply.addEventListener("click", performBrandFilter);
-        }
-
-        // Xử lý nút Đặt lại
-        const btnReset = document.getElementById("btnResetFilter");
-        if (btnReset) {
-          btnReset.addEventListener("click", () => {
-            if (searchInput) searchInput.value = "";
-            if (categorySelect) categorySelect.value = "all";
-            if (collectionSelect) collectionSelect.value = "all";
-            if (minPriceInput) minPriceInput.value = "";
-            if (maxPriceInput) maxPriceInput.value = "";
-            loadBrandData(currentActiveBrand);
-          });
-        }
       });
     </script>
   </body>
 </html>
+
