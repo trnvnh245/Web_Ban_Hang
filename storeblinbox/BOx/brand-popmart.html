@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thương Hiệu Blind Box - Mystery World</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -12,6 +18,7 @@
     <link rel="stylesheet" href="product.css" />
     <link rel="stylesheet" href="header.css" />
     <link rel="stylesheet" href="shop1.css" />
+    <link rel="stylesheet" href="style-detail-search.css" />
     <style>
       /* Thanh chọn 5 Thương hiệu */
       .brand-tabs-container {
@@ -54,7 +61,11 @@
             </div>
           </a>
 
-          <form class="header-search-form" action="shop.html" method="GET">
+          <form
+            class="header-search-form"
+            action="search-results.html"
+            method="GET"
+          >
             <input
               type="text"
               name="search"
@@ -79,7 +90,7 @@
 
         <div class="header-bottom-row">
           <nav class="nav-links-4">
-            <a href="home.html" class="active">
+            <a href="home.html">
               <i class="fa-solid fa-house"></i>
               <span>Trang Chủ</span>
             </a>
@@ -91,7 +102,7 @@
               <i class="fa-solid fa-store"></i>
               <span>Cửa Hàng</span>
             </a>
-            <a href="brand-popmart.html">
+            <a href="brand-popmart.html" class="active">
               <i class="fa-solid fa-tags"></i>
               <span>Thương Hiệu</span>
             </a>
@@ -201,6 +212,7 @@
       <section class="shop-main">
         <div class="shop-header">
           <h2 id="pageTitle" class="section-title">THƯƠNG HIỆU: POP MART</h2>
+          <span id="brandResultCount" class="result-count">Hiển thị 0 sản phẩm</span>
         </div>
 
         <!-- Nhóm 1: Sản phẩm mới -->
@@ -239,73 +251,13 @@
       </section>
     </main>
 
-    <!-- Modal Xem Chi Tiết & Mua Hàng -->
-    <div id="productModal" class="modal-overlay">
-      <div class="modal-content">
-        <span class="close-modal" id="closeModal">&times;</span>
-        <img id="modalImg" src="" alt="Blind Box" class="modal-img" />
-
-        <div class="modal-info">
-          <h2 id="modalTitle" class="modal-title">Tên sản phẩm</h2>
-
-          <div class="product-property">
-            <span class="prop-label">Mã sản phẩm:</span>
-            <span id="modalCode" class="code-badge">P001</span>
-          </div>
-          <div class="product-property">
-            <span class="prop-label">Thương hiệu:</span>
-            <span id="modalBrand">POP MART</span>
-          </div>
-          <div class="product-property">
-            <span class="prop-label">Bộ sưu tập:</span>
-            <span id="modalCollection">Series</span>
-          </div>
-          <div class="product-property">
-            <span class="prop-label">Danh mục:</span>
-            <span id="modalCategory">Blind Box</span>
-          </div>
-
-          <div id="modalPrice" class="modal-price">320.000 đ</div>
-
-          <div class="product-stats">
-            <div class="stat-box">
-              <span class="stat-label">Đã bán</span>
-              <span id="modalSold" class="stat-number">2</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">Tồn kho</span>
-              <span id="modalStock" class="stat-number">10</span>
-            </div>
-          </div>
-
-          <!-- Phần Mua Hàng / Số lượng -->
-          <div class="modal-buy-section">
-            <div class="quantity-wrapper">
-              <label>Số lượng:</label>
-              <input
-                type="number"
-                id="modalQty"
-                value="1"
-                min="1"
-                max="100"
-                class="qty-input"
-              />
-            </div>
-            <button class="btn-add-cart modal-btn-cart" id="modalAddToCart">
-              <i class="fa-solid fa-cart-shopping"></i> Thêm Vào Giỏ Hàng
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script src="auth.js"></script>
     <script src="cart.js"></script>
-    <script src="bandd.js"></script>
+    <script src="box.js"></script>
     <script>
       let currentActiveBrand = "POP MART";
 
-      // Hàm render sản phẩm vào từng khung container (có gắn nhãn New nếu là sản phẩm mới)
+      // Hàm render sản phẩm — click chuyển sang trang chi tiết (giống trang tìm kiếm)
       function renderBrandProducts(list, containerId) {
         const grid = document.getElementById(containerId);
         if (!grid) return;
@@ -326,23 +278,22 @@
             : "";
 
           card.innerHTML = `
-                        <span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>
-
-                <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
-                <div class="product-info">
-                  <div class="product-meta-top">
-                    <span class="product-brand">${item.brand}</span>
-                    <span class="product-sku">${item.id}</span>
-                  </div>
-                  <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
-                  <div class="product-price">${item.price}</div>
-                  <div class="product-bottom-actions">
-                    <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
-                      <i class="fa-solid fa-cart-shopping"></i> Mua ngay
-                    </button>
-                  </div>
-                </div>
-              `;
+            ${newBadge}
+            <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
+            <div class="product-info">
+              <div class="product-meta-top">
+                <span class="product-brand">${item.brand}</span>
+                <span class="product-sku">${item.id}</span>
+              </div>
+              <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
+              <div class="product-price">${item.price}</div>
+              <div class="product-bottom-actions">
+                <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
+                  <i class="fa-solid fa-cart-shopping"></i> Mua ngay
+                </button>
+              </div>
+            </div>
+          `;
           grid.appendChild(card);
         });
       }
@@ -374,6 +325,12 @@
 
         renderBrandProducts(newItems, "newProductGrid");
         renderBrandProducts(currentItems, "currentProductGrid");
+
+        // Cập nhật số lượng hiển thị
+        const countEl = document.getElementById("brandResultCount");
+        if (countEl) {
+          countEl.innerText = `Hiển thị ${brandProducts.length} sản phẩm`;
+        }
       }
 
       // Khi click vào nút chuyển brand trên thanh tab
@@ -437,6 +394,25 @@
               filtered.filter((p) => !p.isNew),
               "currentProductGrid",
             );
+
+            // Cập nhật số lượng hiển thị
+            const countEl = document.getElementById("brandResultCount");
+            if (countEl) {
+              countEl.innerText = `Hiển thị ${filtered.length} sản phẩm`;
+            }
+          });
+        }
+
+        // Xử lý nút Đặt lại
+        const btnReset = document.getElementById("btnResetFilter");
+        if (btnReset) {
+          btnReset.addEventListener("click", () => {
+            document.getElementById("searchName").value = "";
+            document.getElementById("collectionSelect").value = "all";
+            document.getElementById("categorySelect").value = "all";
+            document.getElementById("minPrice").value = "";
+            document.getElementById("maxPrice").value = "";
+            loadBrandData(currentActiveBrand);
           });
         }
       });

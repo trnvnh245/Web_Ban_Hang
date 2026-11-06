@@ -107,9 +107,6 @@
               <h3>Giỏ hàng trống</h3>
               <p>Không có sản phẩm nào để thanh toán trong giỏ demo.</p>
               <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
-                <button onclick="resetCartToDemo(); window.location.reload();" class="btn-checkout" style="max-width:240px;background:#8b5cf6;">
-                  <i class="fa-solid fa-rotate-left"></i> Khôi phục giỏ Demo
-                </button>
                 <a href="shop.html" class="btn-continue" style="max-width:240px;margin-top:0;">
                   <i class="fa-solid fa-store"></i> Đến Cửa Hàng
                 </a>
@@ -194,19 +191,14 @@
                 </div>
               </div>
 
-              <!-- 3. Chọn hình thức thanh toán -->
+              <!-- Hình thức thanh toán: Cố định COD -->
               <div class="checkout-section">
                 <h3><i class="fa-solid fa-wallet"></i> Hình Thức Thanh Toán</h3>
                 <div class="payment-options">
-                  <label class="payment-option selected" onclick="selectPayment(this, 'cod')">
-                    <input type="radio" name="paymentMethod" value="cod" checked />
+                  <label class="payment-option selected">
+                    <input type="radio" name="paymentMethod" value="cod" checked disabled />
                     <i class="fa-solid fa-money-bill-wave payment-icon"></i>
                     <span class="payment-label">Tiền mặt khi nhận hàng (COD)</span>
-                  </label>
-                  <label class="payment-option" onclick="selectPayment(this, 'online')">
-                    <input type="radio" name="paymentMethod" value="online" />
-                    <i class="fa-solid fa-building-columns payment-icon"></i>
-                    <span class="payment-label">Thanh toán trực tuyến</span>
                   </label>
                 </div>
               </div>
@@ -253,15 +245,7 @@
         }
       }
 
-      // --- Xử lý chọn thanh toán ---
-      function selectPayment(el, method) {
-        document
-          .querySelectorAll(".payment-option")
-          .forEach((o) => o.classList.remove("selected"));
-        el.classList.add("selected");
-      }
-
-      // --- Đặt hàng ---
+      // --- Đặt hàng (hình thức — chỉ hiển thị trang thành công, không lưu đơn) ---
       function placeOrder() {
         const msgBox = document.getElementById("checkoutMessage");
         const user = getCurrentUser();
@@ -295,20 +279,11 @@
           }
         }
 
-        // Xác định phương thức thanh toán
-        const paymentMethod = document.querySelector(
-          'input[name="paymentMethod"]:checked',
-        ).value;
+        // Xác nhận đặt hàng
+        if (!confirm("Xác nhận đặt hàng với hình thức thanh toán khi nhận hàng (COD)?")) return;
 
-        // Bước xác nhận thanh toán / đặt hàng
-        const confirmText =
-          paymentMethod === "online"
-            ? "Xác nhận thanh toán trực tuyến cho đơn hàng này?"
-            : "Xác nhận đặt hàng với hình thức thanh toán khi nhận hàng (COD)?";
-        if (!confirm(confirmText)) return;
-
-        // Tạo đơn hàng
-        const order = createOrder({ address, paymentMethod });
+        // Tạo đơn hàng (hình thức — không lưu vào lịch sử)
+        const order = createOrder({ address, paymentMethod: "cod" });
 
         if (!order) {
           showCheckoutMsg(
@@ -322,9 +297,7 @@
         // Hiển thị kết quả thành công
         renderOrderSuccess(order);
         showToast(
-          order.status === "Đã thanh toán"
-            ? "Thanh toán thành công! Đơn hàng đã được ghi vào lịch sử."
-            : "Đặt hàng thành công! Đơn hàng đã được ghi vào lịch sử.",
+          "Đặt hàng thành công! (Demo — đơn hàng không được lưu vào lịch sử)",
           "success",
           3500,
         );
@@ -346,7 +319,7 @@
         main.innerHTML = `
           <div class="order-success">
             <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
-            <h2>${order.status === "Đã thanh toán" ? "Thanh Toán Thành Công!" : "Đặt Hàng Thành Công!"}</h2>
+            <h2>Đặt Hàng Thành Công!</h2>
             <div class="order-id-display">Mã đơn: ${order.orderId}</div>
 
             <div class="order-success-details">

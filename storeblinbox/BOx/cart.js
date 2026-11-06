@@ -1,4 +1,5 @@
 // === CART.JS — Quản lý Giỏ hàng & Đơn hàng (Chế độ Demo Tĩnh, Không Database) ===
+// === Mọi thao tác chỉ mang tính hình thức — KHÔNG thay đổi dữ liệu thực tế ===
 
 // ─── TIỆN ÍCH GIÁ ───
 function parsePrice(priceStr) {
@@ -11,7 +12,7 @@ function formatPrice(num) {
   return Number(num).toLocaleString("vi-VN") + " đ";
 }
 
-// ─── DỮ LIỆU DEMO CỐ ĐỊNH (TĨNH) ───
+// ─── DỮ LIỆU DEMO CỐ ĐỊNH (TĨNH — KHÔNG THAY ĐỔI) ───
 const DEFAULT_DEMO_CART = [
   {
     id: "P001",
@@ -55,48 +56,16 @@ try {
   // Bỏ qua nếu môi trường chặn storage
 }
 
-// ─── GIỎ HÀNG DEMO (DANH SÁCH CỐ ĐỊNH, CHỈ ĐỔI ĐƯỢC SỐ LƯỢNG) ───
+// ─── GIỎ HÀNG DEMO (DANH SÁCH CỐ ĐỊNH, KHÔNG CHO SỬA SỐ LƯỢNG) ───
 
-/** Lấy giỏ hàng */
+/** Lấy giỏ hàng — luôn trả về danh sách cố định, không đọc sessionStorage */
 function getCart() {
-  try {
-    const raw = sessionStorage.getItem("bb_cart_demo");
-    if (raw) {
-      const saved = JSON.parse(raw);
-      if (Array.isArray(saved)) {
-        return DEFAULT_DEMO_CART.map((demoItem) => {
-          const savedItem = saved.find((item) => item && item.id === demoItem.id);
-          const savedQty = parseInt(savedItem && savedItem.quantity, 10);
-          return {
-            ...demoItem,
-            quantity: Number.isFinite(savedQty)
-              ? Math.min(99, Math.max(1, savedQty))
-              : demoItem.quantity,
-          };
-        });
-      }
-    }
-  } catch (e) {}
-
-  // Chỉ cho phép sản phẩm và thông tin sản phẩm từ danh sách demo cố định.
   return JSON.parse(JSON.stringify(DEFAULT_DEMO_CART));
 }
 
-/** Lưu giỏ hàng tạm thời cho phiên demo */
+/** Lưu giỏ hàng — hình thức, không lưu gì cả */
 function saveCart(cart) {
-  try {
-    const fixedCart = DEFAULT_DEMO_CART.map((demoItem) => {
-      const item = cart.find((cartItem) => cartItem.id === demoItem.id);
-      const quantity = parseInt(item && item.quantity, 10);
-      return {
-        ...demoItem,
-        quantity: Number.isFinite(quantity)
-          ? Math.min(99, Math.max(1, quantity))
-          : demoItem.quantity,
-      };
-    });
-    sessionStorage.setItem("bb_cart_demo", JSON.stringify(fixedCart));
-  } catch (e) {}
+  // Demo tĩnh: không lưu thay đổi
 }
 
 /**
@@ -104,7 +73,7 @@ function saveCart(cart) {
  */
 function addToCart(product, qty) {
   const message =
-    "Giỏ hàng mẫu đã cố định. Chỉ có thể thay đổi số lượng trong giỏ.";
+    "Giỏ hàng mẫu đã cố định — không thể thêm, xóa hoặc sửa.";
   if (typeof showToast === "function") {
     showToast(message, "info", 2000);
   } else {
@@ -115,31 +84,16 @@ function addToCart(product, qty) {
 
 /** Xóa sản phẩm: Web tĩnh demo KHÔNG cho phép xóa ra khỏi danh sách */
 function removeFromCart(productId) {
-  // Web tĩnh demo: không xóa sản phẩm ra khỏi danh sách
   if (typeof showToast === "function") {
     showToast("Website demo: Danh sách sản phẩm được giữ cố định, không xóa.", "info", 2000);
   }
   return false;
 }
 
-/** Cập nhật số lượng: Hỗ trợ tăng/giảm số lượng nhưng KHÔNG giảm dưới 1 và KHÔNG xóa sản phẩm */
+/** Cập nhật số lượng: Hình thức — hiển thị toast nhưng KHÔNG thay đổi dữ liệu */
 function updateCartQty(productId, newQty) {
-  newQty = parseInt(newQty, 10);
-  if (isNaN(newQty) || newQty < 1) {
-    if (typeof showToast === "function") {
-      showToast("Số lượng tối thiểu là 1 sản phẩm.", "info", 1500);
-    }
-    return;
-  }
-  if (newQty > 99) newQty = 99;
-
-  const cart = getCart();
-  const item = cart.find((i) => i.id === productId);
-  if (item) {
-    item.quantity = newQty;
-    saveCart(cart);
-    updateCartBadge();
-    return true;
+  if (typeof showToast === "function") {
+    showToast("Giỏ hàng demo: Số lượng được giữ cố định.", "info", 1500);
   }
   return false;
 }
@@ -154,11 +108,8 @@ function getCartTotal() {
   return getCart().reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
 
-/** Đặt lại giỏ hàng về danh sách demo gốc */
+/** Đặt lại giỏ hàng về danh sách demo gốc — hình thức */
 function resetCartToDemo() {
-  try {
-    sessionStorage.removeItem("bb_cart_demo");
-  } catch (e) {}
   updateCartBadge();
 }
 
@@ -176,7 +127,7 @@ function updateCartBadge() {
   });
 }
 
-// ─── ĐƠN HÀNG DEMO (TĨNH) ───
+// ─── ĐƠN HÀNG DEMO (TĨNH — MẶC ĐỊNH 2 ĐƠN) ───
 
 const DEFAULT_DEMO_ORDERS = [
   {
@@ -215,6 +166,42 @@ const DEFAULT_DEMO_ORDERS = [
     createdAt: "2026-10-23T14:30:00.000Z",
     status: "Đã đặt hàng",
   },
+  {
+    orderId: "ORD-DEMO-20261018-02",
+    username: "demo",
+    fullName: "Khách Demo",
+    phone: "0901234567",
+    address: "123 Đường ABC, Phường XYZ, Quận 1, TP.HCM",
+    paymentMethod: "cod",
+    paymentLabel: "Tiền mặt khi nhận hàng (COD)",
+    items: [
+      {
+        id: "P011",
+        name: "Sonny Angel - Animal Series 4",
+        brand: "Sonny Angel",
+        price: 240000,
+        priceDisplay: "240.000 đ",
+        image: "../TaiNguyen_5Brand_20Mon/Hinh/P011.jpg",
+        quantity: 2,
+        subtotal: 480000,
+      },
+      {
+        id: "P015",
+        name: "Smiski - Living Series",
+        brand: "Smiski",
+        price: 230000,
+        priceDisplay: "230.000 đ",
+        image: "../TaiNguyen_5Brand_20Mon/Hinh/P015.jpg",
+        quantity: 1,
+        subtotal: 230000,
+      },
+    ],
+    total: 710000,
+    totalDisplay: "710.000 đ",
+    itemCount: 3,
+    createdAt: "2026-10-18T10:15:00.000Z",
+    status: "Đã đặt hàng",
+  },
 ];
 
 /** Tạo mã đơn hàng demo duy nhất */
@@ -228,14 +215,8 @@ function generateOrderId() {
   return "ORD-" + datePart + "-" + rand;
 }
 
-/** Lấy tất cả đơn hàng (ưu tiên dữ liệu phiên, mặc định là đơn hàng demo tĩnh) */
+/** Lấy tất cả đơn hàng — luôn trả về danh sách cố định, không đọc sessionStorage */
 function getAllOrders() {
-  try {
-    const sessionOrders = sessionStorage.getItem("bb_orders_demo");
-    if (sessionOrders) {
-      return JSON.parse(sessionOrders);
-    }
-  } catch (e) {}
   return JSON.parse(JSON.stringify(DEFAULT_DEMO_ORDERS));
 }
 
@@ -248,7 +229,7 @@ function getUserOrders() {
   );
 }
 
-/** Tạo đơn hàng demo (chỉ lưu trong phiên hiện tại) */
+/** Tạo đơn hàng demo — hình thức, tạo object trả về nhưng KHÔNG lưu vào sessionStorage */
 function createOrder(orderData) {
   const user = typeof getCurrentUser === "function" ? getCurrentUser() : {
     username: "demo",
@@ -268,11 +249,8 @@ function createOrder(orderData) {
     fullName: user.fullName,
     phone: user.phone,
     address: orderData.address || user.address || "",
-    paymentMethod: orderData.paymentMethod || "cod",
-    paymentLabel:
-      orderData.paymentMethod === "online"
-        ? "Thanh toán trực tuyến"
-        : "Tiền mặt khi nhận hàng (COD)",
+    paymentMethod: "cod",
+    paymentLabel: "Tiền mặt khi nhận hàng (COD)",
     items: cartItems.map((item) => ({
       id: item.id,
       name: item.name,
@@ -287,15 +265,11 @@ function createOrder(orderData) {
     totalDisplay: formatPrice(total),
     itemCount: cartItems.reduce((s, i) => s + i.quantity, 0),
     createdAt: new Date().toISOString(),
-    status:
-      orderData.paymentMethod === "online" ? "Đã thanh toán" : "Đã đặt hàng",
+    status: "Đã đặt hàng",
   };
 
-  const allOrders = getAllOrders();
-  allOrders.unshift(order);
-  try {
-    sessionStorage.setItem("bb_orders_demo", JSON.stringify(allOrders));
-  } catch (e) {}
+  // Demo tĩnh: KHÔNG lưu vào sessionStorage — đơn hàng chỉ hiển thị trên trang thành công
+  // Lịch sử đơn hàng luôn giữ nguyên 2 đơn mặc định
 
   return order;
 }

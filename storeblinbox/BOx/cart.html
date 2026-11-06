@@ -112,9 +112,9 @@
               <td class="cart-price">${formatPrice(item.price)}</td>
               <td>
                 <div class="qty-control">
-                  <button type="button" onclick="changeQty('${item.id}', -1)" ${item.quantity <= 1 ? 'disabled title="Tối thiểu là 1 món"' : ''}>−</button>
+                  <button type="button" onclick="fakeChangeQty('${item.id}', -1)">−</button>
                   <span class="qty-value">${item.quantity}</span>
-                  <button type="button" onclick="changeQty('${item.id}', 1)">+</button>
+                  <button type="button" onclick="fakeChangeQty('${item.id}', 1)">+</button>
                 </div>
               </td>
               <td class="cart-subtotal">${formatPrice(subtotal)}</td>
@@ -127,7 +127,7 @@
         container.innerHTML = `
           <div class="cart-demo-notice">
             <i class="fa-solid fa-circle-info"></i>
-            <span>Giỏ hàng demo có danh sách sản phẩm cố định — Không thể thêm hoặc xóa sản phẩm; chỉ được thay đổi số lượng.</span>
+            <span>Giỏ hàng demo — Danh sách sản phẩm và số lượng được giữ cố định.</span>
           </div>
 
           <table class="cart-table">
@@ -162,25 +162,16 @@
           </div>`;
       }
 
-      function changeQty(id, delta) {
-        const cart = getCart();
-        const item = cart.find((i) => i.id === id);
-        if (item) {
-          const nextQty = item.quantity + delta;
-          if (nextQty < 1) {
-            if (typeof showToast === "function") {
-              showToast("Số lượng tối thiểu là 1, không thể giảm thêm.", "info", 1500);
-            }
-            return;
-          }
-          updateCartQty(id, nextQty);
-          renderCartPage();
+      /* Nút +/- chỉ là hình thức, hiện toast nhưng không thay đổi dữ liệu */
+      function fakeChangeQty(id, delta) {
+        if (typeof showToast === "function") {
+          showToast("Giỏ hàng demo: Số lượng được giữ cố định.", "info", 1500);
         }
       }
 
       function removeItem(id) {
         if (typeof showToast === "function") {
-          showToast("Website ở chế độ demo: Danh sách sản phẩm được giữ cố định, không xóa.", "info", 2000);
+          showToast("Website demo: Danh sách sản phẩm được giữ cố định, không xóa.", "info", 2000);
         }
       }
     </script>
