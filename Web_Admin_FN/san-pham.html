@@ -416,7 +416,12 @@
           </div>
           <div class="form-group">
             <label>Đơn giá (₫)</label>
-            <input type="number" placeholder="Nhập giá bán..." />
+            <input
+              type="text"
+              inputmode="numeric"
+              placeholder="Nhập giá bán..."
+              oninput="dinhDangTien(this)"
+            />
           </div>
           <div class="form-group">
             <label>Số lượng tồn kho ban đầu</label>
@@ -498,8 +503,15 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Mã sản phẩm</label>
-            <input type="text" id="editMaSP" />
+            <input type="text" id="editMaSP" readonly />
           </div>
+          <style>
+            #editMaSP[readonly] {
+              background: #f3f4f6;
+              color: #6b7280;
+              cursor: not-allowed;
+            }
+          </style>
 
           <div class="form-group">
             <label>Tên nhân vật</label>
@@ -516,7 +528,12 @@
 
           <div class="form-group">
             <label>Đơn giá (₫)</label>
-            <input type="number" id="editGiaSP" />
+            <input
+              type="text"
+              inputmode="numeric"
+              id="editGiaSP"
+              oninput="dinhDangTien(this)"
+            />
           </div>
           <div class="form-group">
             <label>Số lượng tồn kho</label>
@@ -601,6 +618,35 @@
     <script src="data.js"></script>
     <script src="chart-viewer.js" defer></script>
     <script>
+      // Chỉnh format tiền
+      function themDauCham(so) {
+        return String(so)
+          .replace(/\D/g, "")
+          .replace(/^0+(?=\d)/, "")
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+      function dinhDangTien(input) {
+        const viTri = input.selectionStart;
+        const soChuSoTruocCon = input.value
+          .slice(0, viTri)
+          .replace(/\D/g, "").length;
+
+        input.value = themDauCham(input.value);
+
+        let dem = 0;
+        let viTriMoi = soChuSoTruocCon === 0 ? 0 : input.value.length;
+        if (soChuSoTruocCon > 0) {
+          for (let i = 0; i < input.value.length; i++) {
+            if (/\d/.test(input.value[i])) dem++;
+            if (dem === soChuSoTruocCon) {
+              viTriMoi = i + 1;
+              break;
+            }
+          }
+        }
+        input.setSelectionRange(viTriMoi, viTriMoi);
+      }
+      
       function xemTruocHinh(input) {
         const file = input.files[0];
         const img = document.getElementById("addHinhPreview");
@@ -691,7 +737,7 @@
       function moModalSua(ma, ten, gia, tonKho) {
         document.getElementById("editMaSP").value = ma;
         document.getElementById("editTenSP").value = ten;
-        document.getElementById("editGiaSP").value = gia;
+        document.getElementById("editGiaSP").value = themDauCham(gia);
         document.getElementById("editTonKhoSP").value = tonKho;
         openModal("modal-edit-prod");
         const sp = laySanPham().find((item) => item.maSP === ma);
