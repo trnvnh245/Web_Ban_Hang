@@ -376,10 +376,9 @@
     <script src="data.js"></script>
     <script src="chart-viewer.js" defer></script>
     <script>
-      const params = new URLSearchParams(window.location.search);
-      const maDon = params.get("id");
+      // Mọi liên kết đều mở cùng trang chi tiết của đơn mẫu có sản phẩm P001.
       const don = layDonhang().find(function (don) {
-        return don.id === maDon;
+        return don.items.some((item) => item.maSP === "P001");
       });
 
       if (!don) {
