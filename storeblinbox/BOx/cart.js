@@ -12,6 +12,11 @@ function formatPrice(num) {
   return Number(num).toLocaleString("vi-VN") + " đ";
 }
 
+/** Tên phương thức dùng chung cho trang kết quả và lịch sử đơn mẫu. */
+function getPaymentLabel(method) {
+  return method === "bank_transfer" ? "Chuyển khoản" : "Tiền mặt";
+}
+
 // ─── DỮ LIỆU DEMO CỐ ĐỊNH (TĨNH — KHÔNG THAY ĐỔI) ───
 const DEFAULT_DEMO_CART = [
   {
@@ -141,7 +146,7 @@ const INITIAL_DEMO_ORDERS = [
     phone: "0901234567",
     address: "123 Đường ABC, Phường XYZ, Quận 1, TP.HCM",
     paymentMethod: "cod",
-    paymentLabel: "Nhận hàng thanh toán",
+    paymentLabel: "Tiền mặt",
     items: [
       {
         id: "P005",
@@ -179,8 +184,8 @@ const SECOND_DEMO_ORDER = {
   fullName: "Khách Demo",
   phone: "0901234567",
   address: "123 Đường ABC, Phường XYZ, Quận 1, TP.HCM",
-  paymentMethod: "cod",
-  paymentLabel: "Nhận hàng thanh toán",
+  paymentMethod: "bank_transfer",
+  paymentLabel: "Chuyển khoản",
   items: [
     {
       id: "P001",
@@ -236,7 +241,11 @@ function getAllOrders() {
   const hasPlaced = sessionStorage.getItem("bb_has_placed_order") === "1";
   if (hasPlaced) {
     return [
-      { ...SECOND_DEMO_ORDER, createdAt: sessionStorage.getItem("bb_order2_time") || SECOND_DEMO_ORDER.createdAt },
+      {
+        // Lịch sử luôn dùng phương thức chuyển khoản của đơn mẫu thứ hai.
+        ...SECOND_DEMO_ORDER,
+        createdAt: sessionStorage.getItem("bb_order2_time") || SECOND_DEMO_ORDER.createdAt,
+      },
       ...INITIAL_DEMO_ORDERS,
     ];
   }
@@ -266,6 +275,7 @@ function createOrder(orderData) {
 
   const total = getCartTotal();
   const nowIso = new Date().toISOString();
+  const paymentMethod = orderData.paymentMethod === "bank_transfer" ? "bank_transfer" : "cod";
 
   // Đánh dấu đã đặt hàng thành công để lịch sử từ 1 đơn chuyển thành 2 đơn
   sessionStorage.setItem("bb_has_placed_order", "1");
@@ -277,8 +287,8 @@ function createOrder(orderData) {
     fullName: user.fullName,
     phone: user.phone,
     address: orderData.address || user.address || "",
-    paymentMethod: "cod",
-    paymentLabel: "Nhận hàng thanh toán",
+    paymentMethod,
+    paymentLabel: getPaymentLabel(paymentMethod),
     items: cartItems.map((item) => ({
       id: item.id,
       name: item.name,

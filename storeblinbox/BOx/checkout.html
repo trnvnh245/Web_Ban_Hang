@@ -5,21 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Xác Nhận Đặt Hàng - Mystery World Blind Box</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="../assert/vendor/fontawesome/css/all.min.css"
     />
 
     <link rel="stylesheet" href="layout.css" />
     <link rel="stylesheet" href="header.css" />
     <link rel="stylesheet" href="auth.css" />
     <link rel="stylesheet" href="cart.css" />
+    <link rel="stylesheet" href="typography.css" />
   </head>
   <body>
     <!-- Header -->
@@ -191,14 +186,32 @@
                 </div>
               </div>
 
-              <!-- 3. Phương thức giao hàng (Không qua cổng thanh toán) -->
+              <!-- 3. Phương thức thanh toán (giao diện minh họa) -->
               <div class="checkout-section">
-                <h3><i class="fa-solid fa-truck"></i> Phương Thức Nhận Hàng</h3>
-                <div class="payment-options">
-                  <label class="payment-option selected" style="cursor: default;">
-                    <i class="fa-solid fa-box-open payment-icon"></i>
-                    <span class="payment-label">Giao hàng tận nơi — Kiểm tra hàng khi nhận</span>
+                <h3><i class="fa-solid fa-wallet"></i> Phương Thức Thanh Toán</h3>
+                <div class="payment-options" role="radiogroup" aria-label="Phương thức thanh toán">
+                  <label class="payment-option selected">
+                    <input type="radio" name="paymentMethod" value="cod" checked onchange="selectPayment(this.value)" />
+                    <i class="fa-solid fa-money-bill-wave payment-icon" aria-hidden="true"></i>
+                    <span class="payment-label">Tiền mặt</span>
                   </label>
+                  <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="bank_transfer" onchange="selectPayment(this.value)" aria-controls="bankTransferPanel" />
+                    <i class="fa-solid fa-building-columns payment-icon" aria-hidden="true"></i>
+                    <span class="payment-label">Chuyển khoản qua mã QR</span>
+                  </label>
+                </div>
+                <div id="bankTransferPanel" class="bank-transfer-panel" hidden>
+                  <img class="bank-transfer-qr" src="../assert/qr-chuyen-khoan-demo.svg" alt="Mã QR minh họa chuyển khoản của Mystery World" width="168" height="168" />
+                  <div class="bank-transfer-details">
+                    <span class="bank-transfer-badge">QR minh họa</span>
+                    <h4>Thông tin chuyển khoản</h4>
+                    <dl>
+                      <dt>Cửa hàng</dt><dd>MYSTERY WORLD</dd>
+                      <dt>Số tiền</dt><dd class="bank-transfer-amount">${formatPrice(totalPrice)}</dd>
+                    </dl>
+                    <p>Mã QR dùng để minh họa giao diện, không thực hiện chuyển tiền.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -244,6 +257,14 @@
         }
       }
 
+      // Chỉ đổi phần hiển thị khi người mua chọn phương thức thanh toán.
+      function selectPayment(method) {
+        document.querySelectorAll('input[name="paymentMethod"]').forEach((input) => {
+          input.closest(".payment-option").classList.toggle("selected", input.checked);
+        });
+        document.getElementById("bankTransferPanel").hidden = method !== "bank_transfer";
+      }
+
       // --- Đặt hàng (hình thức — chỉ hiển thị trang thành công, không lưu đơn) ---
       function placeOrder() {
         const msgBox = document.getElementById("checkoutMessage");
@@ -282,7 +303,8 @@
         if (!confirm("Xác nhận gửi đơn đặt hàng này?")) return;
 
         // Tạo đơn hàng (kích hoạt đơn thứ 2 vào lịch sử)
-        const order = createOrder({ address });
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || "cod";
+        const order = createOrder({ address, paymentMethod });
 
         if (!order) {
           showCheckoutMsg(
@@ -345,6 +367,10 @@
               <div class="detail-row">
                 <span class="detail-label">Phương thức nhận hàng</span>
                 <span class="detail-value">Giao hàng tận nơi</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Phương thức thanh toán</span>
+                <span class="detail-value">${order.paymentLabel}</span>
               </div>
               ${itemsList}
               <div class="detail-row" style="border-top:2px solid #e5e7eb;padding-top:10px;margin-top:6px;">
