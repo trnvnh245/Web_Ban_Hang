@@ -79,7 +79,7 @@
 
         <div class="header-bottom-row">
           <nav class="nav-links-4">
-            <a href="home.html">
+            <a href="home.html" class="active">
               <i class="fa-solid fa-house"></i>
               <span>Trang Chủ</span>
             </a>
@@ -91,7 +91,7 @@
               <i class="fa-solid fa-store"></i>
               <span>Cửa Hàng</span>
             </a>
-            <a href="brand-popmart.html" class="active">
+            <a href="brand-popmart.html">
               <i class="fa-solid fa-tags"></i>
               <span>Thương Hiệu</span>
             </a>
@@ -119,7 +119,7 @@
       </button>
     </div>
 
-    <!-- Bố cục chính: Cột trái Lọc nâng cao (chỉ hiển thị giao diện), Cột phải hiển thị sản phẩm -->
+    <!-- Bố cục chính: Cột trái Lọc nâng cao (giao diện), Cột phải hiển thị sản phẩm -->
     <main class="shop-container" style="margin-top: 10px">
       <aside class="filter-sidebar">
         <div class="filter-title">
@@ -195,7 +195,7 @@
         <button
           id="btnApplyFilter"
           class="btn-filter-apply"
-          onclick="alert('Tính năng lọc giao diện đang được hiển thị!')"
+          onclick="alert('Giao diện bộ lọc hiển thị thành công!')"
         >
           <i class="fa-solid fa-magnifying-glass"></i> Lọc sản phẩm
         </button>
@@ -315,13 +315,13 @@
     <script>
       let currentActiveBrand = "POP MART";
 
-      // Hàm render sản phẩm vào từng khung container (có gắn nhãn New nếu là sản phẩm mới)
+      // Hàm render sản phẩm vào khung container
       function renderBrandProducts(list, containerId) {
         const grid = document.getElementById(containerId);
         if (!grid) return;
         grid.innerHTML = "";
 
-        if (list.length === 0) {
+        if (!list || list.length === 0) {
           grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 15px;">Không có sản phẩm nào.</p>`;
           return;
         }
@@ -352,14 +352,14 @@
         });
       }
 
-      // Hàm tải và hiển thị dữ liệu theo thương hiệu được chọn
+      // Hàm xử lý khi bấm các nút tab thương hiệu (đổi tiêu đề và trạng thái active, nhưng luôn hiển thị danh sách sản phẩm POP MART)[cite: 1]
       function loadBrandData(brandName) {
         currentActiveBrand = brandName;
         document.getElementById("pageTitle").innerText =
           `THƯƠNG HIỆU: ${brandName.toUpperCase()}`;
         document.getElementById("brandDisplay").value = brandName;
 
-        // Cập nhật trạng thái active cho các nút tab
+        // Cập nhật trạng thái active cho các nút tab[cite: 1]
         document.querySelectorAll(".brand-tab-btn").forEach((btn) => {
           if (btn.innerText.trim().toLowerCase() === brandName.toLowerCase()) {
             btn.classList.add("active");
@@ -368,53 +368,49 @@
           }
         });
 
-        // Lọc sản phẩm theo thương hiệu
-        const brandProducts = products.filter(
-          (p) => p.brand.toLowerCase() === brandName.toLowerCase(),
+        const sourceProducts =
+          typeof products !== "undefined" && Array.isArray(products)
+            ? products
+            : [];
+
+        // Luôn cố định chỉ lấy danh sách sản phẩm thuộc POP MART[cite: 1]
+        let popMartProducts = sourceProducts.filter((p) => {
+          if (!p.brand) return true;
+          return (
+            p.brand.toLowerCase().includes("pop mart") ||
+            p.brand.toLowerCase().includes("popmart")
+          );
+        });
+
+        if (popMartProducts.length === 0) {
+          popMartProducts = sourceProducts;
+        }
+
+        const newItems = popMartProducts.filter((p) => p.isNew);
+        const currentItems = popMartProducts.filter((p) => !p.isNew);
+
+        renderBrandProducts(
+          newItems.length > 0 ? newItems : popMartProducts.slice(0, 2),
+          "newProductGrid",
         );
-
-        // Phân tách mới và hiện tại
-        const newItems = brandProducts.filter((p) => p.isNew);
-        const currentItems = brandProducts.filter((p) => !p.isNew);
-
-        renderBrandProducts(newItems, "newProductGrid");
-        renderBrandProducts(currentItems, "currentProductGrid");
+        renderBrandProducts(
+          currentItems.length > 0 ? currentItems : popMartProducts.slice(2),
+          "currentProductGrid",
+        );
       }
 
-      // Khi click vào nút chuyển brand trên thanh tab
+      // Khi click vào nút chuyển brand trên thanh tab[cite: 1]
       function switchBrand(brandName) {
         loadBrandData(brandName);
-        // Cập nhật URL sạch không cần reload trang
         const newUrl = `${window.location.pathname}?brand=${encodeURIComponent(brandName.toLowerCase())}`;
         window.history.pushState({ path: newUrl }, "", newUrl);
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        // Kiểm tra xem URL có truyền sẵn tham số brand hay không
-        const urlParams = new URLSearchParams(window.location.search);
-        const brandParam = urlParams.get("brand");
-
-        if (brandParam) {
-          const matched = [
-            "popmart",
-            "52toys",
-            "sonny angel",
-            "smiski",
-            "tokidoki",
-          ].find((b) => b.includes(brandParam.toLowerCase()));
-          if (matched) {
-            const formatted =
-              products.find((p) => p.brand.toLowerCase() === matched)?.brand ||
-              "POP MART";
-            loadBrandData(formatted);
-          } else {
-            loadBrandData("POP MART");
-          }
-        } else {
-          loadBrandData("POP MART");
-        }
+        loadBrandData("POP MART");
       });
     </script>
   </body>
 </html>
+
 
