@@ -397,7 +397,7 @@ const DU_LIEU_MAU = [
   {
     id: "DH004",
     maKH: "ND003",
-    tenKH: "Lê Thu Hà",
+    tenKH: "Lê Hoàng Nam",
     ngayDat: "2025-06-28",
     diaChi: "654 Nguyễn Thị Minh Khai",
     quan: "Quận 3",
@@ -410,7 +410,7 @@ const DU_LIEU_MAU = [
   {
     id: "DH005",
     maKH: "ND005",
-    tenKH: "Nguyễn Ngọc Hậu",
+    tenKH: "Võ Gia Huy",
     ngayDat: "2026-02-19",
     diaChi: "293 Hậu Giang",
     quan: "Quận 6",
