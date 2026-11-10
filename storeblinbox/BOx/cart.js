@@ -21,9 +21,9 @@ function getPaymentLabel(method) {
 const DEFAULT_DEMO_CART = [
   {
     id: "P001",
-    name: "Hirono Monster's Carnival",
+    name: "Hirono",
     brand: "POP MART",
-    collection: "Hirono Carnival",
+    collection: "Hirono Monster Carnival Series",
     category: "Blind Box",
     price: 320000,
     priceDisplay: "320.000 đ",
@@ -32,9 +32,9 @@ const DEFAULT_DEMO_CART = [
   },
   {
     id: "P002",
-    name: "SKULLPANDA Where Time Dwells",
+    name: "SKULLPANDA",
     brand: "POP MART",
-    collection: "SKULLPANDA Time",
+    collection: "SKULLPANDA Where Time Dwells Series",
     category: "Blind Box",
     price: 280000,
     priceDisplay: "280.000 đ",
@@ -43,12 +43,12 @@ const DEFAULT_DEMO_CART = [
   },
   {
     id: "P011",
-    name: "Sonny Angel - Animal Series 4",
+    name: "Animal",
     brand: "Sonny Angel",
-    collection: "Animal Series",
+    collection: "Animal Series 1",
     category: "Mini Figure",
-    price: 240000,
-    priceDisplay: "240.000 đ",
+    price: 249000,
+    priceDisplay: "249.000 đ",
     image: "../TaiNguyen_5Brand_20Mon/Hinh/P011.jpg",
     quantity: 1,
   },
@@ -150,7 +150,7 @@ const INITIAL_DEMO_ORDERS = [
     items: [
       {
         id: "P005",
-        name: "THE MONSTERS - Wacky Mart",
+        name: "Labubu",
         brand: "POP MART",
         price: 320000,
         priceDisplay: "320.000 đ",
@@ -189,7 +189,7 @@ const SECOND_DEMO_ORDER = {
   items: [
     {
       id: "P001",
-      name: "Hirono Monster's Carnival",
+      name: "Hirono",
       brand: "POP MART",
       price: 320000,
       priceDisplay: "320.000 đ",
