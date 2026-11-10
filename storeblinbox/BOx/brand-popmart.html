@@ -333,7 +333,7 @@
           card.style.position = "relative";
 
           card.innerHTML = `
-                <span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>
+                ${item.isNew ? '<span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>' : ""}
                 <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
                 <div class="product-info">
                   <div class="product-meta-top">
@@ -374,28 +374,26 @@
             ? products
             : [];
 
-        // Luôn cố định chỉ lấy danh sách sản phẩm thuộc POP MART[cite: 1]
-        let popMartProducts = sourceProducts.filter((p) => {
-          if (!p.brand) return true;
-          return (
-            p.brand.toLowerCase().includes("pop mart") ||
-            p.brand.toLowerCase().includes("popmart")
-          );
-        });
+        // Lọc đúng sản phẩm theo thương hiệu đang được chọn.
+        const normalizedBrand = brandName.trim().toLowerCase();
+        let brandProducts = sourceProducts.filter(
+          (p) => p.brand && p.brand.trim().toLowerCase() === normalizedBrand,
+        );
 
-        if (popMartProducts.length === 0) {
-          popMartProducts = sourceProducts;
+        // Có fallback an toàn nếu dữ liệu không có brand tương ứng.
+        if (brandProducts.length === 0) {
+          brandProducts = sourceProducts;
         }
 
-        const newItems = popMartProducts.filter((p) => p.isNew);
-        const currentItems = popMartProducts.filter((p) => !p.isNew);
+        const newItems = brandProducts.filter((p) => p.isNew);
+        const currentItems = brandProducts.filter((p) => !p.isNew);
 
         renderBrandProducts(
-          newItems.length > 0 ? newItems : popMartProducts.slice(0, 2),
+          newItems.length > 0 ? newItems : brandProducts.slice(0, 2),
           "newProductGrid",
         );
         renderBrandProducts(
-          currentItems.length > 0 ? currentItems : popMartProducts.slice(2),
+          currentItems.length > 0 ? currentItems : brandProducts.slice(2),
           "currentProductGrid",
         );
       }
