@@ -577,6 +577,8 @@
 
 .bank-transfer-amount {
   color: #7c3aed;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .bank-transfer-details p {
