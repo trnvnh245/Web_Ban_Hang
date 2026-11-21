@@ -35,7 +35,25 @@ const DANH_SACH_NGUOI_DUNG = [
     sdt: "0945678901",
     trangThai: "khoa",
   },
+  {
+    ma: "ND006",
+    ten: "Phạm Ngọc Linh",
+    email: "linh@mail.com",
+    sdt: "0956789012",
+    trangThai: "hoat_dong",
+  },
+  {
+    ma: "ND007",
+    ten: "Đặng Hoàng Long",
+    email: "long@mail.com",
+    sdt: "0967890123",
+    trangThai: "hoat_dong",
+  },
 ];
+
+// Quy định VIP: tài khoản đang hoạt động có tổng chi tiêu từ 1.200.000 ₫,
+// tính trên các đơn không bị hủy.
+const NGUONG_KHACH_HANG_VIP = 1200000;
 
 // 2. DỮ LIỆU SẢN PHẨM (PRODUCTS - BLIND BOX)
 const DANH_SACH_SAN_PHAM = [
@@ -344,7 +362,7 @@ const DU_LIEU_MAU = [
     diaChi: "11 Sư Vạn Hạnh",
     quan: "Quận 10",
     thanhToan: "Tiền mặt",
-    trangThai: "chua_xac_nhan",
+    trangThai: "da_giao",
     items: [
       {
         maSP: "P001",
@@ -420,6 +438,44 @@ const DU_LIEU_MAU = [
       { maSP: "P012", tenSP: "Snack Series", gia: 249000, soLuong: 1 },
       { maSP: "P015", tenSP: "Series 1", gia: 220000, soLuong: 1 },
       { maSP: "P020", tenSP: "After Dark Series", gia: 329000, soLuong: 1 },
+    ],
+  },
+  {
+    id: "DH006",
+    maKH: "ND006",
+    tenKH: "Phạm Ngọc Linh",
+    ngayDat: "2026-06-03",
+    diaChi: "45 Nguyễn Văn Cừ",
+    quan: "Quận 5",
+    thanhToan: "Chuyển khoản",
+    trangThai: "chua_xac_nhan",
+    items: [
+      {
+        maSP: "P005",
+        tenSP: "Labubu Wacky Mart Series",
+        gia: 320000,
+        soLuong: 1,
+      },
+      { maSP: "P013", tenSP: "HIPPERS Series", gia: 299000, soLuong: 1 },
+    ],
+  },
+  {
+    id: "DH007",
+    maKH: "ND007",
+    tenKH: "Đặng Hoàng Long",
+    ngayDat: "2026-06-05",
+    diaChi: "88 Lê Văn Sỹ",
+    quan: "Quận 3",
+    thanhToan: "Tiền mặt",
+    trangThai: "da_xac_nhan",
+    items: [
+      {
+        maSP: "P004",
+        tenSP: "Dimoo Vinyl Plush Series",
+        gia: 350000,
+        soLuong: 2,
+      },
+      { maSP: "P017", tenSP: "Work Series", gia: 249000, soLuong: 1 },
     ],
   },
 ];

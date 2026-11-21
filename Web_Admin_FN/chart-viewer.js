@@ -4,10 +4,10 @@
 
   const assessments = {
     'thong-ke-ban-chay.jpg': 'After Dark và Mermicorno dẫn đầu với 46 và 45 sản phẩm đã bán, cao hơn rõ rệt so với ba sản phẩm còn lại. Có thể ưu tiên theo dõi tồn kho của hai dòng này để lên kế hoạch bổ sung hàng.',
-    'tong-quan-don-hang.jpg': 'Đơn đã giao chiếm 40%, còn đơn chờ xác nhận và đã xác nhận chiếm tổng cộng 40%. Nên ưu tiên xử lý hai đơn đang chờ hoàn tất và xem xét nguyên nhân của một đơn đã hủy.',
+    'tong-quan-don-hang.svg': 'Trong 7 đơn hàng hiện có, 3 đơn đã giao, 2 đơn đã xác nhận, 1 đơn chờ xác nhận và 1 đơn đã hủy.',
     'tong-quan-san-pham.jpg': 'Mini Figure và Robot / Mecha có tổng tồn kho 125 sản phẩm, chiếm khoảng 66% tổng tồn kho. Designer Toy / Blind Box có tồn kho thấp nhất với 19 sản phẩm; cần đối chiếu sức bán trước khi quyết định nhập thêm.',
     'tong-quan-nhap-xuat.jpg': 'Lượng nhập 260 sản phẩm cao hơn lượng xuất 63 sản phẩm khoảng 4,1 lần, chênh lệch 197 sản phẩm trong các phiếu được thống kê. Nên theo dõi tốc độ bán và tồn kho thực tế để cân đối các đợt nhập tiếp theo.',
-    'tong-quan-khach-hang.jpg': 'Có 4 trên 5 tài khoản đang hoạt động, tương đương 80%; một tài khoản đã bị khóa. Trạng thái hoạt động phản ánh tình trạng tài khoản, chưa đủ để đánh giá tần suất mua hàng của khách.'
+    'tong-quan-khach-hang.svg': 'Có 6 trên 7 tài khoản đang hoạt động, tương đương khoảng 86%; một tài khoản đã bị khóa. Trạng thái hoạt động phản ánh tình trạng tài khoản, chưa đủ để đánh giá tần suất mua hàng của khách.'
   };
 
   const dialog = document.createElement('dialog');
