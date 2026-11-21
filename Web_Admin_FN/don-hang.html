@@ -208,8 +208,8 @@
               <span class="hero-spark spark-two">✧</span>
               <div class="hero-photo">
                 <img
-                  src="assets/tong-quan-don-hang.jpg"
-                  alt="Tổng quan 5 đơn hàng: chờ xác nhận 1, đã xác nhận 1, đã giao 2, đã hủy 1"
+                  src="assets/tong-quan-don-hang.svg"
+                  alt="Tổng quan 7 đơn hàng: chờ xác nhận 1, đã xác nhận 2, đã giao 3, đã hủy 1"
                   width="1000"
                   height="700"
                 /><span>TRẠNG THÁI ĐƠN HÀNG</span>
@@ -249,7 +249,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Tổng số đơn hàng</span>
-                <span class="stat-value">5 đơn</span>
+                <span class="stat-value" id="soDonHang">0 đơn</span>
               </div>
             </div>
 
@@ -269,7 +269,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Chờ xác nhận</span>
-                <span class="stat-value">1 đơn</span>
+                <span class="stat-value" id="soDonChoXacNhan">0 đơn</span>
               </div>
             </div>
 
@@ -289,7 +289,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Đã giao thành công</span>
-                <span class="stat-value">2 đơn</span>
+                <span class="stat-value" id="soDonDaGiao">0 đơn</span>
               </div>
             </div>
 
@@ -311,7 +311,7 @@
               <div class="stat-info">
                 <span class="stat-label">Đơn đã hủy</span>
                 <span class="stat-value" style="color: var(--danger)"
-                  >1 đơn</span
+                  id="soDonDaHuy">0 đơn</span
                 >
               </div>
             </div>
@@ -451,6 +451,14 @@
         }
       }
 
+      function capNhatThongKeDonHang() {
+        const donHang = layDonhang();
+        document.getElementById("soDonHang").textContent = `${donHang.length} đơn`;
+        document.getElementById("soDonChoXacNhan").textContent = `${donHang.filter((don) => don.trangThai === "chua_xac_nhan").length} đơn`;
+        document.getElementById("soDonDaGiao").textContent = `${donHang.filter((don) => don.trangThai === "da_giao").length} đơn`;
+        document.getElementById("soDonDaHuy").textContent = `${donHang.filter((don) => don.trangThai === "da_huy").length} đơn`;
+      }
+
       function locDonhang() {
         showToast(
           "Đã lọc danh sách đơn hàng thành công!",
@@ -460,6 +468,7 @@
       }
 
       hienThiDonhang(layDonhang());
+      capNhatThongKeDonHang();
     </script>
   </body>
 </html>

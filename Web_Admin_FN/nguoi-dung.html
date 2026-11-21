@@ -206,7 +206,12 @@
               <span class="hero-spark spark-one">✦</span>
               <span class="hero-spark spark-two">✧</span>
               <div class="hero-photo">
-                <img src="assets/tong-quan-khach-hang.jpg" alt="Tổng quan 5 khách hàng: 4 hoạt động, 1 đã khóa" width="1000" height="700" /><span>TRẠNG THÁI KHÁCH HÀNG</span>
+                <img
+                  src="assets/tong-quan-khach-hang.svg"
+                  alt="Tổng quan 7 khách hàng: 6 hoạt động, 1 đã khóa"
+                  width="1000"
+                  height="700"
+                /><span>TRẠNG THÁI KHÁCH HÀNG</span>
               </div>
               <div class="hero-sticker">
                 <span>✦</span> A little box.<br />A big surprise.
@@ -258,7 +263,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Tổng khách hàng</span>
-                <span class="stat-value">5 tài khoản</span>
+                <span class="stat-value" id="soKhachHang">0 tài khoản</span>
               </div>
             </div>
 
@@ -278,7 +283,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Đang hoạt động</span>
-                <span class="stat-value">4 tài khoản</span>
+                <span class="stat-value" id="soKhachHoatDong">0 tài khoản</span>
               </div>
             </div>
 
@@ -298,8 +303,11 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Đang bị khóa</span>
-                <span class="stat-value" style="color: var(--danger)"
-                  >1 tài khoản</span
+                <span
+                  class="stat-value"
+                  style="color: var(--danger)"
+                  id="soKhachBiKhoa"
+                  >0 tài khoản</span
                 >
               </div>
             </div>
@@ -320,8 +328,8 @@
                 </svg>
               </div>
               <div class="stat-info">
-                <span class="stat-label">Khách hàng VIP</span>
-                <span class="stat-value">2 người</span>
+                <span class="stat-label">Khách VIP (từ 1.200.000 ₫)</span>
+                <span class="stat-value" id="soKhachVip">0 người</span>
               </div>
             </div>
           </div>
@@ -499,6 +507,27 @@
     <script>
       let dsUser = [...layNguoiDung()];
 
+      function capNhatThongKeNguoiDung() {
+        const activeIds = new Set(
+          dsUser
+            .filter((user) => user.trangThai === "hoat_dong")
+            .map((user) => user.ma),
+        );
+        const chiTieu = new Map();
+        layDonhang().forEach((don) => {
+          if (don.trangThai === "da_huy" || !activeIds.has(don.maKH)) return;
+          chiTieu.set(don.maKH, (chiTieu.get(don.maKH) || 0) + tinhTong(don));
+        });
+        document.getElementById("soKhachHang").textContent =
+          `${dsUser.length} tài khoản`;
+        document.getElementById("soKhachHoatDong").textContent =
+          `${activeIds.size} tài khoản`;
+        document.getElementById("soKhachBiKhoa").textContent =
+          `${dsUser.length - activeIds.size} tài khoản`;
+        document.getElementById("soKhachVip").textContent =
+          `${[...chiTieu.values()].filter((total) => total >= NGUONG_KHACH_HANG_VIP).length} người`;
+      }
+
       function hienThiNguoiDung() {
         const tbody = document.getElementById("bangNguoiDung");
         tbody.innerHTML = "";
@@ -590,6 +619,7 @@
       }
 
       hienThiNguoiDung();
+      capNhatThongKeNguoiDung();
     </script>
   </body>
 </html>

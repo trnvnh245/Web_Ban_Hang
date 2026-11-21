@@ -246,7 +246,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Tổng doanh thu kỳ này</span>
-                <span class="stat-value">5.260.000 ₫</span>
+                <span class="stat-value" id="tongDoanhThu">0 ₫</span>
               </div>
             </div>
 
@@ -269,7 +269,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Tổng số đơn hàng</span>
-                <span class="stat-value">5 đơn</span>
+                <span class="stat-value" id="tongDonHang">0 đơn</span>
               </div>
             </div>
 
@@ -290,9 +290,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Khách hàng chi tiêu cao nhất</span>
-                <span class="stat-value" style="font-size: 18px"
-                  >Nguyễn Minh Anh</span
-                >
+                <span class="stat-value" id="khachChiTieuCaoNhat" style="font-size: 18px">Chưa có dữ liệu</span>
               </div>
             </div>
           </div>
@@ -369,148 +367,7 @@
                   </tr>
                 </thead>
 
-                <tbody id="bangThongKe">
-                  <tr>
-                    <td style="text-align: center">
-                      <div class="rank-badge top-1" style="margin: 0 auto">
-                        1
-                      </div>
-                    </td>
-                    <td><span class="code-badge">ND001</span></td>
-                    <td><span class="cell-bold">Nguyễn Minh Anh</span></td>
-                    <td>2026-05-24</td>
-                    <td style="text-align: right">
-                      <span class="cell-price">1.489.000 ₫</span>
-                    </td>
-                    <td style="text-align: right">
-                      <a class="btn-action" href="chi-tiet-don.html">
-                        <span>DH001</span>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.5"
-                        >
-                          <path d="m9 18 6-6-6-6" />
-                        </svg>
-                      </a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td style="text-align: center">
-                      <div class="rank-badge top-2" style="margin: 0 auto">
-                        2
-                      </div>
-                    </td>
-                    <td><span class="code-badge">ND002</span></td>
-                    <td><span class="cell-bold">Trần Quốc Bảo</span></td>
-                    <td>2026-02-06</td>
-                    <td style="text-align: right">
-                      <span class="cell-price">1.239.000 ₫</span>
-                    </td>
-                    <td style="text-align: right">
-                      <a class="btn-action" href="chi-tiet-don.html">
-                        <span>DH002</span>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.5"
-                        >
-                          <path d="m9 18 6-6-6-6" />
-                        </svg>
-                      </a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td style="text-align: center">
-                      <div class="rank-badge top-3" style="margin: 0 auto">
-                        3
-                      </div>
-                    </td>
-                    <td><span class="code-badge">ND004</span></td>
-                    <td><span class="cell-bold">Trần Minh Đức</span></td>
-                    <td>2025-12-30</td>
-                    <td style="text-align: right">
-                      <span class="cell-price">1.096.000 ₫</span>
-                    </td>
-                    <td style="text-align: right">
-                      <a class="btn-action" href="chi-tiet-don.html">
-                        <span>DH003</span>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.5"
-                        >
-                          <path d="m9 18 6-6-6-6" />
-                        </svg>
-                      </a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td style="text-align: center">
-                      <div class="rank-badge" style="margin: 0 auto">4</div>
-                    </td>
-                    <td><span class="code-badge">ND005</span></td>
-                    <td><span class="cell-bold">Võ Gia Huy</span></td>
-                    <td>2026-05-22</td>
-                    <td style="text-align: right">
-                      <span class="cell-price">798.000 ₫</span>
-                    </td>
-                    <td style="text-align: right">
-                      <a class="btn-action" href="chi-tiet-don.html">
-                        <span>DH005</span>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.5"
-                        >
-                          <path d="m9 18 6-6-6-6" />
-                        </svg>
-                      </a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td style="text-align: center">
-                      <div class="rank-badge" style="margin: 0 auto">5</div>
-                    </td>
-                    <td><span class="code-badge">ND003</span></td>
-                    <td><span class="cell-bold">Lê Hoàng Nam</span></td>
-                    <td>2026-05-18</td>
-                    <td style="text-align: right">
-                      <span class="cell-price">638.000 ₫</span>
-                    </td>
-                    <td style="text-align: right">
-                      <a class="btn-action" href="chi-tiet-don.html">
-                        <span>DH004</span>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.5"
-                        >
-                          <path d="m9 18 6-6-6-6" />
-                        </svg>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody id="bangThongKe"></tbody>
               </table>
             </div>
           </div>
@@ -521,6 +378,41 @@
     <script src="data.js"></script>
     <script src="chart-viewer.js" defer></script>
     <script>
+      const formatNgay = (value) => new Date(`${value}T00:00:00`).toLocaleDateString("vi-VN");
+
+      function capNhatThongKe() {
+        const tuNgay = document.getElementById("tuNgay").value;
+        const denNgay = document.getElementById("denNgay").value;
+        const nguoiDungHoatDong = new Map(
+          layNguoiDung().filter((user) => user.trangThai === "hoat_dong").map((user) => [user.ma, user]),
+        );
+        const donHopLe = layDonhang().filter((don) => {
+          if (don.trangThai === "da_huy" || !nguoiDungHoatDong.has(don.maKH)) return false;
+          return (!tuNgay || don.ngayDat >= tuNgay) && (!denNgay || don.ngayDat <= denNgay);
+        });
+        const theoKhach = new Map();
+        donHopLe.forEach((don) => {
+          const khach = nguoiDungHoatDong.get(don.maKH);
+          const record = theoKhach.get(don.maKH) || { khach, tong: 0, don: [] };
+          record.tong += tinhTong(don);
+          record.don.push(don);
+          theoKhach.set(don.maKH, record);
+        });
+        const xepHang = [...theoKhach.values()].sort((a, b) => b.tong - a.tong);
+        document.getElementById("tongDoanhThu").textContent = formatTien(donHopLe.reduce((sum, don) => sum + tinhTong(don), 0));
+        document.getElementById("tongDonHang").textContent = `${donHopLe.length} đơn`;
+        document.getElementById("khachChiTieuCaoNhat").textContent = xepHang[0]?.khach.ten || "Chưa có dữ liệu";
+        const topKhachHang = xepHang.slice(0, 5);
+        document.getElementById("bangThongKe").innerHTML = topKhachHang.length
+          ? topKhachHang.map(({ khach, tong, don }, index) => {
+              const donGanNhat = [...don].sort((a, b) => b.ngayDat.localeCompare(a.ngayDat))[0];
+              const rankClass = index < 3 ? ` top-${index + 1}` : "";
+              const donLinks = don.map((item) => `<a class="btn-action" href="chi-tiet-don.html"><span>${item.id}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6" /></svg></a>`).join(" ");
+              return `<tr><td style="text-align:center"><div class="rank-badge${rankClass}" style="margin:0 auto">${index + 1}</div></td><td><span class="code-badge">${khach.ma}</span></td><td><span class="cell-bold">${khach.ten}</span></td><td>${formatNgay(donGanNhat.ngayDat)}</td><td style="text-align:right"><span class="cell-price">${formatTien(tong)}</span></td><td style="text-align:right">${donLinks}</td></tr>`;
+            }).join("")
+          : '<tr><td colspan="6" style="text-align:center;padding:24px">Không có đơn hàng hợp lệ trong khoảng thời gian này.</td></tr>';
+      }
+
       function thongKe() {
         const tuNgay = document.getElementById("tuNgay").value;
         const denNgay = document.getElementById("denNgay").value;
@@ -538,6 +430,7 @@
           );
         }
       }
+      capNhatThongKe();
     </script>
   </body>
 </html>
