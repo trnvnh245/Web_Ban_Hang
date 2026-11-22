@@ -201,7 +201,7 @@
         <!-- PAGE BODY -->
         <main class="page">
           <div class="bar">
-            <!-- Biểu đồ được tạo từ trạng thái đơn hàng trong data.js -->
+            <!-- Biểu đồ trạng thái đơn hàng tĩnh -->
             <div class="hero-art" aria-hidden="true">
               <div class="hero-orbit"></div>
               <span class="hero-spark spark-one">✦</span>
@@ -249,7 +249,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Tổng số đơn hàng</span>
-                <span class="stat-value" id="soDonHang">0 đơn</span>
+                <span class="stat-value" >7 đơn</span>
               </div>
             </div>
 
@@ -269,7 +269,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Chờ xác nhận</span>
-                <span class="stat-value" id="soDonChoXacNhan">0 đơn</span>
+                <span class="stat-value" >1 đơn</span>
               </div>
             </div>
 
@@ -289,7 +289,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Đã giao thành công</span>
-                <span class="stat-value" id="soDonDaGiao">0 đơn</span>
+                <span class="stat-value" >3 đơn</span>
               </div>
             </div>
 
@@ -310,8 +310,10 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Đơn đã hủy</span>
-                <span class="stat-value" style="color: var(--danger)"
-                  id="soDonDaHuy">0 đơn</span
+                <span
+                  class="stat-value"
+                  style="color: var(--danger)"
+                 >1 đơn</span
                 >
               </div>
             </div>
@@ -413,7 +415,15 @@
                     <th style="text-align: right">Thao tác</th>
                   </tr>
                 </thead>
-                <tbody id="bangDonHang"></tbody>
+                <tbody id="bangDonHang">
+                <tr><td><span class="code-badge">DH001</span></td><td><span class="cell-bold">Nguyễn Minh Anh</span></td><td>2026-05-24</td><td>Quận 10</td><td>Tiền mặt</td><td><span class="cell-price">1.489.000 ₫</span></td><td><span class="tag tag-da_giao">Đã giao</span></td><td style="text-align:right"><a class="btn-action" href="chi-tiet-don.html"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></td></tr>
+                <tr><td><span class="code-badge">DH002</span></td><td><span class="cell-bold">Trần Quốc Bảo</span></td><td>2026-02-06</td><td>Quận 5</td><td>Chuyển khoản</td><td><span class="cell-price">1.239.000 ₫</span></td><td><span class="tag tag-da_xac_nhan">Đã xác nhận</span></td><td style="text-align:right"><a class="btn-action" href="chi-tiet-don.html"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></td></tr>
+                <tr><td><span class="code-badge">DH003</span></td><td><span class="cell-bold">Trần Minh Đức</span></td><td>2025-12-30</td><td>Quận 11</td><td>Tiền mặt</td><td><span class="cell-price">1.096.000 ₫</span></td><td><span class="tag tag-da_giao">Đã giao</span></td><td style="text-align:right"><a class="btn-action" href="chi-tiet-don.html"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></td></tr>
+                <tr><td><span class="code-badge">DH004</span></td><td><span class="cell-bold">Lê Hoàng Nam</span></td><td>2025-06-28</td><td>Quận 3</td><td>Tiền mặt</td><td><span class="cell-price">638.000 ₫</span></td><td><span class="tag tag-da_giao">Đã giao</span></td><td style="text-align:right"><a class="btn-action" href="chi-tiet-don.html"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></td></tr>
+                <tr><td><span class="code-badge">DH005</span></td><td><span class="cell-bold">Võ Gia Huy</span></td><td>2026-02-19</td><td>Quận 6</td><td>Chuyển khoản</td><td><span class="cell-price">798.000 ₫</span></td><td><span class="tag tag-da_huy">Đã hủy</span></td><td style="text-align:right"><a class="btn-action" href="chi-tiet-don.html"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></td></tr>
+                <tr><td><span class="code-badge">DH006</span></td><td><span class="cell-bold">Phạm Ngọc Linh</span></td><td>2026-06-03</td><td>Quận 5</td><td>Chuyển khoản</td><td><span class="cell-price">619.000 ₫</span></td><td><span class="tag tag-chua_xac_nhan">Chưa xác nhận</span></td><td style="text-align:right"><a class="btn-action" href="chi-tiet-don.html"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></td></tr>
+                <tr><td><span class="code-badge">DH007</span></td><td><span class="cell-bold">Đặng Hoàng Long</span></td><td>2026-06-05</td><td>Quận 3</td><td>Tiền mặt</td><td><span class="cell-price">949.000 ₫</span></td><td><span class="tag tag-da_xac_nhan">Đã xác nhận</span></td><td style="text-align:right"><a class="btn-action" href="chi-tiet-don.html"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></td></tr>
+              </tbody>
               </table>
             </div>
           </div>
@@ -421,54 +431,10 @@
       </div>
     </div>
 
-    <script src="data.js"></script>
+    <script src="ui.js"></script>
     <script src="chart-viewer.js" defer></script>
     <script>
-      function hienThiDonhang(ds) {
-        const tbody = document.getElementById("bangDonHang");
-        tbody.innerHTML = "";
-
-        for (let don of ds) {
-          let row = document.createElement("tr");
-
-          row.innerHTML = `
-          <td><span class="code-badge">${don.id}</span></td>
-          <td><span class="cell-bold">${don.tenKH}</span></td>
-          <td>${don.ngayDat}</td>
-          <td>${don.quan}</td>
-          <td>${don.thanhToan}</td>
-          <td><span class="cell-price">${formatTien(tinhTong(don))}</span></td>
-          <td><span class="tag tag-${don.trangThai}">${TEN_TRANG_THAI[don.trangThai]}</span></td>
-          <td style="text-align: right">
-            <a class="btn-action" href="chi-tiet-don.html">
-              <span>Chi tiết</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-            </a>
-          </td>
-          `;
-
-          tbody.appendChild(row);
-        }
-      }
-
-      function capNhatThongKeDonHang() {
-        const donHang = layDonhang();
-        document.getElementById("soDonHang").textContent = `${donHang.length} đơn`;
-        document.getElementById("soDonChoXacNhan").textContent = `${donHang.filter((don) => don.trangThai === "chua_xac_nhan").length} đơn`;
-        document.getElementById("soDonDaGiao").textContent = `${donHang.filter((don) => don.trangThai === "da_giao").length} đơn`;
-        document.getElementById("soDonDaHuy").textContent = `${donHang.filter((don) => don.trangThai === "da_huy").length} đơn`;
-      }
-
-      function locDonhang() {
-        showToast(
-          "Đã lọc danh sách đơn hàng thành công!",
-          "success",
-          "Lọc đơn hàng",
-        );
-      }
-
-      hienThiDonhang(layDonhang());
-      capNhatThongKeDonHang();
+      function locDonhang() { showToast("Đã nhận yêu cầu lọc đơn hàng.", "success", "Đơn hàng"); }
     </script>
   </body>
 </html>

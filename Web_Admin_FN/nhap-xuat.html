@@ -430,7 +430,13 @@
                     <th style="text-align: right">Thao tác</th>
                   </tr>
                 </thead>
-                <tbody id="bangNhapXuat"></tbody>
+                <tbody id="bangNhapXuat">
+                <tr><td><span class="code-badge">PN001</span></td><td>2026-05-10</td><td><span class="tag info">Nhập kho</span></td><td><span class="cell-bold">POP MART Official Distributor</span></td><td>—</td><td style="text-align:center"><span style="background:var(--bg-surface);padding:4px 10px;border-radius:99px;font-weight:700">120</span></td><td style="text-align:right"><span class="cell-price">28.500.000 ₫</span></td><td><span style="font-size:13px;color:var(--text-mute)">Nhập lô Blind Box Hirono &amp; Skullpanda</span></td><td style="text-align:right"><button class="btn-action" data-ma="PN001" onclick="inPhieu(this)"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">PX001</span></td><td>2026-05-15</td><td><span class="tag xuat">Xuất kho</span></td><td><span class="cell-bold">Chi nhánh Quận 1</span></td><td>Admin (1252)</td><td style="text-align:center"><span style="background:var(--bg-surface);padding:4px 10px;border-radius:99px;font-weight:700">35</span></td><td style="text-align:right"><span class="cell-price">9.800.000 ₫</span></td><td><span style="font-size:13px;color:var(--text-mute)">Xuất hàng giao đại lý trung tâm</span></td><td style="text-align:right"><button class="btn-action" data-ma="PX001" onclick="inPhieu(this)"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">PN002</span></td><td>2026-05-20</td><td><span class="tag info">Nhập kho</span></td><td><span class="cell-bold">Tokidoki Asia Supplier</span></td><td>Admin (1252)</td><td style="text-align:center"><span style="background:var(--bg-surface);padding:4px 10px;border-radius:99px;font-weight:700">80</span></td><td style="text-align:right"><span class="cell-price">21.400.000 ₫</span></td><td><span style="font-size:13px;color:var(--text-mute)">Nhập thêm series Unicorno &amp; Mermicorno</span></td><td style="text-align:right"><button class="btn-action" data-ma="PN002" onclick="inPhieu(this)"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">PX002</span></td><td>2026-05-24</td><td><span class="tag xuat">Xuất kho</span></td><td><span class="cell-bold">Đơn bán lẻ online (Tổng hợp)</span></td><td>Admin (1252)</td><td style="text-align:center"><span style="background:var(--bg-surface);padding:4px 10px;border-radius:99px;font-weight:700">28</span></td><td style="text-align:right"><span class="cell-price">8.120.000 ₫</span></td><td><span style="font-size:13px;color:var(--text-mute)">Xuất đóng gói cho các đơn đặt hàng online</span></td><td style="text-align:right"><button class="btn-action" data-ma="PX002" onclick="inPhieu(this)"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">PN003</span></td><td>2026-06-01</td><td><span class="tag info">Nhập kho</span></td><td><span class="cell-bold">Sonny Angel HK Co.</span></td><td>Admin (1252)</td><td style="text-align:center"><span style="background:var(--bg-surface);padding:4px 10px;border-radius:99px;font-weight:700">60</span></td><td style="text-align:right"><span class="cell-price">14.200.000 ₫</span></td><td><span style="font-size:13px;color:var(--text-mute)">Nhập bổ sung đợt mini figure HIPPERS</span></td><td style="text-align:right"><button class="btn-action" data-ma="PN003" onclick="inPhieu(this)"><span>Chi tiết</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button></td></tr>
+              </tbody>
               </table>
             </div>
           </div>
@@ -542,76 +548,13 @@
       </div>
     </div>
 
-    <script src="data.js"></script>
+    <script src="ui.js"></script>
     <script src="chart-viewer.js" defer></script>
     <script>
-      function hienThiNhapXuat(ds) {
-        const tbody = document.getElementById("bangNhapXuat");
-        tbody.innerHTML = "";
-
-        for (let phieu of ds) {
-          let row = document.createElement("tr");
-
-          row.innerHTML = `
-            <td><span class="code-badge">${phieu.maPhieu}</span></td>
-            <td>${phieu.ngay}</td>
-            <td>
-              <span class="tag ${phieu.loai === "nhap" ? "tag.nhap info" : "tag.xuat xuat"}">
-                ${phieu.loai === "nhap" ? "Nhập kho" : "Xuất kho"}
-              </span>
-            </td>
-            <td><span class="cell-bold">${phieu.nhaCungCap}</span></td>
-            <td>${phieu.nguoiLap}</td>
-            <td style="text-align: center;"><span style="background: var(--bg-surface); padding: 4px 10px; border-radius: 99px; font-weight: 700;">${phieu.tongSoLuong}</span></td>
-            <td style="text-align: right;"><span class="cell-price">${formatTien(phieu.tongTien)}</span></td>
-            <td><span style="font-size: 13px; color: var(--text-mute);">${phieu.ghiChu}</span></td>
-            <td style="text-align: right;">
-              <button class="btn-action" onclick="inPhieu('${phieu.maPhieu}')">
-                <span>Chi tiết</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-            </td>
-          `;
-
-          tbody.appendChild(row);
-        }
-      }
-
-      function locNhapXuat() {
-        showToast(
-          "Đã lọc dữ liệu phiếu nhập xuất kho thành công!",
-          "success",
-          "Lọc kho",
-        );
-      }
-
-      function luuPhieuNhap() {
-        closeModal("modal-nhap");
-        showToast(
-          "Đã tạo phiếu nhập kho mới thành công!",
-          "success",
-          "Nhập kho",
-        );
-      }
-
-      function luuPhieuXuat() {
-        closeModal("modal-xuat");
-        showToast(
-          "Đã tạo phiếu xuất kho mới thành công!",
-          "success",
-          "Xuất kho",
-        );
-      }
-
-      function inPhieu(ma) {
-        showToast(
-          `Đã xuất dữ liệu phiếu ${ma} sang định dạng in ấn!`,
-          "info",
-          "Chi tiết phiếu",
-        );
-      }
-
-      hienThiNhapXuat(layNhapXuat());
+      function locNhapXuat() { showToast("Đã nhận yêu cầu lọc phiếu kho.", "success", "Nhập - xuất kho"); }
+      function luuPhieuNhap() { closeModal("modal-nhap"); showToast("Đã xác nhận lưu phiếu nhập.", "success", "Nhập kho"); }
+      function luuPhieuXuat() { closeModal("modal-xuat"); showToast("Đã xác nhận lưu phiếu xuất.", "success", "Xuất kho"); }
+      function inPhieu(button) { showToast(`Đã mở thông tin phiếu ${button.dataset.ma}.`, "info", "Chi tiết phiếu"); }
     </script>
   </body>
 </html>

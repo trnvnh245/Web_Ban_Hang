@@ -266,34 +266,34 @@
               <div class="info-list">
                 <div class="info-item">
                   <span class="info-label">Mã đơn hàng</span>
-                  <div><span id="maDon" class="code-badge"></span></div>
+                  <div><span class="code-badge">DH002</span></div>
                 </div>
 
                 <div class="info-item">
                   <span class="info-label">Khách hàng</span>
-                  <span id="tenKH" class="info-value"></span>
+                  <span class="info-value">Trần Quốc Bảo</span>
                 </div>
 
                 <div class="info-item">
                   <span class="info-label">Ngày đặt</span>
-                  <span id="ngayDat" class="info-value"></span>
+                  <span class="info-value">2026-02-06</span>
                 </div>
 
                 <div class="info-item">
                   <span class="info-label">Địa chỉ nhận hàng</span>
                   <div class="info-value">
-                    <span id="diaChi"></span>, <span id="quan"></span>
+                    123 Nguyễn Trãi, Quận 5
                   </div>
                 </div>
 
                 <div class="info-item">
                   <span class="info-label">Hình thức thanh toán</span>
-                  <span id="thanhToan" class="info-value"></span>
+                  <span class="info-value">Chuyển khoản</span>
                 </div>
 
                 <div class="info-item">
                   <span class="info-label">Trạng thái hiện tại</span>
-                  <div><span id="trangThai"></span></div>
+                  <div><span class="tag tag-da_xac_nhan">Đã xác nhận</span></div>
                 </div>
               </div>
 
@@ -302,6 +302,8 @@
                 <label for="trangThaiMoi">Cập nhật trạng thái tiếp theo</label>
                 <select id="trangThaiMoi">
                   <option value="">-- Chọn trạng thái mới --</option>
+                  <option value="da_giao">Đã giao</option>
+                  <option value="da_huy">Đã hủy</option>
                 </select>
                 <button
                   class="btn btn-primary"
@@ -357,7 +359,10 @@
                         <th style="text-align: right">Thành tiền</th>
                       </tr>
                     </thead>
-                    <tbody id="danhSachSanPham"></tbody>
+                    <tbody id="danhSachSanPham">
+                      <tr><td><span class="code-badge">P006</span></td><td><span class="cell-bold">BEASTBOX BB-01 DIO LITE EDITION</span></td><td style="text-align:right">220.000 ₫</td><td style="text-align:center"><span style="background:var(--bg-surface);padding:4px 10px;border-radius:99px;font-weight:700">x2</span></td><td style="text-align:right"><span class="cell-price">440.000 ₫</span></td></tr>
+                      <tr><td><span class="code-badge">P009</span></td><td><span class="cell-bold">BEASTBOX Shovelhead</span></td><td style="text-align:right">799.000 ₫</td><td style="text-align:center"><span style="background:var(--bg-surface);padding:4px 10px;border-radius:99px;font-weight:700">x1</span></td><td style="text-align:right"><span class="cell-price">799.000 ₫</span></td></tr>
+              </tbody>
                   </table>
                 </div>
               </div>
@@ -365,93 +370,28 @@
               <!-- TỔNG KẾT HÓA ĐƠN -->
               <div class="total-summary-card">
                 <span class="total-summary-label">Tổng thanh toán:</span>
-                <span id="tongTien" class="total-summary-amount"></span>
+                <span class="total-summary-amount">1.239.000 ₫</span>
               </div>
             </div>
           </div>
+          <!-- Chi tiết tĩnh của các đơn còn lại, lưu trong template không hiển thị. -->
+          <template id="chi-tiet-DH002"><table><tbody><tr><th colspan="5">DH002 · Trần Quốc Bảo · 2026-02-06 · Tổng 1.239.000 ₫</th></tr><tr><td>P006</td><td>BEASTBOX BB-01 DIO LITE EDITION</td><td>220.000 ₫</td><td>2</td><td>440.000 ₫</td></tr><tr><td>P009</td><td>BEASTBOX Shovelhead</td><td>799.000 ₫</td><td>1</td><td>799.000 ₫</td></tr></tbody></table></template>
+          <template id="chi-tiet-DH003"><table><tbody><tr><th colspan="5">DH003 · Trần Minh Đức · 2025-12-30 · Tổng 1.096.000 ₫</th></tr><tr><td>P013</td><td>HIPPERS Series</td><td>299.000 ₫</td><td>2</td><td>598.000 ₫</td></tr><tr><td>P016</td><td>Living Series</td><td>249.000 ₫</td><td>2</td><td>498.000 ₫</td></tr></tbody></table></template>
+          <template id="chi-tiet-DH004"><table><tbody><tr><th colspan="5">DH004 · Lê Hoàng Nam · 2025-06-28 · Tổng 638.000 ₫</th></tr><tr><td>P019</td><td>Mermicorno Series</td><td>319.000 ₫</td><td>2</td><td>638.000 ₫</td></tr></tbody></table></template>
+          <template id="chi-tiet-DH005"><table><tbody><tr><th colspan="5">DH005 · Võ Gia Huy · 2026-02-19 · Tổng 798.000 ₫</th></tr><tr><td>P012</td><td>Snack Series</td><td>249.000 ₫</td><td>1</td><td>249.000 ₫</td></tr><tr><td>P015</td><td>Series 1</td><td>220.000 ₫</td><td>1</td><td>220.000 ₫</td></tr><tr><td>P020</td><td>After Dark Series</td><td>329.000 ₫</td><td>1</td><td>329.000 ₫</td></tr></tbody></table></template>
+          <template id="chi-tiet-DH006"><table><tbody><tr><th colspan="5">DH006 · Phạm Ngọc Linh · 2026-06-03 · Tổng 619.000 ₫</th></tr><tr><td>P005</td><td>Labubu Wacky Mart Series</td><td>320.000 ₫</td><td>1</td><td>320.000 ₫</td></tr><tr><td>P013</td><td>HIPPERS Series</td><td>299.000 ₫</td><td>1</td><td>299.000 ₫</td></tr></tbody></table></template>
+          <template id="chi-tiet-DH007"><table><tbody><tr><th colspan="5">DH007 · Đặng Hoàng Long · 2026-06-05 · Tổng 949.000 ₫</th></tr><tr><td>P004</td><td>Dimoo Vinyl Plush Series</td><td>350.000 ₫</td><td>2</td><td>700.000 ₫</td></tr><tr><td>P017</td><td>Work Series</td><td>249.000 ₫</td><td>1</td><td>249.000 ₫</td></tr></tbody></table></template>
         </main>
       </div>
     </div>
 
-    <script src="data.js"></script>
+    <script src="ui.js"></script>
     <script src="chart-viewer.js" defer></script>
     <script>
-      // Mọi liên kết đều mở cùng trang chi tiết của đơn mẫu có sản phẩm P001.
-      const don = layDonhang().find(function (don) {
-        return don.items.some((item) => item.maSP === "P001");
-      });
-
-      if (!don) {
-        showToast(
-          "Không tìm thấy thông tin đơn hàng này!",
-          "warning",
-          "Lỗi dữ liệu",
-        );
-        setTimeout(() => {
-          window.location.href = "don-hang.html";
-        }, 1500);
-      } else {
-        document.getElementById("maDon").textContent = don.id;
-        document.getElementById("tenKH").textContent = don.tenKH;
-        document.getElementById("ngayDat").textContent = don.ngayDat;
-        document.getElementById("diaChi").textContent = don.diaChi;
-        document.getElementById("quan").textContent = don.quan;
-        document.getElementById("thanhToan").textContent = don.thanhToan;
-        document.getElementById("trangThai").innerHTML =
-          `<span class="tag tag-${don.trangThai}">${TEN_TRANG_THAI[don.trangThai]}</span>`;
-
-        const select = document.getElementById("trangThaiMoi");
-        const trangThaiTiep = TRANG_THAI_TIEP[don.trangThai] || [];
-
-        if (trangThaiTiep.length === 0) {
-          let option = document.createElement("option");
-          option.value = "";
-          option.textContent = "Không còn trạng thái tiếp theo";
-          select.appendChild(option);
-          select.disabled = true;
-        } else {
-          for (let trangThai of trangThaiTiep) {
-            let option = document.createElement("option");
-            option.value = trangThai;
-            option.textContent = TEN_TRANG_THAI[trangThai];
-            select.appendChild(option);
-          }
-        }
-
-        const tbody = document.getElementById("danhSachSanPham");
-        for (let item of don.items) {
-          let row = document.createElement("tr");
-
-          row.innerHTML = `
-              <td><span class="code-badge">${item.maSP}</span></td>
-              <td><span class="cell-bold">${item.tenSP}</span></td>
-              <td style="text-align: right">${formatTien(item.gia)}</td>
-              <td style="text-align: center"><span style="background: var(--bg-surface); padding: 4px 10px; border-radius: 99px; font-weight: 700;">x${item.soLuong}</span></td>
-              <td style="text-align: right"><span class="cell-price">${formatTien(item.gia * item.soLuong)}</span></td>
-          `;
-          tbody.appendChild(row);
-        }
-
-        document.getElementById("tongTien").textContent = formatTien(
-          tinhTong(don),
-        );
-      }
-
       function capNhatTrangThai() {
-        if (!don) return;
         const select = document.getElementById("trangThaiMoi");
-        const trangThaiMoi = select.value;
-        if (trangThaiMoi == "") {
-          showToast("Vui lòng chọn trạng thái mới!", "warning", "Thông báo");
-          return;
-        }
-        // Chỉ hiển thị thông báo, không đổi dữ liệu hay trạng thái trên trang.
-        showToast(
-          "Cập nhật trạng thái thành công sang: " +
-            TEN_TRANG_THAI[trangThaiMoi],
-          "success",
-          "Cập nhật thành công",
-        );
+        if (!select.value) { showToast("Vui lòng chọn trạng thái mới!", "warning", "Thông báo"); return; }
+        showToast("Đã xác nhận cập nhật trạng thái.", "success", "Đơn hàng");
       }
     </script>
   </body>
