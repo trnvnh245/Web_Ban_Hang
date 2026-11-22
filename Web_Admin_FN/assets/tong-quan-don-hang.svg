@@ -2,15 +2,8 @@
   <rect width="1000" height="700" rx="34" fill="#fff"/>
   <text x="500" y="66" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#183153">TỔNG QUAN ĐƠN HÀNG</text>
   <text x="500" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#718096">Tổng số: 7 đơn hàng</text>
-  <g transform="rotate(-90 500 330)" fill="none" stroke-width="92">
-    <circle cx="500" cy="330" r="120" stroke="#f3b943" stroke-dasharray="107.72 646.26" stroke-dashoffset="0"/>
-    <circle cx="500" cy="330" r="120" stroke="#68a0ed" stroke-dasharray="215.42 538.56" stroke-dashoffset="-107.72"/>
-    <circle cx="500" cy="330" r="120" stroke="#2862e8" stroke-dasharray="323.13 430.85" stroke-dashoffset="-323.14"/>
-    <circle cx="500" cy="330" r="120" stroke="#c7d4e7" stroke-dasharray="107.70 646.28" stroke-dashoffset="-646.27"/>
-  </g>
-  <g font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#183153" text-anchor="middle">
-    <text x="586" y="226">14%</text><text x="620" y="382">29%</text><text x="417" y="437">43%</text><text x="382" y="267">14%</text>
-  </g>
+  <g><path d="M 500.00 160.00 A 170 170 0 0 1 632.91 224.01 L 560.98 281.37 A 78 78 0 0 0 500.00 252.00 Z" fill="#f3b943"/><path d="M 632.91 224.01 A 170 170 0 0 1 573.76 483.16 L 533.84 400.28 A 78 78 0 0 0 560.98 281.37 Z" fill="#68a0ed"/><path d="M 573.76 483.16 A 170 170 0 0 1 367.09 224.01 L 439.02 281.37 A 78 78 0 0 0 533.84 400.28 Z" fill="#2862e8"/><path d="M 367.09 224.01 A 170 170 0 0 1 500.00 160.00 L 500.00 252.00 A 78 78 0 0 0 439.02 281.37 Z" fill="#c7d4e7"/></g>
+  <g font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#183153" text-anchor="middle"><text x="553.80" y="218.28" text-anchor="middle" dominant-baseline="middle">14%</text><text x="620.89" y="357.59" text-anchor="middle" dominant-baseline="middle">29%</text><text x="403.05" y="407.31" text-anchor="middle" dominant-baseline="middle">43%</text><text x="446.20" y="218.28" text-anchor="middle" dominant-baseline="middle">14%</text></g>
   <g font-family="Arial,sans-serif" font-size="19" fill="#63738a">
     <rect x="145" y="535" width="28" height="22" fill="#f3b943"/><text x="185" y="553">Chờ xác nhận: 1 đơn</text>
     <rect x="520" y="535" width="28" height="22" fill="#68a0ed"/><text x="560" y="553">Đã xác nhận: 2 đơn</text>
