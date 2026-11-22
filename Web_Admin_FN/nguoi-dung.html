@@ -263,7 +263,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Tổng khách hàng</span>
-                <span class="stat-value" id="soKhachHang">0 tài khoản</span>
+                <span class="stat-value" >7 tài khoản</span>
               </div>
             </div>
 
@@ -283,7 +283,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Đang hoạt động</span>
-                <span class="stat-value" id="soKhachHoatDong">0 tài khoản</span>
+                <span class="stat-value" >6 tài khoản</span>
               </div>
             </div>
 
@@ -306,8 +306,7 @@
                 <span
                   class="stat-value"
                   style="color: var(--danger)"
-                  id="soKhachBiKhoa"
-                  >0 tài khoản</span
+                 >1 tài khoản</span
                 >
               </div>
             </div>
@@ -329,7 +328,7 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">Khách VIP (từ 1.200.000 ₫)</span>
-                <span class="stat-value" id="soKhachVip">0 người</span>
+                <span class="stat-value" >2 người</span>
               </div>
             </div>
           </div>
@@ -409,7 +408,15 @@
                     <th style="text-align: right">Thao tác</th>
                   </tr>
                 </thead>
-                <tbody id="bangNguoiDung"></tbody>
+                <tbody id="bangNguoiDung">
+                <tr><td><span class="code-badge">ND001</span></td><td><span class="cell-bold">Nguyễn Minh Anh</span></td><td>anh@mail.com</td><td>0901234567</td><td><span class="tag ok">Hoạt động</span></td><td style="text-align:right" class="act"><button class="icon-btn edit" title="Sửa thông tin" data-ma="ND001" data-ten="Nguyễn Minh Anh" data-email="anh@mail.com" data-sdt="0901234567" onclick="moModalSuaUser(this)"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="icon-btn ok" title="Khóa tài khoản" data-ma="ND001" data-ten="Nguyễn Minh Anh" data-status="hoat_dong" onclick="doiTrangThaiUser(this)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">ND002</span></td><td><span class="cell-bold">Trần Quốc Bảo</span></td><td>bao@mail.com</td><td>0912345678</td><td><span class="tag ok">Hoạt động</span></td><td style="text-align:right" class="act"><button class="icon-btn edit" title="Sửa thông tin" data-ma="ND002" data-ten="Trần Quốc Bảo" data-email="bao@mail.com" data-sdt="0912345678" onclick="moModalSuaUser(this)"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="icon-btn ok" title="Khóa tài khoản" data-ma="ND002" data-ten="Trần Quốc Bảo" data-status="hoat_dong" onclick="doiTrangThaiUser(this)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">ND003</span></td><td><span class="cell-bold">Lê Hoàng Nam</span></td><td>nam@mail.com</td><td>0923456789</td><td><span class="tag ok">Hoạt động</span></td><td style="text-align:right" class="act"><button class="icon-btn edit" title="Sửa thông tin" data-ma="ND003" data-ten="Lê Hoàng Nam" data-email="nam@mail.com" data-sdt="0923456789" onclick="moModalSuaUser(this)"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="icon-btn ok" title="Khóa tài khoản" data-ma="ND003" data-ten="Lê Hoàng Nam" data-status="hoat_dong" onclick="doiTrangThaiUser(this)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">ND004</span></td><td><span class="cell-bold">Trần Minh Đức</span></td><td>duc@mail.com</td><td>0934567890</td><td><span class="tag ok">Hoạt động</span></td><td style="text-align:right" class="act"><button class="icon-btn edit" title="Sửa thông tin" data-ma="ND004" data-ten="Trần Minh Đức" data-email="duc@mail.com" data-sdt="0934567890" onclick="moModalSuaUser(this)"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="icon-btn ok" title="Khóa tài khoản" data-ma="ND004" data-ten="Trần Minh Đức" data-status="hoat_dong" onclick="doiTrangThaiUser(this)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">ND005</span></td><td><span class="cell-bold">Võ Gia Huy</span></td><td>huy@mail.com</td><td>0945678901</td><td><span class="tag lock">Đã khóa</span></td><td style="text-align:right" class="act"><button class="icon-btn edit" title="Sửa thông tin" data-ma="ND005" data-ten="Võ Gia Huy" data-email="huy@mail.com" data-sdt="0945678901" onclick="moModalSuaUser(this)"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="icon-btn lock" title="Mở khóa tài khoản" data-ma="ND005" data-ten="Võ Gia Huy" data-status="khoa" onclick="doiTrangThaiUser(this)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">ND006</span></td><td><span class="cell-bold">Phạm Ngọc Linh</span></td><td>linh@mail.com</td><td>0956789012</td><td><span class="tag ok">Hoạt động</span></td><td style="text-align:right" class="act"><button class="icon-btn edit" title="Sửa thông tin" data-ma="ND006" data-ten="Phạm Ngọc Linh" data-email="linh@mail.com" data-sdt="0956789012" onclick="moModalSuaUser(this)"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="icon-btn ok" title="Khóa tài khoản" data-ma="ND006" data-ten="Phạm Ngọc Linh" data-status="hoat_dong" onclick="doiTrangThaiUser(this)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></button></td></tr>
+                <tr><td><span class="code-badge">ND007</span></td><td><span class="cell-bold">Đặng Hoàng Long</span></td><td>long@mail.com</td><td>0967890123</td><td><span class="tag ok">Hoạt động</span></td><td style="text-align:right" class="act"><button class="icon-btn edit" title="Sửa thông tin" data-ma="ND007" data-ten="Đặng Hoàng Long" data-email="long@mail.com" data-sdt="0967890123" onclick="moModalSuaUser(this)"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="icon-btn ok" title="Khóa tài khoản" data-ma="ND007" data-ten="Đặng Hoàng Long" data-status="hoat_dong" onclick="doiTrangThaiUser(this)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></button></td></tr>
+              </tbody>
               </table>
             </div>
           </div>
@@ -502,124 +509,25 @@
       </div>
     </div>
 
-    <script src="data.js"></script>
+    <script src="ui.js"></script>
     <script src="chart-viewer.js" defer></script>
     <script>
-      let dsUser = [...layNguoiDung()];
-
-      function capNhatThongKeNguoiDung() {
-        const activeIds = new Set(
-          dsUser
-            .filter((user) => user.trangThai === "hoat_dong")
-            .map((user) => user.ma),
-        );
-        const chiTieu = new Map();
-        layDonhang().forEach((don) => {
-          if (don.trangThai === "da_huy" || !activeIds.has(don.maKH)) return;
-          chiTieu.set(don.maKH, (chiTieu.get(don.maKH) || 0) + tinhTong(don));
-        });
-        document.getElementById("soKhachHang").textContent =
-          `${dsUser.length} tài khoản`;
-        document.getElementById("soKhachHoatDong").textContent =
-          `${activeIds.size} tài khoản`;
-        document.getElementById("soKhachBiKhoa").textContent =
-          `${dsUser.length - activeIds.size} tài khoản`;
-        document.getElementById("soKhachVip").textContent =
-          `${[...chiTieu.values()].filter((total) => total >= NGUONG_KHACH_HANG_VIP).length} người`;
-      }
-
-      function hienThiNguoiDung() {
-        const tbody = document.getElementById("bangNguoiDung");
-        tbody.innerHTML = "";
-
-        for (let u of dsUser) {
-          let row = document.createElement("tr");
-
-          row.innerHTML = `
-            <td><span class="code-badge">${u.ma}</span></td>
-            <td><span class="cell-bold">${u.ten}</span></td>
-            <td>${u.email}</td>
-            <td>${u.sdt}</td>
-            <td>
-              <span class="tag ${u.trangThai === "hoat_dong" ? "ok" : "lock"}">
-                ${u.trangThai === "hoat_dong" ? "Hoạt động" : "Đã khóa"}
-              </span>
-            </td>
-            <td style="text-align: right;" class="act">
-              <button class="icon-btn edit" title="Sửa thông tin" onclick="moModalSuaUser('${u.ma}', '${u.ten}', '${u.email}', '${u.sdt}')">
-                <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-              </button>
-              <button class="icon-btn ${u.trangThai === "hoat_dong" ? "ok" : "lock"}" title="${u.trangThai === "hoat_dong" ? "Khóa tài khoản" : "Mở khóa tài khoản"}" onclick="doiTrangThaiUser('${u.ma}')">
-                ${
-                  u.trangThai === "hoat_dong"
-                    ? `<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`
-                    : `<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
-                }
-              </button>
-            </td>
-          `;
-
-          tbody.appendChild(row);
-        }
-      }
-
-      function locNguoiDung() {
-        showToast(
-          "Đã lọc danh sách người dùng thành công!",
-          "success",
-          "Lọc khách hàng",
-        );
-      }
-
-      function moModalSuaUser(ma, ten, email, sdt) {
-        document.getElementById("editMaND").value = ma;
-        document.getElementById("editTenND").value = ten;
-        document.getElementById("editEmailND").value = email;
-        document.getElementById("editSdtND").value = sdt;
+      function locNguoiDung() { showToast("Đã nhận yêu cầu tìm kiếm/lọc khách hàng.", "success", "Khách hàng"); }
+      function moModalSuaUser(button) {
+        const d = button.dataset;
+        document.getElementById("editMaND").value = d.ma;
+        document.getElementById("editTenND").value = d.ten;
+        document.getElementById("editEmailND").value = d.email;
+        document.getElementById("editSdtND").value = d.sdt;
         document.getElementById("editMatKhauND").value = "";
         openModal("modal-edit-user");
       }
-
-      function luuThemUser() {
-        closeModal("modal-add-user");
-        showToast(
-          "Đã thêm khách hàng mới thành công!",
-          "success",
-          "Thêm khách hàng",
-        );
+      function luuThemUser() { closeModal("modal-add-user"); showToast("Đã xác nhận lưu khách hàng.", "success", "Khách hàng"); }
+      function luuSuaUser() { closeModal("modal-edit-user"); showToast("Đã xác nhận cập nhật khách hàng.", "success", "Khách hàng"); }
+      function doiTrangThaiUser(button) {
+        const action = button.dataset.status === "hoat_dong" ? "khóa" : "mở khóa";
+        showToast(`Đã xác nhận thao tác ${action} tài khoản ${button.dataset.ten}.`, "success", "Khách hàng");
       }
-
-      function luuSuaUser() {
-        const ma = document.getElementById("editMaND").value;
-        closeModal("modal-edit-user");
-        showToast(
-          `Đã cập nhật thông tin khách hàng thành công!`,
-          "success",
-          "Cập nhật khách hàng",
-        );
-      }
-
-      function doiTrangThaiUser(ma) {
-        let u = dsUser.find((item) => item.ma === ma);
-        if (u) {
-          if (u.trangThai === "hoat_dong") {
-            showToast(
-              `Đã khóa tài khoản ${u.ten} (${ma})!`,
-              "warning",
-              "Khóa tài khoản",
-            );
-          } else {
-            showToast(
-              `Đã mở khóa tài khoản ${u.ten} (${ma})!`,
-              "success",
-              "Mở khóa tài khoản",
-            );
-          }
-        }
-      }
-
-      hienThiNguoiDung();
-      capNhatThongKeNguoiDung();
     </script>
   </body>
 </html>
