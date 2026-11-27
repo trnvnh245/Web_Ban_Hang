@@ -153,6 +153,133 @@
       </div>
     </main>
 
+    <style>
+      .login-required-prompt {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, .52);
+        opacity: 1;
+        transition: opacity .22s ease;
+      }
+      .login-required-prompt[hidden] { display: none; }
+      .login-required-card {
+        position: relative;
+        width: min(700px, calc(100vw - 40px));
+        padding: 38px 30px 32px;
+        color: #1f2937;
+        background: #fff;
+        border-radius: 22px;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, .24);
+        text-align: center;
+        font-family: var(--font-body, Montserrat, sans-serif);
+        animation: loginPromptEnter .28s cubic-bezier(.2, .8, .2, 1) both;
+      }
+      .login-required-title {
+        margin: 0 34px 18px;
+        color: #202124;
+        font-size: clamp(28px, 5vw, 42px);
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      .login-prompt-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin: 0 auto 30px;
+        color: #252525;
+        text-decoration: none;
+      }
+      .login-prompt-brand .logo-icon { font-size: 48px; }
+      .login-prompt-brand .logo-text { display: flex; flex-direction: column; }
+      .login-prompt-brand .logo-title { font-size: 25px; letter-spacing: 3px; }
+      .login-prompt-brand .logo-sub { font-size: 10px; letter-spacing: 4px; }
+      .login-prompt-message {
+        max-width: 610px;
+        margin: 0 auto 30px;
+        color: #303036;
+        font-size: clamp(17px, 2.7vw, 24px);
+        font-weight: 700;
+        line-height: 1.5;
+      }
+      .login-prompt-actions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .login-prompt-actions a {
+        display: flex;
+        flex: 1 1 0;
+        min-height: 76px;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border: 2px solid #252525;
+        border-radius: 16px;
+        color: #252525;
+        background: #fff;
+        font-size: 22px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: transform .18s ease, background .18s ease, color .18s ease;
+      }
+      .login-prompt-actions a:last-child {
+        color: #fff;
+        background: #252525;
+        border-color: #252525;
+      }
+      .login-prompt-actions a:hover { transform: translateY(-2px); }
+      .login-prompt-actions a:first-child:hover { background: #f3f4f6; }
+      .login-prompt-actions a:last-child:hover { background: #111; border-color: #111; }
+      .login-required-close {
+        position: absolute;
+        top: 15px;
+        right: 18px;
+        padding: 2px 5px;
+        color: #111;
+        background: transparent;
+        border: 0;
+        font-size: 32px;
+        line-height: 1;
+        cursor: pointer;
+      }
+      @media (max-width: 560px) {
+        .login-required-card { padding: 34px 20px 22px; }
+        .login-prompt-brand .logo-icon { font-size: 38px; }
+        .login-prompt-brand .logo-title { font-size: 19px; }
+        .login-prompt-brand .logo-sub { font-size: 8px; }
+        .login-prompt-actions { gap: 12px; }
+        .login-prompt-actions a { min-height: 58px; font-size: 17px; border-radius: 12px; }
+      }
+      @keyframes loginPromptEnter {
+        from { opacity: 0; transform: translateY(12px) scale(.96); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+    </style>
+    <div id="loginRequiredPrompt" class="login-required-prompt" role="presentation" hidden>
+      <div class="login-required-card" role="alertdialog" aria-modal="true" aria-labelledby="loginPromptMessage">
+        <button class="login-required-close" type="button" aria-label="Đóng thông báo" onclick="this.closest('.login-required-prompt').hidden = true">×</button>
+        <h2 class="login-required-title">Đăng nhập tài khoản</h2>
+        <a class="login-prompt-brand" href="index.html" aria-label="Mystery World">
+          <span class="logo-icon"><i class="fa-solid fa-box-open"></i></span>
+          <span class="logo-text">
+            <span class="logo-title">MYSTERY WORLD</span>
+            <span class="logo-sub">BLIND BOX STORE</span>
+          </span>
+        </a>
+        <p class="login-prompt-message" id="loginPromptMessage">Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng và tiếp tục mua sắm.</p>
+        <div class="login-prompt-actions">
+          <a href="register.html">Đăng ký</a>
+          <a href="login.html">Đăng nhập</a>
+        </div>
+      </div>
+    </div>
+
     <!-- Script Files -->
 
     <script src="auth.js"></script>
@@ -160,6 +287,11 @@
     <script src="box.js"></script>
     <script>
       document.getElementById("btnAddToCart")?.addEventListener("click", () => {
+        if (!getCurrentUser()) {
+          document.getElementById("loginRequiredPrompt").hidden = false;
+          return;
+        }
+        document.getElementById("loginRequiredPrompt").hidden = true;
         showToast("Đã thêm vào giỏ hàng thành công!", "success");
       });
     </script>
