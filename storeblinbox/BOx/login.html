@@ -37,7 +37,7 @@
           >
             <input
               type="text"
-              name="search"
+              
               class="header-search-input"
               placeholder="Tìm kiếm tên Blind Box, nhân vật..."
             />
@@ -52,7 +52,6 @@
             >
             <a href="cart.html" class="icon-btn" title="Giỏ hàng">
               <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
-              <span class="cart-badge">0</span>
             </a>
           </div>
         </div>
@@ -86,70 +85,30 @@
         <div class="auth-header">
           <i class="fa-solid fa-user-astronaut auth-icon"></i>
           <h2>Chào Mừng Trở Lại</h2>
-          <p>Đăng nhập để xem thông tin tài khoản và lịch sử mua hàng</p>
+          <p>Tiếp tục khám phá bộ sưu tập tại Mystery World</p>
         </div>
-
-        <div id="loginMessage" class="auth-message"></div>
-
-        <form id="loginForm" autocomplete="on">
+        <form id="demoLoginForm" action="index.html" method="get" autocomplete="off">
           <div class="form-group">
             <label for="loginUsername">Tên đăng nhập</label>
             <div class="input-wrapper">
-              <input
-                type="text"
-                id="loginUsername"
-                name="username"
-                class="form-input"
-                placeholder="Nhập tên đăng nhập..."
-              />
+              <input type="text" id="loginUsername" class="form-input" placeholder="Nhập tên đăng nhập..." autocomplete="off" />
               <i class="fa-solid fa-user input-icon"></i>
             </div>
           </div>
-
           <div class="form-group">
             <label for="loginPassword">Mật khẩu</label>
             <div class="input-wrapper">
-              <input
-                type="password"
-                id="loginPassword"
-                name="password"
-                class="form-input"
-                placeholder="Nhập mật khẩu..."
-              />
+              <input type="password" id="loginPassword" class="form-input" placeholder="Nhập mật khẩu..." autocomplete="new-password" />
               <i class="fa-solid fa-lock input-icon"></i>
-              <button
-                type="button"
-                class="toggle-password"
-                id="togglePassword"
-                title="Hiện/ẩn mật khẩu"
-              >
-                <i class="fa-solid fa-eye"></i>
-              </button>
+              <button type="button" class="toggle-password" id="togglePassword" title="Hiện/ẩn mật khẩu"><i class="fa-solid fa-eye"></i></button>
             </div>
           </div>
-
           <button type="submit" class="btn-auth btn-login">
             <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập
           </button>
         </form>
-
-        <div class="auth-divider">hoặc</div>
-
-        <div class="demo-note">
-          <i class="fa-solid fa-circle-info"></i>
-          <span
-            >Tài khoản demo: <strong>demo</strong> /
-            <strong>123456</strong></span
-          >
-        </div>
-
-        <button type="button" class="btn-auth btn-demo" id="demoLoginBtn">
-          <i class="fa-solid fa-bolt"></i> Đăng Nhập Nhanh Bằng Tài Khoản Demo
-        </button>
-
         <div class="auth-footer">
-          Chưa có tài khoản?
-          <a href="register.html">Đăng ký ngay</a>
+          Chưa có tài khoản? <a href="register.html">Đăng Ký ngay</a>
         </div>
       </div>
     </section>
@@ -157,7 +116,7 @@
     <footer class="page-footer">
       &copy; 2026 Mystery World Blind Box Store — Đồ án Lập trình Web
     </footer>
-
     <script src="auth.js"></script>
+    <script src="ui.js"></script>
   </body>
 </html>

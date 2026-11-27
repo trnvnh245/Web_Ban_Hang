@@ -38,7 +38,7 @@
           >
             <input
               type="text"
-              name="search"
+              
               class="header-search-input"
               placeholder="Tìm kiếm tên Blind Box, nhân vật..."
             />
@@ -141,7 +141,7 @@
       </div>
     </section>
 
-    <!-- 4. Mục Thương Hiệu (Brands - Liên kết trực tiếp sang trang brands.html tương ứng) -->
+    <!-- 4. Mục Thương Hiệu (Brands - Liên kết trực tiếp sang trang brand-popmart.html tương ứng) -->
     <section
       id="brands"
       class="home-section"
@@ -242,8 +242,54 @@
     <script src="auth.js"></script>
     <script src="cart.js"></script>
     <script src="box.js"></script>
+    <!-- Khung thông báo nổi (Toast) -->
+    <style>
+      .toast-notification {
+        position: fixed;
+        top: 90px;
+        right: 24px;
+        background: #ffffff;
+        color: #1f2937;
+        padding: 16px 22px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        max-width: 340px;
+        z-index: 9999;
+        opacity: 0;
+        transform: translateX(30px);
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .toast-notification.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .toast-notification i {
+        color: #22c55e;
+        font-size: 18px;
+        margin-top: 2px;
+      }
+    </style>
+
+    <div id="toastNotice" class="toast-notification">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="toastMessage">Thông báo!</span>
+    </div>
 
     <script>
+      // Hàm hiển thị thông báo khi bấm Mua ngay
+      function buyNow(productName) {
+        window.location.href = "product-detail.html";
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         // Lấy chính xác 4 sản phẩm mới đầu tiên từ box.js
         const homeNewProducts = products.filter((p) => p.isNew).slice(0, 4);
@@ -267,21 +313,21 @@
 
             card.innerHTML = `
               <span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>
-             <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
-                <div class="product-info">
-                  <div class="product-meta-top">
-                    <span class="product-brand">${item.brand}</span>
-                    <span class="product-sku">${item.id}</span>
-                  </div>
-                  <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
-                  <div class="product-price">${item.price}</div>
-                  <div class="product-bottom-actions">
-                    <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
-                      <i class="fa-solid fa-cart-shopping"></i> Mua ngay
-                    </button>
-                  </div>
+              <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html'" onError="this.src='https://via.placeholder.com/240x240'" />
+              <div class="product-info">
+                <div class="product-meta-top">
+                  <span class="product-brand">${item.brand}</span>
+                  <span class="product-sku">${item.id}</span>
                 </div>
-              `;
+                <h3 class="product-title" onclick="location.href='product-detail.html'">${item.name}</h3>
+                <div class="product-price">${item.price}</div>
+                <div class="product-bottom-actions">
+                  <button class="btn-add-cart-red" onclick="buyNow('${item.name.replace(/'/g, "\\'")}')">
+                    <i class="fa-solid fa-cart-shopping"></i> Mua ngay
+                  </button>
+                </div>
+              </div>
+            `;
             grid.appendChild(card);
           });
         }

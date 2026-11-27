@@ -27,10 +27,10 @@
               <span class="logo-sub">BLIND BOX STORE</span>
             </div>
           </a>
-          <form class="header-search-form" action="shop.html" method="GET">
+          <form class="header-search-form" action="search-results.html" method="GET">
             <input
               type="text"
-              name="search"
+              
               class="header-search-input"
               placeholder="Tìm kiếm tên Blind Box, nhân vật..."
             />
@@ -44,7 +44,7 @@
             >
             <a href="cart.html" class="icon-btn" title="Giỏ hàng">
               <i class="fa-solid fa-bag-shopping"></i> Giỏ hàng
-              <span class="cart-badge">0</span>
+              <span class="cart-badge">4</span>
             </a>
           </div>
         </div>
@@ -109,7 +109,7 @@
         cart.forEach((item) => {
           const subtotal = item.price * item.quantity;
           rows += `
-            <tr>
+            <tr data-cart-row data-product-id="${item.id}" data-unit-price="${item.price}">
               <td>
                 <div class="cart-product-cell">
                   <img src="${item.image}" alt="${item.name}" class="cart-product-img" />
@@ -123,11 +123,11 @@
               <td>
                 <div class="qty-control">
                   <button type="button" onclick="fakeChangeQty('${item.id}', -1)">−</button>
-                  <span class="qty-value">${item.quantity}</span>
+                  <span class="qty-value" data-quantity>${item.quantity}</span>
                   <button type="button" onclick="fakeChangeQty('${item.id}', 1)">+</button>
                 </div>
               </td>
-              <td class="cart-subtotal">${formatPrice(subtotal)}</td>
+              <td class="cart-subtotal" data-subtotal>${formatPrice(subtotal)}</td>
             </tr>`;
         });
 
@@ -135,11 +135,6 @@
         const totalPrice = getCartTotal();
 
         container.innerHTML = `
-          <div class="cart-demo-notice">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>Giỏ hàng demo — Danh sách sản phẩm và số lượng được giữ cố định.</span>
-          </div>
-
           <table class="cart-table">
             <thead>
               <tr>
@@ -156,11 +151,11 @@
             <div class="cart-summary-box">
               <div class="summary-row">
                 <span>Số lượng sản phẩm</span>
-                <span>${totalCount} món</span>
+                <span id="cartItemCount">${totalCount} món</span>
               </div>
               <div class="summary-row total">
                 <span>Tổng cộng</span>
-                <span class="summary-value">${formatPrice(totalPrice)}</span>
+                <span class="summary-value" id="cartTotalValue">${formatPrice(totalPrice)}</span>
               </div>
               <a href="checkout.html" class="btn-checkout">
                 <i class="fa-solid fa-truck-fast"></i> TIẾN HÀNH ĐẶT HÀNG
@@ -172,11 +167,34 @@
           </div>`;
       }
 
-      /* Nút +/- chỉ là hình thức, hiện toast nhưng không thay đổi dữ liệu */
+      // Thay đổi số lượng chỉ trong giao diện giỏ hiện tại; checkout vẫn dùng giỏ mẫu gốc.
       function fakeChangeQty(id, delta) {
-        if (typeof showToast === "function") {
-          showToast("Giỏ hàng demo: Số lượng được giữ cố định.", "info", 1500);
-        }
+        const row = document.querySelector(`[data-cart-row][data-product-id="${id}"]`);
+        if (!row) return;
+        const quantity = row.querySelector("[data-quantity]");
+        const nextQuantity = Math.max(1, Number(quantity.textContent) + delta);
+        quantity.textContent = nextQuantity;
+        const unitPrice = Number(row.dataset.unitPrice);
+        row.querySelector("[data-subtotal]").textContent = formatPrice(unitPrice * nextQuantity);
+        updateDisplayedCartTotals();
+      }
+
+      function updateDisplayedCartTotals() {
+        let itemCount = 0;
+        let total = 0;
+        document.querySelectorAll("[data-cart-row]").forEach((row) => {
+          const quantity = Number(row.querySelector("[data-quantity]").textContent);
+          itemCount += quantity;
+          total += Number(row.dataset.unitPrice) * quantity;
+        });
+        const countLabel = document.getElementById("cartItemCount");
+        const totalLabel = document.getElementById("cartTotalValue");
+        if (countLabel) countLabel.textContent = `${itemCount} món`;
+        if (totalLabel) totalLabel.textContent = formatPrice(total);
+        document.querySelectorAll(".cart-badge").forEach((badge) => {
+          badge.textContent = itemCount;
+          badge.style.display = "flex";
+        });
       }
 
       function removeItem(id) {

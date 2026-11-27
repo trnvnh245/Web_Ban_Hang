@@ -1,0 +1,13 @@
+/* Đồng bộ tiêu đề trang tìm kiếm với kiểu chữ sans-serif của các trang danh mục. */
+.shop-header .section-title {
+  font-family: var(--font-body);
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+/* Giữ các ô giá dễ đọc khi có dấu phân cách hàng nghìn. */
+.price-range .filter-input {
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}

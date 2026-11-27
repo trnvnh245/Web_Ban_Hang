@@ -3,7 +3,7 @@
 // ===========================
 // TÀI KHOẢN DEMO CỐ ĐỊNH (TĨNH)
 // ===========================
-const DEMO_ACCOUNT = {
+const taikhoandemo = {
   username: "demo",
   password: "123456",
   fullName: "Khách Demo",
@@ -11,12 +11,7 @@ const DEMO_ACCOUNT = {
   address: "123 Đường ABC, Phường XYZ, Quận 1, TP.HCM",
   createdAt: "2026-10-01T08:00:00.000Z",
 };
-
-// Dọn dẹp dữ liệu cũ trong localStorage để không lưu trữ thông tin vĩnh viễn
-try {
-  localStorage.removeItem("bb_users");
-  localStorage.removeItem("bb_current_user");
-} catch (e) {}
+const DEMO_ACCOUNT = taikhoandemo;
 
 /** Lấy danh sách users (Demo tĩnh) */
 function getUsers() {
