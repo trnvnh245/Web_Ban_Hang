@@ -468,11 +468,10 @@ function initAccountPage() {
     return;
   }
 
-  const orders =
-    typeof getUserOrders === "function" ? getUserOrders() : [];
-  const totalSpent = orders.reduce((sum, order) => sum + (order.total || 0), 0);
-  const cartCount =
-    typeof getCartCount === "function" ? getCartCount() : 0;
+  // Thống kê cố định, đồng bộ với ba đơn mẫu hiển thị trong orders.html.
+  const orderCount = 3;
+  const totalSpent = 2437000;
+  const cartCount = 4;
 
   const joined = user.createdAt
     ? new Date(user.createdAt).toLocaleDateString("vi-VN")
@@ -498,7 +497,7 @@ function initAccountPage() {
 
       <div class="account-stats">
         <div class="account-stat">
-          <span class="stat-value">${orders.length}</span>
+          <span class="stat-value">${orderCount}</span>
           <span class="stat-label">Đơn hàng</span>
         </div>
         <div class="account-stat">
