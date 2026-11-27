@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thương Hiệu Blind Box - Mystery World</title>
+    <title>Danh Sách Thương Hiệu - Mystery World</title>
     <link
       rel="stylesheet"
       href="../assert/vendor/fontawesome/css/all.min.css"
@@ -12,35 +12,94 @@
     <link rel="stylesheet" href="product.css" />
     <link rel="stylesheet" href="header.css" />
     <link rel="stylesheet" href="shop1.css" />
+    <link rel="stylesheet" href="typography.css" />
     <style>
-      /* Thanh chọn 5 Thương hiệu */
-      .brand-tabs-container {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin: 30px 0;
-        flex-wrap: wrap;
+      .brands-wrapper {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
       }
-      .brand-tab-btn {
-        padding: 10px 24px;
+      .brands-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .brands-header h2 {
+        margin-bottom: 10px;
+      }
+      .brands-header p {
+        color: #6b7280;
+        font-size: 15px;
+      }
+      .brands-list-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px;
+      }
+      .brand-item-card {
         background: #ffffff;
-        border: 1px solid #d1d5db;
-        border-radius: 30px;
-        font-weight: 600;
-        font-size: 14px;
-        color: #374151;
-        cursor: pointer;
-        transition: all 0.2s ease;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 32px 20px;
+        text-align: center;
+        text-decoration: none;
+        color: #1f2937;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
       }
-      .brand-tab-btn.active,
-      .brand-tab-btn:hover {
-        background: #8b5cf6;
-        color: #ffffff;
+      .brand-item-card:hover {
+        transform: translateY(-6px);
         border-color: #8b5cf6;
-        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+        box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
+      }
+      .brand-logo-circle {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: #f5f3ff;
+        color: #8b5cf6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        margin-bottom: 18px;
+        overflow: hidden;
+        border: 2px solid #ede9fe;
+      }
+      .brand-logo-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .brand-item-name {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+      }
+      .brand-item-desc {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 18px;
+        line-height: 1.4;
+      }
+      .brand-view-btn {
+        display: inline-block;
+        padding: 8px 18px;
+        background: #1f2937;
+        color: #ffffff;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: background 0.2s ease;
+      }
+      .brand-item-card:hover .brand-view-btn {
+        background: #8b5cf6;
       }
     </style>
-    <link rel="stylesheet" href="typography.css" />
   </head>
   <body>
     <!-- Header chung -->
@@ -55,10 +114,10 @@
             </div>
           </a>
 
-          <form class="header-search-form" action="shop.html" method="GET">
+          <form class="header-search-form" action="search-results.html" method="GET">
             <input
               type="text"
-              name="search"
+              
               class="header-search-input"
               placeholder="Tìm kiếm tên Blind Box, nhân vật..."
             />
@@ -101,315 +160,96 @@
       </div>
     </header>
 
-    <!-- Khu vực chuyển đổi nhanh giữa 5 Thương hiệu -->
-    <div class="brand-tabs-container">
-      <button class="brand-tab-btn active" onclick="switchBrand('POP MART')">
-        POP MART
-      </button>
-      <button class="brand-tab-btn" onclick="switchBrand('52TOYS')">
-        52TOYS
-      </button>
-      <button class="brand-tab-btn" onclick="switchBrand('Sonny Angel')">
-        Sonny Angel
-      </button>
-      <button class="brand-tab-btn" onclick="switchBrand('Smiski')">
-        Smiski
-      </button>
-      <button class="brand-tab-btn" onclick="switchBrand('Tokidoki')">
-        Tokidoki
-      </button>
-    </div>
-
-    <!-- Bố cục chính: Cột trái Lọc nâng cao (giao diện), Cột phải hiển thị sản phẩm -->
-    <main class="shop-container" style="margin-top: 10px">
-      <aside class="filter-sidebar">
-        <div class="filter-title">
-          <i class="fa-solid fa-sliders"></i> Bộ Lọc Thương Hiệu
-        </div>
-        <div class="filter-group">
-          <label for="searchName">Tên hoặc Mã sản phẩm</label>
-          <input
-            type="text"
-            id="searchName"
-            class="filter-input"
-            placeholder="Nhập tên hoặc mã (VD: P001)..."
-          />
-        </div>
-        <div class="filter-group">
-          <label for="brandDisplay">Thương hiệu hiện tại</label>
-          <input
-            type="text"
-            id="brandDisplay"
-            class="filter-input"
-            readonly
-            style="background: #f3f4f6; font-weight: 700; color: #8b5cf6"
-          />
-        </div>
-        <div class="filter-group">
-          <label for="collectionSelect">Bộ sưu tập</label>
-          <select id="collectionSelect" class="filter-select">
-            <option value="all">Tất cả bộ sưu tập</option>
-            <option value="Hirono Monster's Carnival Series">
-              Hirono Monster's Carnival
-            </option>
-            <option value="SKULLPANDA Where Time Dwells Series">
-              SKULLPANDA Time Dwells
-            </option>
-            <option value="MEGA SPACE MOLLY 100%">MEGA SPACE MOLLY 100%</option>
-            <option value="Sleepy Crayon Shin-chan Series">
-              Sleepy Crayon Shin-chan
-            </option>
-            <option value="LuLu The Piggy Farm Life Series">
-              LuLu The Piggy Farm Life
-            </option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="categorySelect">Danh mục</label>
-          <select id="categorySelect" class="filter-select">
-            <option value="all">Tất cả danh mục</option>
-            <option value="Blind Box">Blind Box</option>
-            <option value="Mini Figure">Mini Figure</option>
-            <option value="Designer Toy">Designer Toy</option>
-            <option value="Robot / Mecha">Robot / Mecha</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>Khoảng giá (VNĐ)</label>
-          <div class="price-range">
-            <input
-              type="number"
-              id="minPrice"
-              class="filter-input"
-              placeholder="Từ giá"
-            />
-            <span>-</span>
-            <input
-              type="number"
-              id="maxPrice"
-              class="filter-input"
-              placeholder="Đến giá"
-            />
-          </div>
-        </div>
-
-        <button
-          id="btnApplyFilter"
-          class="btn-filter-apply"
-          onclick="alert('Giao diện bộ lọc hiển thị thành công!')"
-        >
-          <i class="fa-solid fa-magnifying-glass"></i> Lọc sản phẩm
-        </button>
-        <button
-          id="btnResetFilter"
-          class="btn-filter-reset"
-          onclick="alert('Đã đặt lại bộ lọc!')"
-        >
-          Đặt lại
-        </button>
-      </aside>
-
-      <section class="shop-main">
+    <!-- Danh sách Thương hiệu có Logo -->
+    <main class="brands-wrapper">
+      <div class="brands-header">
         <div class="shop-header">
-          <h2 id="pageTitle" class="section-title">THƯƠNG HIỆU: POP MART</h2>
+          <h2 class="section-title">THƯƠNG HIỆU BLIND BOX NỔI BẬT</h2>
         </div>
-
-        <!-- Nhóm 1: Sản phẩm mới -->
-        <div style="margin-bottom: 40px">
-          <h3
-            style="
-              font-size: 18px;
-              font-weight: 700;
-              color: #dc2626;
-              margin-bottom: 15px;
-              border-bottom: 2px solid #dc2626;
-              padding-bottom: 6px;
-            "
-          >
-            <i class="fa-solid fa-fire"></i> Sản Phẩm Mới Phát Hành
-          </h3>
-          <div id="newProductGrid" class="product-grid"></div>
-        </div>
-
-        <!-- Nhóm 2: Sản phẩm hiện tại -->
-        <div>
-          <h3
-            style="
-              font-size: 18px;
-              font-weight: 700;
-              color: #1f2937;
-              margin-bottom: 15px;
-              border-bottom: 2px solid #1f2937;
-              padding-bottom: 6px;
-            "
-          >
-            <i class="fa-solid fa-box"></i> Sản Phẩm Hiện Tại
-          </h3>
-          <div id="currentProductGrid" class="product-grid"></div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Modal Xem Chi Tiết & Mua Hàng -->
-    <div id="productModal" class="modal-overlay">
-      <div class="modal-content">
-        <span class="close-modal" id="closeModal">&times;</span>
-        <img id="modalImg" src="" alt="Blind Box" class="modal-img" />
-
-        <div class="modal-info">
-          <h2 id="modalTitle" class="modal-title">Tên sản phẩm</h2>
-
-          <div class="product-property">
-            <span class="prop-label">Mã sản phẩm:</span>
-            <span id="modalCode" class="code-badge">P001</span>
-          </div>
-          <div class="product-property">
-            <span class="prop-label">Thương hiệu:</span>
-            <span id="modalBrand">POP MART</span>
-          </div>
-          <div class="product-property">
-            <span class="prop-label">Bộ sưu tập:</span>
-            <span id="modalCollection">Series</span>
-          </div>
-          <div class="product-property">
-            <span class="prop-label">Danh mục:</span>
-            <span id="modalCategory">Blind Box</span>
-          </div>
-
-          <div id="modalPrice" class="modal-price">320.000 đ</div>
-
-          <div class="product-stats">
-            <div class="stat-box">
-              <span class="stat-label">Đã bán</span>
-              <span id="modalSold" class="stat-number">2</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">Tồn kho</span>
-              <span id="modalStock" class="stat-number">10</span>
-            </div>
-          </div>
-
-          <!-- Phần Mua Hàng / Số lượng -->
-          <div class="modal-buy-section">
-            <div class="quantity-wrapper">
-              <label>Số lượng:</label>
-              <input
-                type="number"
-                id="modalQty"
-                value="1"
-                min="1"
-                max="100"
-                class="qty-input"
-              />
-            </div>
-            <button class="btn-add-cart modal-btn-cart" id="modalAddToCart">
-              <i class="fa-solid fa-cart-shopping"></i> Thêm Vào Giỏ Hàng
-            </button>
-          </div>
-        </div>
+        <p>Chọn thương hiệu bạn yêu thích để khám phá bộ sưu tập riêng biệt</p>
       </div>
-    </div>
+
+      <div class="brands-list-grid">
+        <!-- 1. POP MART -->
+        <a href="brand.html" class="brand-item-card">
+          <div
+            class="brand-logo-circle"
+            style="background: #fef2f2; color: #dc2626; border-color: #fee2e2"
+          >
+            <!-- Có thể thay bằng <img src="đường-dẫn-logo-popmart.png" alt="POP MART"> -->
+            <i class="fa-solid fa-ghost"></i>
+          </div>
+          <h3 class="brand-item-name">POP MART</h3>
+          <p class="brand-item-desc">
+            Thế giới Designer Toy hàng đầu với Hirono, Skullpanda, Molly...
+          </p>
+          <span class="brand-view-btn">Xem sản phẩm</span>
+        </a>
+
+        <!-- 2. 52TOYS -->
+        <a href="brand.html" class="brand-item-card">
+          <div
+            class="brand-logo-circle"
+            style="background: #fffbeb; color: #d97706; border-color: #fef3c7"
+          >
+            <i class="fa-solid fa-cloud"></i>
+          </div>
+          <h3 class="brand-item-name">52TOYS</h3>
+          <p class="brand-item-desc">
+            Nổi tiếng với dòng LuLu The Piggy, Shin-chan và BeastBox độc đáo.
+          </p>
+          <span class="brand-view-btn">Xem sản phẩm</span>
+        </a>
+
+        <!-- 3. Sonny Angel -->
+        <a href="brand.html" class="brand-item-card">
+          <div
+            class="brand-logo-circle"
+            style="background: #fdf2f8; color: #db2777; border-color: #fce7f3"
+          >
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <h3 class="brand-item-name">Sonny Angel</h3>
+          <p class="brand-item-desc">
+            Những thiên thần nhỏ bé đáng yêu mang lại niềm vui mỗi ngày.
+          </p>
+          <span class="brand-view-btn">Xem sản phẩm</span>
+        </a>
+
+        <!-- 4. Smiski -->
+        <a href="brand.html" class="brand-item-card">
+          <div
+            class="brand-logo-circle"
+            style="background: #f0fdf4; color: #16a34a; border-color: #dcfce7"
+          >
+            <i class="fa-solid fa-dragon"></i>
+          </div>
+          <h3 class="brand-item-name">Smiski</h3>
+          <p class="brand-item-desc">
+            Sinh vật dạ quang bí ẩn thích trốn ở các góc nhỏ trong căn phòng.
+          </p>
+          <span class="brand-view-btn">Xem sản phẩm</span>
+        </a>
+
+        <!-- 5. Tokidoki -->
+        <a href="brand.html" class="brand-item-card">
+          <div
+            class="brand-logo-circle"
+            style="background: #eff6ff; color: #2563eb; border-color: #dbeafe"
+          >
+            <i class="fa-solid fa-masks-theater"></i>
+          </div>
+          <h3 class="brand-item-name">Tokidoki</h3>
+          <p class="brand-item-desc">
+            Phong cách nghệ thuật đường phố đầy màu sắc với Unicorno,
+            Mermicorno.
+          </p>
+          <span class="brand-view-btn">Xem sản phẩm</span>
+        </a>
+      </div>
+    </main>
 
     <script src="auth.js"></script>
     <script src="cart.js"></script>
-    <script src="bandd.js"></script>
-    <script>
-      let currentActiveBrand = "POP MART";
-
-      // Hàm render sản phẩm vào khung container
-      function renderBrandProducts(list, containerId) {
-        const grid = document.getElementById(containerId);
-        if (!grid) return;
-        grid.innerHTML = "";
-
-        if (!list || list.length === 0) {
-          grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 15px;">Không có sản phẩm nào.</p>`;
-          return;
-        }
-
-        list.forEach((item) => {
-          const card = document.createElement("div");
-          card.className = "product-card";
-          card.style.position = "relative";
-
-          card.innerHTML = `
-                ${item.isNew ? '<span class="badge-new" style="position: absolute; top: 15px; left: 15px; background-color: #dc2626; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; z-index: 2; text-transform: uppercase;">New</span>' : ""}
-                <img src="${item.image}" alt="${item.name}" class="product-img" onclick="location.href='product-detail.html?id=${item.id}'" onError="this.src='https://via.placeholder.com/240x240'" />
-                <div class="product-info">
-                  <div class="product-meta-top">
-                    <span class="product-brand">${item.brand}</span>
-                    <span class="product-sku">${item.id}</span>
-                  </div>
-                  <h3 class="product-title" onclick="location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
-                  <div class="product-price">${item.price}</div>
-                  <div class="product-bottom-actions">
-                    <button class="btn-add-cart-red" onclick="location.href='product-detail.html?id=${item.id}'">
-                      <i class="fa-solid fa-cart-shopping"></i> Mua ngay
-                    </button>
-                  </div>
-                </div>
-              `;
-          grid.appendChild(card);
-        });
-      }
-
-      // Hàm xử lý khi bấm các nút tab thương hiệu (đổi tiêu đề và trạng thái active, nhưng luôn hiển thị danh sách sản phẩm POP MART)[cite: 1]
-      function loadBrandData(brandName) {
-        currentActiveBrand = brandName;
-        document.getElementById("pageTitle").innerText =
-          `THƯƠNG HIỆU: ${brandName.toUpperCase()}`;
-        document.getElementById("brandDisplay").value = brandName;
-
-        // Cập nhật trạng thái active cho các nút tab[cite: 1]
-        document.querySelectorAll(".brand-tab-btn").forEach((btn) => {
-          if (btn.innerText.trim().toLowerCase() === brandName.toLowerCase()) {
-            btn.classList.add("active");
-          } else {
-            btn.classList.remove("active");
-          }
-        });
-
-        const sourceProducts =
-          typeof products !== "undefined" && Array.isArray(products)
-            ? products
-            : [];
-
-        // Lọc đúng sản phẩm theo thương hiệu đang được chọn.
-        const normalizedBrand = brandName.trim().toLowerCase();
-        let brandProducts = sourceProducts.filter(
-          (p) => p.brand && p.brand.trim().toLowerCase() === normalizedBrand,
-        );
-
-        // Có fallback an toàn nếu dữ liệu không có brand tương ứng.
-        if (brandProducts.length === 0) {
-          brandProducts = sourceProducts;
-        }
-
-        const newItems = brandProducts.filter((p) => p.isNew);
-        const currentItems = brandProducts.filter((p) => !p.isNew);
-
-        renderBrandProducts(
-          newItems.length > 0 ? newItems : brandProducts.slice(0, 2),
-          "newProductGrid",
-        );
-        renderBrandProducts(
-          currentItems.length > 0 ? currentItems : brandProducts.slice(2),
-          "currentProductGrid",
-        );
-      }
-
-      // Khi click vào nút chuyển brand trên thanh tab[cite: 1]
-      function switchBrand(brandName) {
-        loadBrandData(brandName);
-        const newUrl = `${window.location.pathname}?brand=${encodeURIComponent(brandName.toLowerCase())}`;
-        window.history.pushState({ path: newUrl }, "", newUrl);
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        loadBrandData("POP MART");
-      });
-    </script>
   </body>
 </html>
-
-
